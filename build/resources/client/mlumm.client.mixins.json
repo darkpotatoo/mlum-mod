@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.darkpotatoo.mlumm.client.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "TickMixin",
+    "ScreenMixin",
+    "DamageMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

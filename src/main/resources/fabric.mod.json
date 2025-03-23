@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "mlumm",
+  "version": "${version}",
+  "name": "mlumm",
+  "description": "QOL/utility mod for mlum",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mlumm/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.darkpotatoo.mlumm.client.MlummClient"
+    ],
+    "main": [
+      "me.darkpotatoo.mlumm.Mlumm"
+    ]
+  },
+  "mixins": [
+    "mlumm.mixins.json",
+    {
+      "config": "mlumm.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
