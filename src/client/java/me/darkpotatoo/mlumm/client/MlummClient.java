@@ -31,7 +31,8 @@ public class MlummClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_0,
                 "category.mlumm"
         ));
-        Iteminfo.initItemInfoKey();
+        Iteminfo.runItemInfoKey();
+
     }
 
 }

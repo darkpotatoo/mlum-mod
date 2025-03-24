@@ -6,7 +6,8 @@
   "client": [
     "TickMixin",
     "ScreenMixin",
-    "DamageMixin"
+    "DamageMixin",
+    "HandledScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,6 +3,9 @@
     "me/darkpotatoo/mlumm/client/mixins/DamageMixin": {
       "damage": "Lnet/minecraft/class_1657;method_5643(Lnet/minecraft/class_1282;F)Z"
     },
+    "me/darkpotatoo/mlumm/client/mixins/HandledScreenMixin": {
+      "render": "Lnet/minecraft/class_465;method_25394(Lnet/minecraft/class_332;IIF)V"
+    },
     "me/darkpotatoo/mlumm/client/mixins/ScreenMixin": {
       "keyPressed": "Lnet/minecraft/class_437;method_25404(III)Z",
       "onDisplayed": "Lnet/minecraft/class_437;method_49589()V"
@@ -15,6 +18,9 @@
     "named:intermediary": {
       "me/darkpotatoo/mlumm/client/mixins/DamageMixin": {
         "damage": "Lnet/minecraft/class_1657;method_5643(Lnet/minecraft/class_1282;F)Z"
+      },
+      "me/darkpotatoo/mlumm/client/mixins/HandledScreenMixin": {
+        "render": "Lnet/minecraft/class_465;method_25394(Lnet/minecraft/class_332;IIF)V"
       },
       "me/darkpotatoo/mlumm/client/mixins/ScreenMixin": {
         "keyPressed": "Lnet/minecraft/class_437;method_25404(III)Z",

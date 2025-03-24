@@ -1,3 +1,4 @@
 v1	named	intermediary
+FIELD	me/darkpotatoo/mlumm/client/mixins/HandledScreenMixin	Lnet/minecraft/screen/slot/Slot;	focusedSlot	field_2787
 FIELD	me/darkpotatoo/mlumm/client/mixins/TickMixin	Lnet/minecraft/client/toast/ToastManager;	toastManager	field_1702
 METHOD	me/darkpotatoo/mlumm/client/mixins/ScreenMixin	()Lnet/minecraft/text/Text;	getTitle	method_25440
