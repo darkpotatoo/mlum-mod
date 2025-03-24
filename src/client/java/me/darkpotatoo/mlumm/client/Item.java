@@ -1,6 +1,7 @@
 package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.item.ItemStack;
 import org.slf4j.Logger;
 
 public class Item {
@@ -12,13 +13,15 @@ public class Item {
     public int chocoCost;
     public String[] craftingRecipe;
     public ItemSource howto;
+    public ItemStack literalItem;
 
-    public Item(ItemType _type, String _name, int _chocoCost, String[] _craftingRecipe, ItemSource _howto) {
+    public Item(ItemType _type, String _name, int _chocoCost, String[] _craftingRecipe, ItemSource _howto, ItemStack _literalitem) {
         type = _type;
         name = _name;
         chocoCost = _chocoCost;
         craftingRecipe = _craftingRecipe;
         howto = _howto;
+        literalItem = _literalitem;
         LOGGER.info("Item '" + name + "' registered");
         Iteminfo.items.add(this);
     }
@@ -26,27 +29,17 @@ public class Item {
 }
 
 enum ItemType {
-    WEAPON,
-    ARMOR,
-    MATERIAL,
-    ESCAPE,
-    EXCLUSIVE
+    Weapon,
+    Armor,
+    Material,
+    Escape,
+    Other
 }
 
 enum ItemSource {
-    FORGED,
-    CRAFTED,
-    GUARD_GUARD,
-    GUARD_UPGRADE_SS,
-    GUARD_UPGRADE_TANK,
-    GUARD_UPGRADE_BH,
-    GUARD_WARDEN,
-    GUARD_RO,
-    GUARD_DETECTIVE,
-    GUARD_LD_GUARD,
-    GUARD_LD_UPGRADE_SS,
-    GUARD_LD_UPGRADE_TANK,
-    GUARD_LD_UPGRADE_BH,
-    GUARD_LD_DETECTIVE,
+    Forge,
+    Crafting,
+    Guard,
+    NPC
 
 }
