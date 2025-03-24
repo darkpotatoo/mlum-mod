@@ -20,18 +20,9 @@ public class Item {
         craftingRecipe = _craftingRecipe;
         howto = _howto;
         LOGGER.info("Item '" + name + "' registered");
+        Iteminfo.items.add(this);
     }
 
-    public static void InitItems() {
-        LOGGER.info("Registering items");
-        Item baton = new Item(
-                ItemType.WEAPON,
-                "Baton",
-                0,
-                new String[]{"Cannot be crafted"},
-                ItemSource.GUARD_GUARD);
-
-    }
 }
 
 enum ItemType {
@@ -41,6 +32,7 @@ enum ItemType {
     ESCAPE,
     EXCLUSIVE
 }
+
 enum ItemSource {
     FORGED,
     CRAFTED,

@@ -23,7 +23,7 @@ public class MlummClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LOGGER.info("mlum mod loading...");
-        Item.InitItems();
+        Iteminfo.InitItems();
 
         GetItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "Fetch info of hovered item",
