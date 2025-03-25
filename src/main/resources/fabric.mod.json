@@ -5,7 +5,9 @@
   "name": "mlumm s16",
   "description": "QOL/utility mod for mlum, season 16 edition",
   "authors": [],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/darkpotatoo/mlum-mod"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/mlumm/icon.png",
   "environment": "client",
@@ -15,6 +17,9 @@
     ],
     "main": [
       "me.darkpotatoo.mlumm.Mlumm"
+    ],
+    "modmenu": [
+      "me.darkpotatoo.mlumm.client.ModMenuConfig"
     ]
   },
   "mixins": [
@@ -27,6 +32,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "modmenu": "*"
   }
 }
