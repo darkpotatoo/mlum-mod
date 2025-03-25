@@ -29,11 +29,20 @@ public abstract class ScreenMixin {
 
     @Inject(method = "onDisplayed", at = @At(value = "HEAD"))
     protected void onDisplayed(CallbackInfo ci) {
-        if (getTitle().getString().contains("Loot Barrel")) {
+        if (getTitle().getString().contains("Loot Barrel")) { // TODO: Update this to be correct in s16
             MlummClient.crateTicks = 7200;
         }
-        if (getTitle().getString().contains("Loot Desk")) {
+        if (getTitle().getString().contains("Loot Desk")) { // TODO: Update this to be correct in s16
             MlummClient.deskTicks = 7200;
+        }
+        if (getTitle().getString().contains("Trash Bag")) { // TODO: Update this to be correct in s16
+            MlummClient.trashTicks = 0;
+        }
+        if (getTitle().getString().contains("Mailman")) { // TODO: Update this to be correct in s16
+            MlummClient.trashTicks = 0;
+        }
+        if (getTitle().getString().contains("Contraband Delivery")) { // TODO: Update this to be correct in s16
+            MlummClient.trashTicks = 0;
         }
     }
 
