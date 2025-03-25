@@ -54,16 +54,23 @@ public class Iteminfo {
         toastManager.add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.of(text), Text.of(text2)));
     }
 
+    // This is VERY long. This registers ALL items. There is nothing under this to see.
     public static void InitItems() {
         LOGGER.info("Registering items for iteminfo");
-        Item baton = new Item(
+        new Item(
                 ItemType.Weapon,
                 "Baton",
                 0,
                 new String[]{"Cannot be crafted"},
                 ItemSource.Guard,
                 new ItemStack(Items.STONE_SWORD));
-
+        new Item(
+                ItemType.Escape,
+                "Grappling Hook",
+                39,
+                new String[]{"1x Tool Handle", "2x Rope", "1x Grapple Head"},
+                ItemSource.Crafting,
+                new ItemStack(Items.FISHING_ROD));
     }
 }
 

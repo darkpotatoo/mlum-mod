@@ -29,7 +29,7 @@ public class MlummClient implements ClientModInitializer {
                 "Fetch info of hovered item",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_0,
-                "category.mlumm"
+                "mlum mod"
         ));
         Iteminfo.runItemInfoKey();
 
