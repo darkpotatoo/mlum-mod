@@ -19,6 +19,8 @@ public class Configuration implements ConfigData {
     public boolean timer_trash = true;
     @ConfigEntry.Gui.Tooltip
     public boolean timer_mail = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean contraband_tooltip = true;
 
 
 

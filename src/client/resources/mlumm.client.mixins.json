@@ -4,10 +4,11 @@
   "package": "me.darkpotatoo.mlumm.client.mixins",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "TickMixin",
-    "ScreenMixin",
     "DamageMixin",
-    "HandledScreenMixin"
+    "HandledScreenMixin",
+    "ScreenMixin",
+    "TickMixin",
+    "TooltipMixin"
   ],
   "injectors": {
     "defaultRequire": 1
