@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Iteminfo {
 
@@ -36,10 +38,13 @@ public class Iteminfo {
     }
 
     private static void displayIteminfoFromGUI(ItemStack item) {
-        String itemName = item.getName().toString().replaceAll("^literal\\{|}$", "");
+        String itemName = item.getName().toString();
+
         MinecraftClient client = MinecraftClient.getInstance();
         for (Item thing : items) {
-            if (Objects.equals(thing.name, itemName)) {
+            Pattern pattern = Pattern.compile(Pattern.quote(thing.name), Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(itemName);
+            if (matcher.find()) {
                 client.setScreen(new IteminfoScreen(thing));
                 LOGGER.info("Displaying iteminfo for " + itemName);
                 return;
