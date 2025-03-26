@@ -27,6 +27,7 @@ public class MlummClient implements ClientModInitializer {
     public static int trashTicks = 0;
     public static int boxTicks = 0;
     public static int mailTicks = 0;
+    public static int escapeTicks = 0;
 
     public static boolean tooltipIsContraband;
 
@@ -34,10 +35,9 @@ public class MlummClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ChatListener.register();
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
-
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
-
         LOGGER.info("mlum mod loading...");
         Iteminfo.InitItems();
 
@@ -50,6 +50,7 @@ public class MlummClient implements ClientModInitializer {
         ));
         Iteminfo.runItemInfoKey();
 
+        // Contraband tooltip getter
         ItemTooltipCallback.EVENT.register((ItemTooltipCallback)(stack, context, type, lines) -> {
             tooltipIsContraband = (checkContrabandItem(lines) && !lines.isEmpty());
         });

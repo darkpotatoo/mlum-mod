@@ -29,11 +29,14 @@ public class TickMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
+        // Escape announcement cooldown
+        MlummClient.escapeTicks--;
+
         //Desk timer
         if (MlummClient.deskTicks > 0 && config.timer_desk) {
             MlummClient.deskTicks--;
             if (MlummClient.deskTicks == 0) {
-                player.sendMessage(Text.of("§a» §fDesk timber has ended"), false);
+                player.sendMessage(Text.of("§a» §fDesk timer has ended"), false);
                 sendCustomToast(client, "Desk Timer Ended", "You can now open a desk again");
             }
         }
@@ -42,7 +45,7 @@ public class TickMixin {
         if (MlummClient.crateTicks > 0 && config.timer_crate) {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
+                player.sendMessage(Text.of("§a» §fCrate timer has ended"), false);
                 sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
             }
         }
@@ -51,8 +54,8 @@ public class TickMixin {
         if (MlummClient.boxTicks > 0 && config.timer_box) {
             MlummClient.boxTicks--;
             if (MlummClient.boxTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
-                sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
+                player.sendMessage(Text.of("§a» §fContraband Box has ended"), false);
+                sendCustomToast(client, "Contraband Box Timer Ended", "You can now get a contraband box again");
             }
         }
 
@@ -60,8 +63,8 @@ public class TickMixin {
         if (MlummClient.mailTicks > 0 && config.timer_mail) {
             MlummClient.mailTicks--;
             if (MlummClient.mailTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
-                sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
+                player.sendMessage(Text.of("§a» §fMail timer has ended"), false);
+                sendCustomToast(client, "Mail Timer Ended", "You can now open a crate again");
             }
         }
 
@@ -69,8 +72,8 @@ public class TickMixin {
         if (MlummClient.trashTicks > 0 && config.timer_trash) {
             MlummClient.trashTicks--;
             if (MlummClient.trashTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
-                sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
+                player.sendMessage(Text.of("§a» §fTrash timer has ended"), false);
+                sendCustomToast(client, "Trash Timer Ended", "You can now get a trash bag again");
             }
         }
 

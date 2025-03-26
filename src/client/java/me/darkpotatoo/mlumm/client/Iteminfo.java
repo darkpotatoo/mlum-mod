@@ -46,7 +46,7 @@ public class Iteminfo {
             Matcher matcher = pattern.matcher(itemName);
             if (matcher.find()) {
                 client.setScreen(new IteminfoScreen(thing));
-                LOGGER.info("Displaying iteminfo for " + itemName);
+                LOGGER.debug("Displaying iteminfo for " + itemName);
                 return;
             }
         }
