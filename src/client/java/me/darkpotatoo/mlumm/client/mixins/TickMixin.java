@@ -3,6 +3,7 @@ package me.darkpotatoo.mlumm.client.mixins;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
@@ -24,11 +25,12 @@ public class TickMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo info) {
+        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
         //Desk timer
-        if (MlummClient.deskTicks > 0 && Configuration.timer_desk) {
+        if (MlummClient.deskTicks > 0 && config.timer_desk) {
             MlummClient.deskTicks--;
             if (MlummClient.deskTicks == 0) {
                 player.sendMessage(Text.of("§a» §fDesk timber has ended"), false);
@@ -37,7 +39,7 @@ public class TickMixin {
         }
 
         //Fugitive crate timer
-        if (MlummClient.crateTicks > 0 && Configuration.timer_crate) {
+        if (MlummClient.crateTicks > 0 && config.timer_crate) {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
@@ -46,7 +48,7 @@ public class TickMixin {
         }
 
         // Fugitive contra box timer
-        if (MlummClient.boxTicks > 0 && Configuration.timer_box) {
+        if (MlummClient.boxTicks > 0 && config.timer_box) {
             MlummClient.boxTicks--;
             if (MlummClient.boxTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
@@ -55,7 +57,7 @@ public class TickMixin {
         }
 
         // Mail timer
-        if (MlummClient.mailTicks > 0 && Configuration.timer_mail) {
+        if (MlummClient.mailTicks > 0 && config.timer_mail) {
             MlummClient.mailTicks--;
             if (MlummClient.mailTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
@@ -64,7 +66,7 @@ public class TickMixin {
         }
 
         // Trash timer
-        if (MlummClient.trashTicks > 0 && Configuration.timer_trash) {
+        if (MlummClient.trashTicks > 0 && config.timer_trash) {
             MlummClient.trashTicks--;
             if (MlummClient.trashTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timber has ended"), false);
@@ -73,7 +75,7 @@ public class TickMixin {
         }
 
         //combat timer
-        if (MlummClient.combatTicks > 0  && Configuration.timer_combat) {
+        if (MlummClient.combatTicks > 0  && config.timer_combat) {
             MlummClient.combatTicks--;
             if (MlummClient.combatTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCombat timer has ended"), false);

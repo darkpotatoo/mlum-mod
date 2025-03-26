@@ -28,6 +28,9 @@ public class MlummClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
+
+        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+
         LOGGER.info("mlum mod loading...");
         Iteminfo.InitItems();
 

@@ -7,11 +7,19 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "mlumm")
 public class Configuration implements ConfigData {
 
-    public static boolean timer_combat = true;
-    public static boolean timer_desk = true;
-    public static boolean timer_crate = true;
-    public static boolean timer_box = true;
-    public static boolean timer_trash = true;
-    public static boolean timer_mail = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_combat = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_desk = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_crate = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_box = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_trash = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean timer_mail = true;
+
+
 
 }
