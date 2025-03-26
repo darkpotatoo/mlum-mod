@@ -19,7 +19,7 @@
       "me.darkpotatoo.mlumm.Mlumm"
     ],
     "modmenu": [
-      "me.darkpotatoo.mlumm.client.ModMenuConfig"
+      "me.darkpotatoo.mlumm.client.ModMenuIntegration"
     ]
   },
   "mixins": [
