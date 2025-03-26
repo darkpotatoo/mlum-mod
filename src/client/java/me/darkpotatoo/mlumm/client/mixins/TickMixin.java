@@ -32,6 +32,8 @@ public class TickMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
+
+
         // Escape announcement cooldown
         MlummClient.escapeTicks--;
 
