@@ -21,7 +21,18 @@ public class Configuration implements ConfigData {
     public boolean timer_mail = true;
     @ConfigEntry.Gui.Tooltip
     public boolean contraband_tooltip = true;
+    @ConfigEntry.Gui.Tooltip
+    public escSound escape_sound = escSound.AMETHYST;
 
+}
 
+enum escSound {
+    AMETHYST,
+    ANVIL,
+    COPPER,
+    EXPLODE,
+    TRAPDOOR,
+    ILLUSIONER,
+    SILENT,
 
 }

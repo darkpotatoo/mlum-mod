@@ -35,10 +35,11 @@ public class MlummClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ChatListener.register();
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
+
+        ChatListener.register();
         Iteminfo.InitItems();
 
         // Iteminfo key

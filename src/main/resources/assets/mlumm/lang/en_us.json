@@ -14,6 +14,9 @@
   "text.autoconfig.mlumm.option.contraband_tooltip.@Tooltip": "Color the tooltip red when the hovered item is contraband",
   "text.autoconfig.mlumm.option.contraband_tooltip": "Enable Red Contraband Item Tooltip",
 
+  "text.autoconfig.mlumm.option.escape_sound.@Tooltip": "Sound to play when \"esc\" or \"escape\" appear in chat",
+  "text.autoconfig.mlumm.option.escape_sound": "Escape Announcer Sound",
+
   "text.autoconfig.mlumm.option.timer_mail.@Tooltip": "Enable or disable the mail timer",
   "text.autoconfig.mlumm.title": "mlum mod configuration"
 }
