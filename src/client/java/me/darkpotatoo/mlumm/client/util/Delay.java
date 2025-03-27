@@ -17,6 +17,6 @@ public class Delay {
         this.seconds = seconds;
         this.startTime = System.currentTimeMillis();
         scheduler.scheduleAtFixedRate(method, 0, seconds, TimeUnit.SECONDS);
-        LOGGER.debug("Started a timer for " + seconds + "s");
+        LOGGER.debug("Started a delay for " + seconds + "s");
     }
 }

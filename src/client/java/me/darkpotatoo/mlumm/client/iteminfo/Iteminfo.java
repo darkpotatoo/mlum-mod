@@ -1,18 +1,18 @@
-package me.darkpotatoo.mlumm.client;
+package me.darkpotatoo.mlumm.client.iteminfo;
 
 import com.mojang.logging.LogUtils;
+import me.darkpotatoo.mlumm.client.MlummClient;
+import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

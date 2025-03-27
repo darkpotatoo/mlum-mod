@@ -1,14 +1,14 @@
 package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
+import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
+import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -39,8 +39,9 @@ public class MlummClient implements ClientModInitializer {
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
 
-        ChatListener.register();
+        EscapeAnnouncer.register();
         Iteminfo.InitItems();
+        //ChocolateStats.startCountingChocolate(25);
 
         // Iteminfo key
         GetItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(

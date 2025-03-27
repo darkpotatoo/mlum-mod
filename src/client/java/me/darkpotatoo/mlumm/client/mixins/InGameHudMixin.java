@@ -19,7 +19,7 @@ public class InGameHudMixin {
     private void onSetOverlayMessage(Text message, boolean overlay, CallbackInfo ci) {
         if (!isUpdatingOverlayMessage && message.getString().contains("Period:") && MlummClient.combatTicks > 0) {
             isUpdatingOverlayMessage = true;
-            Text msg = Text.of(message.getString() + " §8| §6Combat Timer: §e" + (MlummClient.combatTicks / 20) + "s");
+            Text msg = Text.of(message.getString() + " §8| §6Combat Delay: §e" + (MlummClient.combatTicks / 20) + "s");
             MinecraftClient client = MinecraftClient.getInstance();
             client.inGameHud.setOverlayMessage(msg, false);
             isUpdatingOverlayMessage = false;

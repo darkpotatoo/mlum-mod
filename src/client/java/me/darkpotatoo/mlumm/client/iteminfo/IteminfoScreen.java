@@ -1,9 +1,8 @@
-package me.darkpotatoo.mlumm.client;
+package me.darkpotatoo.mlumm.client.iteminfo;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 public class IteminfoScreen extends Screen {
 

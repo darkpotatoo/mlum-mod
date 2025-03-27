@@ -1,15 +1,11 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import com.mojang.logging.LogUtils;
-import me.darkpotatoo.mlumm.client.Iteminfo;
+import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;

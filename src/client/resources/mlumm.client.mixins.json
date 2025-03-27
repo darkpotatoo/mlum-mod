@@ -4,6 +4,7 @@
   "package": "me.darkpotatoo.mlumm.client.mixins",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "ClientPlayNetworkHandlerMixin",
     "DamageMixin",
     "HandledScreenMixin",
     "InGameHudMixin",

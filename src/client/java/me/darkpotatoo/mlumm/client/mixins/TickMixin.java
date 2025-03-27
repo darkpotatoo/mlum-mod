@@ -42,7 +42,7 @@ public class TickMixin {
             MlummClient.deskTicks--;
             if (MlummClient.deskTicks == 0) {
                 player.sendMessage(Text.of("§a» §fDesk timer has ended"), false);
-                sendCustomToast(client, "Desk Timer Ended", "You can now open a desk again");
+                sendCustomToast(client, "Desk Delay Ended", "You can now open a desk again");
             }
         }
 
@@ -51,7 +51,7 @@ public class TickMixin {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timer has ended"), false);
-                sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
+                sendCustomToast(client, "Crate Delay Ended", "You can now open a crate again");
             }
         }
 
@@ -60,7 +60,7 @@ public class TickMixin {
             MlummClient.boxTicks--;
             if (MlummClient.boxTicks == 0) {
                 player.sendMessage(Text.of("§a» §fContraband Box has ended"), false);
-                sendCustomToast(client, "Contraband Box Timer Ended", "You can now get a contraband box again");
+                sendCustomToast(client, "Contraband Box Delay Ended", "You can now get a contraband box again");
             }
         }
 
@@ -69,7 +69,7 @@ public class TickMixin {
             MlummClient.mailTicks--;
             if (MlummClient.mailTicks == 0) {
                 player.sendMessage(Text.of("§a» §fMail timer has ended"), false);
-                sendCustomToast(client, "Mail Timer Ended", "You can now open a crate again");
+                sendCustomToast(client, "Mail Delay Ended", "You can now open a crate again");
             }
         }
 
@@ -78,7 +78,7 @@ public class TickMixin {
             MlummClient.trashTicks--;
             if (MlummClient.trashTicks == 0) {
                 player.sendMessage(Text.of("§a» §fTrash timer has ended"), false);
-                sendCustomToast(client, "Trash Timer Ended", "You can now get a trash bag again");
+                sendCustomToast(client, "Trash Delay Ended", "You can now get a trash bag again");
             }
         }
 
@@ -87,7 +87,7 @@ public class TickMixin {
             MlummClient.combatTicks--;
             if (MlummClient.combatTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCombat timer has ended"), false);
-                sendCustomToast(client, "Combat Timer Ended", "You are now out of combat");
+                sendCustomToast(client, "Combat Delay Ended", "You are now out of combat");
             }
         }
     }
