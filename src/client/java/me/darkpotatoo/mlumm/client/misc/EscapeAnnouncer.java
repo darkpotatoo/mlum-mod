@@ -2,7 +2,7 @@ package me.darkpotatoo.mlumm.client.misc;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.escSound;
+import me.darkpotatoo.mlumm.client.util.escSound;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;

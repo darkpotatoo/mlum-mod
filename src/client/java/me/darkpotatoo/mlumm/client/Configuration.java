@@ -1,5 +1,6 @@
 package me.darkpotatoo.mlumm.client;
 
+import me.darkpotatoo.mlumm.client.util.escSound;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -26,13 +27,3 @@ public class Configuration implements ConfigData {
 
 }
 
-enum escSound {
-    AMETHYST,
-    ANVIL,
-    COPPER,
-    EXPLODE,
-    TRAPDOOR,
-    ILLUSIONER,
-    SILENT,
-
-}
