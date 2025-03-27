@@ -4,7 +4,10 @@
   "version": "${version}",
   "name": "mlumm s16",
   "description": "Mod with assorted quality of life and utility features for play.mlum.io",
-  "authors": [],
+  "authors": [
+    "darkpotatoo",
+    "hotpocket"
+  ],
   "contact": {
     "sources": "https://github.com/darkpotatoo/mlum-mod"
   },
