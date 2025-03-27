@@ -2,9 +2,6 @@ package me.darkpotatoo.mlumm.client.statistical;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.util.Delay;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
 import org.slf4j.Logger;
 
 public class ChocolateStats {
@@ -18,7 +15,7 @@ public class ChocolateStats {
     }
 
     public static void endCountingChocolate() {
-        LOGGER.info("Ended chocolate session with " + (chocoCounted) + " collected.");
+        LOGGER.info("Ended chocolate session with " + chocoCounted + " collected.");
     }
 
 }

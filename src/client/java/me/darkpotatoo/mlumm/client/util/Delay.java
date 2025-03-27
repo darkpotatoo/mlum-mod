@@ -16,7 +16,6 @@ public class Delay {
     public Delay(long seconds, Runnable method) {
         this.seconds = seconds;
         this.startTime = System.currentTimeMillis();
-        scheduler.scheduleAtFixedRate(method, 0, seconds, TimeUnit.SECONDS);
-        LOGGER.debug("Started a delay for " + seconds + "s");
+        scheduler.schedule(method, seconds, TimeUnit.SECONDS);
     }
 }

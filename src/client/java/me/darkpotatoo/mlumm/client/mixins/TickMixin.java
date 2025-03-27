@@ -3,12 +3,15 @@ package me.darkpotatoo.mlumm.client.mixins;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
+import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -19,12 +22,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 @Mixin(MinecraftClient.class)
 public class TickMixin {
 
     @Shadow @Final private ToastManager toastManager;
     private static final Logger LOGGER = LogUtils.getLogger();
+    private final Map<Integer, ItemStack> previousInventory = new HashMap<>();
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo info) {
@@ -32,7 +38,20 @@ public class TickMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
-
+        // chocolate diff
+        if (player != null) {
+            PlayerInventory inventory = player.getInventory();
+            for (int i = 0; i < inventory.size(); i++) {
+                ItemStack currentStack = inventory.getStack(i);
+                ItemStack previousStack = previousInventory.getOrDefault(i, ItemStack.EMPTY);
+                if (!ItemStack.areEqual(currentStack, previousStack)) {
+                    if (currentStack.getItem().getName().getString().contains("Nether Brick")) {
+                        ChocolateStats.chocoCounted += currentStack.getCount();
+                    }
+                    previousInventory.put(i, currentStack.copy());
+                }
+            }
+        }
 
         // Escape announcement cooldown
         MlummClient.escapeTicks--;
