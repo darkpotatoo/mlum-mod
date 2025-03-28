@@ -1,18 +1,22 @@
 package me.darkpotatoo.mlumm.client;
 
+import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import java.util.List;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -32,26 +36,31 @@ public class MlummClient implements ClientModInitializer {
 
     public static boolean tooltipIsContraband;
 
-    public static KeyBinding GetItemInfoKey;
+    public static KeyBinding getItemInfoKey;
+    public static KeyBinding startChocolateSessionKey;
 
     @Override
     public void onInitializeClient() {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+
         LOGGER.info("mlum mod loading...");
 
         EscapeAnnouncer.register();
         Iteminfo.InitItems();
-        ChocolateStats.startCountingChocolate(15);
 
         // Iteminfo key
-        GetItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        getItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "Fetch info of hovered item",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_0,
                 "mlum mod"
         ));
         Iteminfo.runItemInfoKey();
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            ChocolateStats.register(dispatcher);
+        });
 
         // Contraband tooltip getter
         ItemTooltipCallback.EVENT.register((ItemTooltipCallback)(stack, context, type, lines) -> {

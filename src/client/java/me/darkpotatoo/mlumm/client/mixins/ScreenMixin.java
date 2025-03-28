@@ -44,7 +44,7 @@ public abstract class ScreenMixin {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     private void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-        if (MlummClient.GetItemInfoKey.matchesKey(keyCode, scanCode)) {
+        if (MlummClient.getItemInfoKey.matchesKey(keyCode, scanCode)) {
             Iteminfo.attemptItemInfo(null);
             cir.setReturnValue(true);
         }

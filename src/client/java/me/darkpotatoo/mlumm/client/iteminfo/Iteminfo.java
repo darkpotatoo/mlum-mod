@@ -24,7 +24,7 @@ public class Iteminfo {
 
     public static void runItemInfoKey() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (MlummClient.GetItemInfoKey.wasPressed()) {
+            while (MlummClient.getItemInfoKey.wasPressed()) {
                 if (selectedItem != null) { attemptItemInfo(null); }
             }});}
 
