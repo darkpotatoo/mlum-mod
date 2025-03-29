@@ -37,5 +37,13 @@
     "fabric": "*",
     "minecraft": "${minecraft_version}",
     "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/ZSd8fXkj8r"
+      },
+      "update_checker": true
+    }
   }
 }
