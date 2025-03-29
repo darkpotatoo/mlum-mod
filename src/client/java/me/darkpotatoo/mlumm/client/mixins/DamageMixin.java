@@ -25,6 +25,9 @@ public abstract class DamageMixin extends LivingEntity {
 
     private float hpbefore = 0;
     private LivingEntity entitybefore;
+    private Iterable<ItemStack> entitygear;
+    private int rolebyhelmet; // 0 = ld det or ld trainee, 1 = ld guard
+    private int rolebychestplate; // 0 = det, 1 = guard/ld trainee 2 = trainee
 
     protected DamageMixin() {
         super(null, null);
@@ -45,6 +48,7 @@ public abstract class DamageMixin extends LivingEntity {
     private void onAttackTwo(Entity target, CallbackInfo ci) {
         hpbefore = ((LivingEntity) target).getHealth();
         entitybefore = (LivingEntity) target;
+        entitygear = ((LivingEntity) target).getEquippedItems();
     }
 
     @Inject(method = "attack", at = @At("TAIL"))
@@ -56,6 +60,7 @@ public abstract class DamageMixin extends LivingEntity {
             RiotTracker.damageDealt += diff;
             if (((LivingEntity) target).getHealth() == 0) {
                 RiotTracker.kills++;
+                for (ItemStack thing : entitygear) {} // TODO: MAke this actually work with the s16 gear sets
             }
         }
     }

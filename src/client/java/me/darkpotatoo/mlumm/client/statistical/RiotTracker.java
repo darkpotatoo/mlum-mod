@@ -19,6 +19,10 @@ public class RiotTracker {
     public static int hitsDealt = 0;
     public static int hitsTaken = 0;
     public static int kills = 0;
+    public static int guardKills = 0;
+    public static int detKills = 0;
+    public static int traineeKills = 0;
+
 
     public static void startRiot() {
         damageDealt = 0;
@@ -28,6 +32,9 @@ public class RiotTracker {
         hitsDealt = 0;
         riotTicks = 0;
         kills = 0;
+        detKills = 0;
+        traineeKills = 0;
+        guardKills = 0;
         isEnabled = true;
     }
 
@@ -45,10 +52,12 @@ public class RiotTracker {
             riotTicks -= 20;
             secs++;
         }
+        double ratio1 = damageDealt/damageTaken;
         player.sendMessage(Text.of("§e§lRiot ended! §6Time: " + mins + "m" + secs + "s"));
         player.sendMessage(Text.of("§7- §fHits taken / damage taken: §e" + hitsTaken + " / " + damageTaken));
         player.sendMessage(Text.of("§7- §fHits dealt / damage dealt: §e" + hitsDealt + " / " + damageDealt));
-        player.sendMessage(Text.of("§7- §fKills: §e" + kills));
+        player.sendMessage(Text.of("§7- §fDamage dealt to taken ratio: §e" + ratio1 + ":" + 1));
+        player.sendMessage(Text.of("§7- §fKills: §e" + kills + " (" + guardKills + " guard, " + detKills + " det, " + traineeKills + " trainee)"));
         player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
     }
 
@@ -56,13 +65,12 @@ public class RiotTracker {
         dispatcher.register(ClientCommandManager.literal("startriot")
                 .executes(context -> {
                     MinecraftClient.getInstance().execute(RiotTracker::startRiot);
-                    context.getSource().sendFeedback(Text.of("§a» §fStarted a riot session! §7(/endriot to end)"));
+                    context.getSource().sendFeedback(Text.of("§a» §fStarted a riot session! Run /stopriot to manually end the session. It will also automatically end when you die."));
                     return 1;
                 }));
-        dispatcher.register(ClientCommandManager.literal("endriot")
+        dispatcher.register(ClientCommandManager.literal("stopriot")
                 .executes(context -> {
                     MinecraftClient.getInstance().execute(RiotTracker::endRiot);
-                    context.getSource().sendFeedback(Text.of("§a» §fEnded riot session!"));
                     return 1;
                 }));
     }
