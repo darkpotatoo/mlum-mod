@@ -59,7 +59,7 @@ public class TickMixin {
         // fishing warning
         MlummClient.rodTicks--;
         if (client.player != null) {
-            if (client.player.getMainHandStack().getName().getString().contains("Rod") && client.player.getMainHandStack().getMaxDamage() - client.player.getMainHandStack().getDamage() <= 3 && MlummClient.rodTicks <= 0) {
+            if (client.player.getMainHandStack().getName().getString().contains("Rod") && client.player.getMainHandStack().getMaxDamage() - client.player.getMainHandStack().getDamage() <= 3 && MlummClient.rodTicks <= 0 && config.fishing_alert) {
                 MinecraftClient.getInstance().getToastManager().add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.literal("Fishing Rod Warning"), Text.literal("Your fishing rod is about to break")));
                 client.player.playSound(SoundEvents.ENTITY_GHAST_WARN);
                 MlummClient.rodTicks = 300;

@@ -23,6 +23,8 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean contraband_tooltip = true;
     @ConfigEntry.Gui.Tooltip
+    public boolean fishing_alert = true;
+    @ConfigEntry.Gui.Tooltip
     public escSound escape_sound = escSound.AMETHYST;
 
 }
