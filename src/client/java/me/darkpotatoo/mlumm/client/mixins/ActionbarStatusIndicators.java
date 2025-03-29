@@ -24,13 +24,13 @@ public class ActionbarStatusIndicators {
         if (!isUpdatingOverlayMessage && message.getString().contains("Period:") && config.actionbar_status) {
             isUpdatingOverlayMessage = true;
             if (MlummClient.combatTicks > 0) {
-                message = Text.of(message.getString() + " §8| §6Combat Delay: §e" + (MlummClient.combatTicks / 20) + "s");
+                message = Text.of(message + " §8| §6Combat Timer: §e" + (MlummClient.combatTicks / 20) + "s");
             }
             if (RiotTracker.isEnabled) {
-                message = Text.of(message.getString() + " §8| §eTracking Riot");
+                message = Text.of(message + " §8| §eTracking Riot");
             }
             if (ChocolateStats.isEnabled) {
-                message = Text.of(message.getString() + " §8| §eTracking Chocolate");
+                message = Text.of(message + " §8| §eTracking Chocolate");
             }
             MinecraftClient client = MinecraftClient.getInstance();
             client.inGameHud.setOverlayMessage(message, false);
