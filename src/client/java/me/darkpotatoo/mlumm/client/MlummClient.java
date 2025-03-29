@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
+import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -49,11 +50,12 @@ public class MlummClient implements ClientModInitializer {
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_0,
                 "mlum mod"
-        ));
-        Iteminfo.runItemInfoKey();
+        )); Iteminfo.runItemInfoKey();
 
+        // register commands
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             ChocolateStats.register(dispatcher);
+            RiotTracker.register(dispatcher);
         });
 
         // Contraband tooltip getter

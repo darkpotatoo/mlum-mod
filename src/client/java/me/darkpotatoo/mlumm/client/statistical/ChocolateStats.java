@@ -21,11 +21,13 @@ public class ChocolateStats {
     public static int chocoCounted = 0;
     private static final Logger LOGGER = LogUtils.getLogger();
     private static int sec;
+    public static boolean isEnabled = false;
 
     public static void startCountingChocolate(int sec) {
         chocoCounted = 0;
         ChocolateStats.sec=sec;
         new Delay(sec, ChocolateStats::endCountingChocolate);
+        isEnabled = true;
     }
 
     public static void endCountingChocolate() {
@@ -37,6 +39,7 @@ public class ChocolateStats {
         player.sendMessage(Text.of("§7- §fChoco/second: §e" + chocoCounted/sec));
         player.sendMessage(Text.of("§7- §fTotal chocolate grinded: §e" + chocoCounted));
         player.sendMessage(Text.of("§7- §fSession time: §e" + sec/60 + " minutes"));
+        isEnabled = false;
     }
 
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {

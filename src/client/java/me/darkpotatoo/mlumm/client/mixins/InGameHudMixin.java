@@ -1,6 +1,8 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
+import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
+import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.message.MessageHandler;
@@ -17,11 +19,19 @@ public class InGameHudMixin {
 
     @Inject(method = "setOverlayMessage", at = @At("TAIL"))
     private void onSetOverlayMessage(Text message, boolean overlay, CallbackInfo ci) {
-        if (!isUpdatingOverlayMessage && message.getString().contains("Period:") && MlummClient.combatTicks > 0) {
+        if (!isUpdatingOverlayMessage && message.getString().contains("Period:")) {
             isUpdatingOverlayMessage = true;
-            Text msg = Text.of(message.getString() + " §8| §6Combat Delay: §e" + (MlummClient.combatTicks / 20) + "s");
+            if (MlummClient.combatTicks > 0) {
+                message = Text.of(message.getString() + " §8| §6Combat Delay: §e" + (MlummClient.combatTicks / 20) + "s");
+            }
+            if (RiotTracker.isEnabled) {
+                message = Text.of(message.getString() + "§8| §eTracking Riot");
+            }
+            if (ChocolateStats.isEnabled) {
+                message = Text.of(message.getString() + "§8| §eTracking Chocolate");
+            }
             MinecraftClient client = MinecraftClient.getInstance();
-            client.inGameHud.setOverlayMessage(msg, false);
+            client.inGameHud.setOverlayMessage(message, false);
             isUpdatingOverlayMessage = false;
         }
     }
