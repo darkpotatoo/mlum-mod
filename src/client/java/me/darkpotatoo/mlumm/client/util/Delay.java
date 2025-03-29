@@ -11,11 +11,11 @@ public class Delay {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private long startTime;
     private final Logger LOGGER = LogUtils.getLogger();
-    private final long seconds;
+    private final double seconds;
 
-    public Delay(long seconds, Runnable method) {
+    public Delay(double seconds, Runnable method) {
         this.seconds = seconds;
         this.startTime = System.currentTimeMillis();
-        scheduler.schedule(method, seconds, TimeUnit.SECONDS);
+        scheduler.schedule(method, (long) seconds, TimeUnit.SECONDS);
     }
 }

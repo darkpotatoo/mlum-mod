@@ -25,6 +25,8 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean fishing_alert = true;
     @ConfigEntry.Gui.Tooltip
+    public boolean actionbar_status = true;
+    @ConfigEntry.Gui.Tooltip
     public escSound escape_sound = escSound.AMETHYST;
 
 }

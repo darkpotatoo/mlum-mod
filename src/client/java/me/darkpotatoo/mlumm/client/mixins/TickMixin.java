@@ -5,6 +5,7 @@ import me.darkpotatoo.mlumm.Mlumm;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
+import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -41,7 +42,7 @@ public class TickMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
-        // chocolate diff for chocostats
+        // chocolate diff for chocolate stats and item diff for ldk gear pickups
         if (player != null) {
             PlayerInventory inventory = player.getInventory();
             for (int i = 0; i < inventory.size(); i++) {
@@ -65,6 +66,9 @@ public class TickMixin {
                 MlummClient.rodTicks = 300;
             }
         }
+
+        // Riot time
+        RiotTracker.riotTicks++;
 
         // Escape announcement cooldown
         MlummClient.escapeTicks--;

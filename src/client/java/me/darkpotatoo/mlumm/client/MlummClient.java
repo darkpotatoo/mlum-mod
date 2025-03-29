@@ -38,9 +38,7 @@ public class MlummClient implements ClientModInitializer {
     public void onInitializeClient() {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
-
         LOGGER.info("mlum mod loading...");
-
         EscapeAnnouncer.register();
         Iteminfo.InitItems();
 

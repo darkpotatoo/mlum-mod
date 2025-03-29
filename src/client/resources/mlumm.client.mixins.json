@@ -6,7 +6,7 @@
   "client": [
     "DamageMixin",
     "HandledScreenMixin",
-    "InGameHudMixin",
+    "ActionbarStatusIndicators",
     "ScreenMixin",
     "TickMixin",
     "TooltipMixin"

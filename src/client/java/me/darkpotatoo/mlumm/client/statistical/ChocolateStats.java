@@ -13,6 +13,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 
@@ -39,6 +40,7 @@ public class ChocolateStats {
         player.sendMessage(Text.of("§7- §fChoco/second: §e" + chocoCounted/sec));
         player.sendMessage(Text.of("§7- §fTotal chocolate grinded: §e" + chocoCounted));
         player.sendMessage(Text.of("§7- §fSession time: §e" + sec/60 + " minutes"));
+        player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
         isEnabled = false;
     }
 
