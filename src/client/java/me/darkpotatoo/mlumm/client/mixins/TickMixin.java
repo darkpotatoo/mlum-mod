@@ -123,7 +123,7 @@ public class TickMixin {
             MlummClient.combatTicks--;
             if (MlummClient.combatTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCombat timer has ended"), false);
-                sendCustomToast(client, "Combat Delay Ended", "You are now out of combat");
+                sendCustomToast(client, "Combat Timer Ended", "You are now out of combat");
             }
         }
     }
