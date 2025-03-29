@@ -1,6 +1,7 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import com.mojang.logging.LogUtils;
+import me.darkpotatoo.mlumm.Mlumm;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
@@ -11,7 +12,9 @@ import net.minecraft.client.toast.SystemToast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -38,7 +41,7 @@ public class TickMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
-        // chocolate diff
+        // chocolate diff for chocostats
         if (player != null) {
             PlayerInventory inventory = player.getInventory();
             for (int i = 0; i < inventory.size(); i++) {
@@ -50,6 +53,16 @@ public class TickMixin {
                     }
                     previousInventory.put(i, currentStack.copy());
                 }
+            }
+        }
+
+        // fishing warning
+        MlummClient.rodTicks--;
+        if (client.player != null) {
+            if (client.player.getMainHandStack().getName().getString().contains("Rod") && client.player.getMainHandStack().getMaxDamage() - client.player.getMainHandStack().getDamage() <= 3 && MlummClient.rodTicks <= 0) {
+                MinecraftClient.getInstance().getToastManager().add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.literal("Fishing Rod Warning"), Text.literal("Your fishing rod is about to break")));
+                client.player.playSound(SoundEvents.ENTITY_GHAST_WARN);
+                MlummClient.rodTicks = 300;
             }
         }
 
