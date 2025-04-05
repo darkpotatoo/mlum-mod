@@ -54,14 +54,13 @@ public abstract class DamageMixin extends LivingEntity {
     @Inject(method = "attack", at = @At("TAIL"))
     private void onAttack(Entity target, CallbackInfo ci) {
         MlummClient.combatTicks = 100;
-        if (RiotTracker.isEnabled) {
-            RiotTracker.hitsDealt++;
-            double diff = hpbefore - ((LivingEntity) target).getHealth();
-            RiotTracker.damageDealt += diff;
-            if (((LivingEntity) target).getHealth() == 0) {
-                RiotTracker.kills++;
-                for (ItemStack thing : entitygear) {} // TODO: MAke this actually work with the s16 gear sets
-            }
+        RiotTracker.hitsDealt++;
+        double diff = hpbefore - ((LivingEntity) target).getHealth();
+        RiotTracker.damageDealt += diff;
+        if (((LivingEntity) target).getHealth() == 0) {
+            RiotTracker.kills++;
+            MlummClient.combatTicks = 1;
+            for (ItemStack thing : entitygear) {} // TODO: MAke this actually work with the s16 gear sets
         }
     }
 }
