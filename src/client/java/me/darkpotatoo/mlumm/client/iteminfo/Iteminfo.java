@@ -2,7 +2,6 @@ package me.darkpotatoo.mlumm.client.iteminfo;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.toast.SystemToast;

@@ -1,7 +1,6 @@
-package me.darkpotatoo.mlumm.client.statistical;
+package me.darkpotatoo.mlumm.client.misc;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;

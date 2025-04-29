@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "DamageMixin",
-    "FakeActionbarMixin",
+    "ActionbarStatusIndicators",
     "HandledScreenMixin",
     "ScreenMixin",
     "TickMixin",

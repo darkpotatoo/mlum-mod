@@ -1,18 +1,12 @@
-package me.darkpotatoo.mlumm.client.statistical;
+package me.darkpotatoo.mlumm.client.misc;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.logging.LogUtils;
-import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.iteminfo.IteminfoScreen;
-import me.darkpotatoo.mlumm.client.util.Delay;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;

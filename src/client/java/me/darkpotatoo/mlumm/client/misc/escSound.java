@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.util;
+package me.darkpotatoo.mlumm.client.misc;
 
 public enum escSound {
     AMETHYST,

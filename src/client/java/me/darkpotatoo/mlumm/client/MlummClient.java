@@ -2,9 +2,10 @@ package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
+import me.darkpotatoo.mlumm.client.misc.Map;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
-import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
-import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
+import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -32,7 +33,7 @@ public class MlummClient implements ClientModInitializer {
     public static int rodTicks = 0;
     public static boolean tooltipIsContraband;
     public static KeyBinding getItemInfoKey;
-    public static KeyBinding startChocolateSessionKey;
+    public static KeyBinding openMapKey;
 
     @Override
     public void onInitializeClient() {
@@ -49,6 +50,13 @@ public class MlummClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_0,
                 "mlum mod"
         )); Iteminfo.runItemInfoKey();
+        // map key
+        openMapKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "Open NPC/POI map",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_M,
+                "mlum mod"
+        )); Map.runMapKey();
 
         // register commands
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {

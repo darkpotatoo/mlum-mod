@@ -1,19 +1,12 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
-import me.darkpotatoo.mlumm.client.util.Delay;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.Component;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.type.AttributeModifiersComponent;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

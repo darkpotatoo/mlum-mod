@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.util;
+package me.darkpotatoo.mlumm.client.misc;
 
 import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;

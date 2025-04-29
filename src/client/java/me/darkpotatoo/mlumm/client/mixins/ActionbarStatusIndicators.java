@@ -2,8 +2,8 @@ package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.statistical.ChocolateStats;
-import me.darkpotatoo.mlumm.client.statistical.RiotTracker;
+import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;

@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client;
 
-import me.darkpotatoo.mlumm.client.util.escSound;
+import me.darkpotatoo.mlumm.client.misc.escSound;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
