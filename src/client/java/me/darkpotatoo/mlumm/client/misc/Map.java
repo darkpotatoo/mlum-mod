@@ -29,7 +29,7 @@ public class Map extends Screen {
     public Map() {
         super(Text.of("Map"));
 
-        pois.add(new POI(50, 50, "I am a map feature lolza", "i am a map feature lolza", RED));
+        pois.add(new POI(255, 255, "im a POI", "i have a short description (maybe whwat i sell if im an npc)", RED));
         pois.add(new POI(100, 100, "Guard Spawn", "i spawn guards", CYAN));
     }
 
