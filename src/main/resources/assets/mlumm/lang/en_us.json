@@ -12,8 +12,8 @@
   "text.autoconfig.mlumm.option.timer_mail": "Enable Mail Timer",
   "text.autoconfig.mlumm.option.fishing_alert.@Tooltip": "Enable receiving an alert when holding a rod under/at 3 dura",
   "text.autoconfig.mlumm.option.fishing_alert": "Enable Low Durability Rod Alerts",
-  "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a piece of text on the actionbar when you are in a riot session, chocolate session, or in combat",
-  "text.autoconfig.mlumm.option.actionbar_status": "Display Fields on Actionbar",
+  "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a piece of text over the actionbar when you are in a riot session, chocolate session, or in combat",
+  "text.autoconfig.mlumm.option.actionbar_status": "Display Fields Over Actionbar",
 
   "text.autoconfig.mlumm.option.contraband_tooltip.@Tooltip": "Color the tooltip red when the hovered item is contraband",
   "text.autoconfig.mlumm.option.contraband_tooltip": "Enable Red Contraband Item Tooltip",
