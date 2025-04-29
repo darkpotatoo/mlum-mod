@@ -1,0 +1,26 @@
+{
+  "text.autoconfig.mlumm.option.timer_combat": "Enable Combat Timer",
+  "text.autoconfig.mlumm.option.timer_combat.@Tooltip": "Enable or disable the combat timer",
+  "text.autoconfig.mlumm.option.timer_desk": "Enable Desk Timer",
+  "text.autoconfig.mlumm.option.timer_desk.@Tooltip": "Enable or disable the desk timer",
+  "text.autoconfig.mlumm.option.timer_crate": "Enable Crate Timer",
+  "text.autoconfig.mlumm.option.timer_crate.@Tooltip": "Enable or disable the crate timer",
+  "text.autoconfig.mlumm.option.timer_box": "Enable Box Timer",
+  "text.autoconfig.mlumm.option.timer_box.@Tooltip": "Enable or disable the box timer",
+  "text.autoconfig.mlumm.option.timer_trash": "Enable Trash Timer",
+  "text.autoconfig.mlumm.option.timer_trash.@Tooltip": "Enable or disable the trash timer",
+  "text.autoconfig.mlumm.option.timer_mail": "Enable Mail Timer",
+  "text.autoconfig.mlumm.option.fishing_alert.@Tooltip": "Enable receiving an alert when holding a rod under/at 3 dura",
+  "text.autoconfig.mlumm.option.fishing_alert": "Enable Low Durability Rod Alerts",
+  "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a piece of text on the actionbar when you are in a riot session, chocolate session, or in combat",
+  "text.autoconfig.mlumm.option.actionbar_status": "Display Fields on Actionbar",
+
+  "text.autoconfig.mlumm.option.contraband_tooltip.@Tooltip": "Color the tooltip red when the hovered item is contraband",
+  "text.autoconfig.mlumm.option.contraband_tooltip": "Enable Red Contraband Item Tooltip",
+
+  "text.autoconfig.mlumm.option.escape_sound.@Tooltip": "Sound to play when \"esc\" or \"escape\" appear in chat",
+  "text.autoconfig.mlumm.option.escape_sound": "Escape Announcer Sound",
+
+  "text.autoconfig.mlumm.option.timer_mail.@Tooltip": "Enable or disable the mail timer",
+  "text.autoconfig.mlumm.title": "mlum mod configuration"
+}

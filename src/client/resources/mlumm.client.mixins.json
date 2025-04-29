@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.darkpotatoo.mlumm.client.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ActionbarStatusIndicators",
+    "DamageMixin",
+    "HandledScreenMixin",
+    "ScreenMixin",
+    "TickMixin",
+    "TooltipMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

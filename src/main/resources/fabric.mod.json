@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "id": "mlumm",
+  "version": "${version}",
+  "name": "mlumm s16",
+  "description": "Mod with assorted quality of life and utility features for play.mlum.io",
+  "authors": [
+    "darkpotatoo",
+    "hotpocket"
+  ],
+  "contact": {
+    "sources": "https://github.com/darkpotatoo/mlum-mod"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mlumm/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.darkpotatoo.mlumm.client.MlummClient"
+    ],
+    "main": [
+      "me.darkpotatoo.mlumm.Mlumm"
+    ],
+    "modmenu": [
+      "me.darkpotatoo.mlumm.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "mlumm.mixins.json",
+    {
+      "config": "mlumm.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/ZSd8fXkj8r"
+      },
+      "update_checker": true
+    }
+  }
+}
