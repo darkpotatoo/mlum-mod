@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Map extends Screen {
 
-    private static final Identifier MAP_TEXTURE = Identifier.of("mlumm", "textures/gui/map.png");
+    private static final Identifier MAP_TEXTURE = Identifier.of("mlumm", "textures/map.png");
     private final List<POI> pois = new ArrayList<>();
 
     int RED = 0xFFFF0000;
@@ -53,29 +53,29 @@ public class Map extends Screen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context, mouseX, mouseY, delta);
-        int mapX = (this.width - 512) / 2;
-        int mapY = (this.height - 512) / 2;
-        context.drawTexture(MAP_TEXTURE, mapX, mapY, 0, 0, 512, 512);
 
-        // Render POIs
+        int mapWidth = 512;
+        int mapHeight = 512;
+        int mapX = (this.width - mapWidth) / 2;
+        int mapY = (this.height - mapHeight) / 2;
+        context.drawTexture(MAP_TEXTURE, mapX, mapY, 0, 0, mapWidth, mapHeight);
+
         for (POI poi : pois) {
-            int poiX = mapX + poi.x * 2;
-            int poiY = mapY + poi.y * 2;
+            int poiX = mapX + poi.x;
+            int poiY = mapY + poi.y;
             context.fill(poiX - 2, poiY - 2, poiX + 2, poiY + 2, poi.color);
 
             if (mouseX >= poiX - 2 && mouseX <= poiX + 2 && mouseY >= poiY - 2 && mouseY <= poiY + 2) {
                 context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(poi.name + ": " + poi.description), mouseX, mouseY);
             }
         }
-
-        // Render Color Key for Categories
-        int keyX = mapX + 520;
+        int keyX = mapX + mapWidth + 8;
         int keyY = mapY;
-        int keyWidth = 100;
         int keyHeight = 20;
 
         context.drawText(MinecraftClient.getInstance().textRenderer, "Color Key:", keyX, keyY, WHITE, false);
         keyY += 10;
+
         List<Category> categories = List.of(
                 new Category("i am category", RED),
                 new Category("add stuff later like orange will be pris npc idk...", CYAN)
@@ -90,7 +90,6 @@ public class Map extends Screen {
         super.render(context, mouseX, mouseY, delta);
     }
 
-    // Updated POI class
     private static class POI {
         int x, y, color;
         String name, description;
@@ -104,7 +103,6 @@ public class Map extends Screen {
         }
     }
 
-    // New Category class
     private static class Category {
         String name;
         int color;
