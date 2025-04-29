@@ -58,14 +58,15 @@ public class Map extends Screen {
         int mapHeight = 512;
         int mapX = (this.width - mapWidth) / 2;
         int mapY = (this.height - mapHeight) / 2;
-        context.drawTexture(MAP_TEXTURE, mapX, mapY, 0, 0, mapWidth, mapHeight);
+        context.drawTexture(MAP_TEXTURE, mapX, mapY, 0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
 
         for (POI poi : pois) {
             int poiX = mapX + poi.x;
             int poiY = mapY + poi.y;
-            context.fill(poiX - 2, poiY - 2, poiX + 2, poiY + 2, poi.color);
+            context.fill(poiX-5, poiY-5, poiX+5, poiY+5, 0xFF000000);
+            context.fill(poiX - 4, poiY - 4, poiX + 4, poiY + 4, poi.color);
 
-            if (mouseX >= poiX - 2 && mouseX <= poiX + 2 && mouseY >= poiY - 2 && mouseY <= poiY + 2) {
+            if (mouseX >= poiX - 5 && mouseX <= poiX + 5 && mouseY >= poiY - 5 && mouseY <= poiY + 5) {
                 context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(poi.name + ": " + poi.description), mouseX, mouseY);
             }
         }
