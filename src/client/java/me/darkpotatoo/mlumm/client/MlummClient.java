@@ -2,6 +2,7 @@ package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
+import me.darkpotatoo.mlumm.client.misc.CapeTextures;
 import me.darkpotatoo.mlumm.client.misc.Map;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
@@ -10,9 +11,15 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
@@ -34,6 +41,7 @@ public class MlummClient implements ClientModInitializer {
     public static boolean tooltipIsContraband;
     public static KeyBinding getItemInfoKey;
     public static KeyBinding openMapKey;
+    private static Configuration config;
 
     @Override
     public void onInitializeClient() {
@@ -65,17 +73,17 @@ public class MlummClient implements ClientModInitializer {
         });
 
         // Contraband tooltip getter
-        ItemTooltipCallback.EVENT.register((ItemTooltipCallback)(stack, context, type, lines) -> {
+        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             tooltipIsContraband = (checkContrabandItem(lines) && !lines.isEmpty());
         });
     }
 
+    // ----- Cape stuff ----- //
+
     private boolean checkContrabandItem(List <Text> lore) {
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         for (Text text : lore) {
-            if (text.getString().contains("CONTRABAND") && config.contraband_tooltip) {
-                return true;
-            }
+            if (text.getString().contains("CONTRABAND") && config.contraband_tooltip) return true;
         }
         return false;
     }

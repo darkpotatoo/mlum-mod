@@ -4,8 +4,9 @@
   "package": "me.darkpotatoo.mlumm.client.mixins",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "DamageMixin",
     "ActionbarStatusIndicators",
+    "CapeMixin",
+    "DamageMixin",
     "HandledScreenMixin",
     "ScreenMixin",
     "TickMixin",

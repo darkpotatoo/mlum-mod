@@ -1,6 +1,7 @@
 package me.darkpotatoo.mlumm.client;
 
-import me.darkpotatoo.mlumm.client.misc.escSound;
+import me.darkpotatoo.mlumm.client.misc.CapeTexture;
+import me.darkpotatoo.mlumm.client.misc.EscapeSounds;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -27,7 +28,11 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean actionbar_status = true;
     @ConfigEntry.Gui.Tooltip
-    public escSound escape_sound = escSound.AMETHYST;
+    public EscapeSounds escape_sound = EscapeSounds.AMETHYST;
+    @ConfigEntry.Gui.Tooltip
+    public CapeTexture cape_texture = CapeTexture.MLUM_S16;
+    @ConfigEntry.Gui.Tooltip
+    public boolean custom_cape = true;
 
 }
 

@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client.misc;
 
-public enum escSound {
+public enum EscapeSounds {
     AMETHYST,
     ANVIL,
     COPPER,

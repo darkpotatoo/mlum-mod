@@ -31,12 +31,12 @@ public class EscapeAnnouncer {
     }
 
     private static void getSoundEvent(Configuration config) {
-        if (config.escape_sound == escSound.AMETHYST) { sound = SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK; }
-        if (config.escape_sound == escSound.ANVIL) { sound = SoundEvents.BLOCK_ANVIL_LAND; }
-        if (config.escape_sound == escSound.COPPER) { sound = SoundEvents.BLOCK_COPPER_BREAK; }
-        if (config.escape_sound == escSound.TRAPDOOR) { sound = SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN; }
-        if (config.escape_sound == escSound.EXPLODE) { sound = SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE; }
-        if (config.escape_sound == escSound.ILLUSIONER) { sound = SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE; }
-        if (config.escape_sound == escSound.SILENT) { sound = SoundEvents.ITEM_GOAT_HORN_PLAY; }
+        if (config.escape_sound == EscapeSounds.AMETHYST) { sound = SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK; }
+        if (config.escape_sound == EscapeSounds.ANVIL) { sound = SoundEvents.BLOCK_ANVIL_LAND; }
+        if (config.escape_sound == EscapeSounds.COPPER) { sound = SoundEvents.BLOCK_COPPER_BREAK; }
+        if (config.escape_sound == EscapeSounds.TRAPDOOR) { sound = SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN; }
+        if (config.escape_sound == EscapeSounds.EXPLODE) { sound = SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE; }
+        if (config.escape_sound == EscapeSounds.ILLUSIONER) { sound = SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE; }
+        if (config.escape_sound == EscapeSounds.SILENT) { sound = SoundEvents.ITEM_GOAT_HORN_PLAY; }
     }
 }
