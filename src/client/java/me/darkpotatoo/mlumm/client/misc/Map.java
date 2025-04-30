@@ -29,8 +29,8 @@ public class Map extends Screen {
     public Map() {
         super(Text.of("Map"));
 
-        pois.add(new POI(255, 255, "im a POI", "i have a short description (maybe whwat i sell if im an npc)", RED));
-        pois.add(new POI(100, 100, "Guard Spawn", "i spawn guards", CYAN));
+        pois.add(new POI(255, 255, "im a POI", "i have a short description (maybe whwat i sell if im an npc)", RED, "x,z"));
+        pois.add(new POI(100, 100, "Guard Spawn", "i spawn guards", CYAN, "255,255"));
     }
 
     public static void runMapKey() {
@@ -67,7 +67,7 @@ public class Map extends Screen {
             context.fill(poiX - 4, poiY - 4, poiX + 4, poiY + 4, poi.color);
 
             if (mouseX >= poiX - 5 && mouseX <= poiX + 5 && mouseY >= poiY - 5 && mouseY <= poiY + 5) {
-                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(poi.name + ": " + poi.description), mouseX, mouseY);
+                context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(poi.name + ": " + poi.description + "(" + poi.coords + ")"), mouseX, mouseY);
             }
         }
         int keyX = mapX + mapWidth + 8;
@@ -93,21 +93,20 @@ public class Map extends Screen {
 
     private static class POI {
         int x, y, color;
-        String name, description;
-
-        POI(int x, int y, String name, String description, int color) {
+        String name, description, coords;
+        POI(int x, int y, String name, String description, int color, String coords) {
             this.x = x;
             this.y = y;
             this.name = name;
             this.description = description;
             this.color = color;
+            this.coords = coords;
         }
     }
 
     private static class Category {
         String name;
         int color;
-
         Category(String name, int color) {
             this.name = name;
             this.color = color;
