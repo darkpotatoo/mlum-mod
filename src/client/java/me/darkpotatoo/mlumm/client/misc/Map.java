@@ -38,7 +38,8 @@ public class Map extends Screen {
             while (MlummClient.openMapKey.wasPressed()) {
                 MinecraftClient.getInstance().setScreen(new Map());
             }
-            });}
+        });
+    }
 
     @Override
     protected void init() {
@@ -52,24 +53,28 @@ public class Map extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
+        context.fill(0, 0, this.width, this.height, 0x88000000);
 
         int mapWidth = 512;
         int mapHeight = 512;
         int mapX = (this.width - mapWidth) / 2;
         int mapY = (this.height - mapHeight) / 2;
+
+        int bc = 0xFF808080;
+        context.fill(mapX - 4, mapY - 4, mapX + mapWidth + 4, mapY + mapHeight + 4, bc);
         context.drawTexture(MAP_TEXTURE, mapX, mapY, 0, 0, mapWidth, mapHeight, mapWidth, mapHeight);
 
         for (POI poi : pois) {
             int poiX = mapX + poi.x;
             int poiY = mapY + poi.y;
-            context.fill(poiX-5, poiY-5, poiX+5, poiY+5, 0xFF000000);
+            context.fill(poiX - 5, poiY - 5, poiX + 5, poiY + 5, 0xFF000000);
             context.fill(poiX - 4, poiY - 4, poiX + 4, poiY + 4, poi.color);
 
             if (mouseX >= poiX - 5 && mouseX <= poiX + 5 && mouseY >= poiY - 5 && mouseY <= poiY + 5) {
                 context.drawTooltip(MinecraftClient.getInstance().textRenderer, Text.of(poi.name + ": " + poi.description + "(" + poi.coords + ")"), mouseX, mouseY);
             }
         }
+
         int keyX = mapX + mapWidth + 8;
         int keyY = mapY;
         int keyHeight = 20;
@@ -83,8 +88,8 @@ public class Map extends Screen {
         );
 
         for (Category category : categories) {
-            context.fill(keyX, keyY, keyX + keyHeight, keyY + keyHeight, category.color); // Draw color box
-            context.drawText(MinecraftClient.getInstance().textRenderer, category.name, keyX + keyHeight + 5, keyY + 5, WHITE, false); // Draw label
+            context.fill(keyX, keyY, keyX + keyHeight, keyY + keyHeight, category.color);
+            context.drawText(MinecraftClient.getInstance().textRenderer, category.name, keyX + keyHeight + 5, keyY + 5, WHITE, false);
             keyY += keyHeight + 5;
         }
 
