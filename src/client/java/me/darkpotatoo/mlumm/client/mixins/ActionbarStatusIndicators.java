@@ -7,6 +7,7 @@ import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,18 +23,23 @@ public class ActionbarStatusIndicators {
     @Inject(method = "setOverlayMessage", at = @At("TAIL"))
     private void onSetOverlayMessage(Text message, boolean overlay, CallbackInfo ci) {
         if (!isUpdatingOverlayMessage && message.getString().contains("Period:") && config.actionbar_status) {
+            MinecraftClient client = MinecraftClient.getInstance();
             isUpdatingOverlayMessage = true;
+            String input = message.getString();
+            String time = input.substring(input.indexOf("Time: ") + 6, input.indexOf(" |"));
+            String period = input.substring(input.indexOf("Period: ") + 8);
+            String text = "§6Time: §e" + time + "§8 | §6Period: §e" + period;
             if (MlummClient.combatTicks > 0) {
-                message = Text.of(message + " §8| §6Combat Timer: §e" + (MlummClient.combatTicks / 20) + "s");
+                text += " §8| §6Combat Timer: §e" + (MlummClient.combatTicks / 20) + "s";
             }
             if (RiotTracker.isEnabled) {
-                message = Text.of(message + " §8| §eTracking Riot");
+                text += " §8| §aTracking Riot";
             }
             if (ChocolateStats.isEnabled) {
-                message = Text.of(message + " §8| §eTracking Chocolate");
+                text += " §8| §aTracking Chocolate";
             }
-            MinecraftClient client = MinecraftClient.getInstance();
-            client.inGameHud.setOverlayMessage(message, false);
+            //MutableText newMessage = Text.literal(message.getString() + add).styled(style -> message.getStyle());
+            client.inGameHud.setOverlayMessage(Text.of(text), false);
             isUpdatingOverlayMessage = false;
         }
     }
