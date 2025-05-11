@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
-import me.darkpotatoo.mlumm.client.riot.RiotMeterHud;
+import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
@@ -65,7 +65,7 @@ public class TickMixin {
         }
 
         // Riot style meter decay
-        RiotMeterHud.decayScore();
+        RiotMeter.decayScore();
 
         // Riot time
         RiotTracker.riotTicks++;

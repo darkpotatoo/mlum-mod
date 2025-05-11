@@ -11,7 +11,7 @@ import java.util.Stack;
 
 // TODO: Add more style messages and stuff when the season acc out
 
-public class RiotMeterHud {
+public class RiotMeter {
 
     private static double score = 0;
     private static final Stack<RiotMessage> things = new Stack<>();
@@ -34,6 +34,10 @@ public class RiotMeterHud {
         things.add(new RiotMessage(message, 200));
         score += value;
     }
+    public static void add(String message, double value, int time) {
+        things.add(new RiotMessage(message, time));
+        score += value;
+    }
     public static void add(double value) {
         score += value;
     }
@@ -52,9 +56,11 @@ public class RiotMeterHud {
         else if (score >= 300) score -= (double) 35 /20;
         else if (score >= 100) score -= (double) 30 /20;
         else score -= (double) 25/20;
+        if (score < 0) score = 0;
     }
 
     public void render(DrawContext context) {
+        tick();
 
         // stuff
         String rank = getRank();
@@ -84,10 +90,9 @@ public class RiotMeterHud {
         int progressBarColor = getColorForProgressBar(rank);
         float progress = getProgress();
         int progressBarWidth = (int) (width * progress);
-        context.fill(x + 5, y + 25, x + 5 + progressBarWidth, y + 26, progressBarColor);
+        context.fill(x + 5, y + 25, x + progressBarWidth -5, y + 26, progressBarColor);
 
         // messages like "+THING HERE"
-        tick();
         int i = 0;
         for (RiotMessage timedMessage : things) {
             context.drawText(MinecraftClient.getInstance().textRenderer, Text.of(timedMessage.message), x + 5, y + 30 + i * 15, 0xFFFFFF, false);

@@ -1,7 +1,7 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.riot.RiotMeterHud;
+import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,19 +50,13 @@ public abstract class DamageMixin extends LivingEntity {
         MlummClient.combatTicks = 100;
         double diff = hpbefore - ((LivingEntity) target).getHealth();
         if (diff > 8) {
-            RiotMeterHud.add("+ §cSTRONG HIT", 80);
+            RiotMeter.add("+ §cSTRONG HIT", 80);
         } else {
-            RiotMeterHud.add(diff * 10);
+            RiotMeter.add(diff * 10);
         }
         if (RiotTracker.isEnabled) {
             RiotTracker.hitsDealt++;
             RiotTracker.damageDealt += diff;
-            if (((LivingEntity) target).getHealth() == 0) {
-                RiotTracker.kills++;
-                RiotMeterHud.add("+ §fKILL", 200);
-                for (ItemStack thing : entitygear) {} // TODO: MAke this actually work with the s16 gear sets
-                // TODO: Also check for like killing a tank for + TANK KILL or whatever for riot style meter
-            }
         }
     }
 }
