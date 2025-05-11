@@ -7,8 +7,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,20 +16,37 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class EntityDeathMixin {
 
+    @Shadow public abstract void kill();
+
+    private static long lastKillTime = 0;
+    private static int killStreak = 0;
+
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void onEntityDeath(DamageSource source, CallbackInfo ci) {
         if (source.getAttacker() instanceof PlayerEntity attacker) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.player != null && attacker.getName().getString().equals(client.player.getName().getString())) {
-                LivingEntity entity = (LivingEntity) (Object) this;
-                for (ItemStack armorPiece : entity.getArmorItems()) {
-                    //armorPiece.getName().getString(); TODO: make ts work with special upgrades
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastKillTime <= 8000) {
+                    killStreak++;
+                } else {
+                    killStreak = 1;
+                }
+                lastKillTime = currentTime;
+
+                String killMessage;
+                switch (killStreak) {
+                    case 1 -> killMessage = "KILL";
+                    case 2 -> killMessage = "§aDOUBLE KILL";
+                    case 3 -> killMessage = "§aTRIPLE KILL";
+                    case 4 -> killMessage = "§eQUADRUPLE KILL";
+                    case 5 -> killMessage = "§ePENTA KILL";
+                    default -> killMessage = "§6MULTI KILL (" + killStreak + ")";
                 }
 
                 MlummClient.combatTicks = 0;
                 RiotTracker.kills++;
-                System.out.println("e");
-                RiotMeter.add("+ §fKILL", 200);
+                RiotMeter.add("+ " + killMessage, 120+(killStreak*30));
             }
         }
     }

@@ -31,7 +31,7 @@ public class RiotMeter {
     }
 
     public static void add(String message, double value) {
-        things.add(new RiotMessage(message, 200));
+        things.add(new RiotMessage(message, 400));
         score += value;
     }
     public static void add(String message, double value, int time) {
@@ -89,13 +89,13 @@ public class RiotMeter {
         // prog bar to next rank
         int progressBarColor = getColorForProgressBar(rank);
         float progress = getProgress();
-        int progressBarWidth = (int) (width * progress);
-        context.fill(x + 5, y + 25, x + progressBarWidth -5, y + 26, progressBarColor);
+        int progressBarWidth = (int) (95 * progress);
+        context.fill(x + 5, y + 19, x + progressBarWidth, y + 20, progressBarColor);
 
         // messages like "+THING HERE"
         int i = 0;
         for (RiotMessage timedMessage : things) {
-            context.drawText(MinecraftClient.getInstance().textRenderer, Text.of(timedMessage.message), x + 5, y + 30 + i * 15, 0xFFFFFF, false);
+            context.drawText(MinecraftClient.getInstance().textRenderer, Text.of(timedMessage.message), x + 5, y + 25 + i * 15, 0xFFFFFF, false);
             i++;
             if (i>= 12) break;
         }
@@ -119,6 +119,7 @@ public class RiotMeter {
     private static float getProgress() {
         double currentThreshold = 0;
         double nextThreshold = 0;
+
         if (score >= 1500) {
             currentThreshold = 1500;
             nextThreshold = 2000;
@@ -145,8 +146,9 @@ public class RiotMeter {
             nextThreshold = 300;
         }
         float progress = (float) ((score - currentThreshold) / (nextThreshold - currentThreshold));
-        return progress;
+        return Math.max(0, Math.min(1, progress));
     }
+
     private static class RiotMessage {
         String message;
         int ticksRemaining;
