@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.misc;
+package me.darkpotatoo.mlumm.client.cape;
 
 public enum CapeTexture {
     MLUM_S16,

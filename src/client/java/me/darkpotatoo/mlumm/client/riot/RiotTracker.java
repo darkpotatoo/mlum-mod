@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.misc;
+package me.darkpotatoo.mlumm.client.riot;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;

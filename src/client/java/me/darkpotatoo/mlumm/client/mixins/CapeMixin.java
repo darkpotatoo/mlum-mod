@@ -2,7 +2,7 @@ package me.darkpotatoo.mlumm.client.mixins;
 
 import com.mojang.authlib.GameProfile;
 import me.darkpotatoo.mlumm.client.Configuration;
-import me.darkpotatoo.mlumm.client.misc.CapeTextures;
+import me.darkpotatoo.mlumm.client.cape.CapeTextures;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.util.SkinTextures;

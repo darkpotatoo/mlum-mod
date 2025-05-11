@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.misc;
+package me.darkpotatoo.mlumm.client.cape;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.shedaniel.autoconfig.AutoConfig;

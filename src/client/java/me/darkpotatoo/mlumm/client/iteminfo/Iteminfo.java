@@ -4,16 +4,15 @@ import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.toast.SystemToast;
-import net.minecraft.client.toast.ToastManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.text.Text;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static me.darkpotatoo.mlumm.client.misc.UtilMethods.sendCustomToast;
 
 public class Iteminfo {
 
@@ -52,14 +51,8 @@ public class Iteminfo {
         sendCustomToast("Iteminfo Failed", "There is no iteminfo for your currently hovered item.");
     }
 
-    private static void sendCustomToast(String text, String text2) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        ToastManager toastManager = client.getToastManager();
-        toastManager.add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.of(text), Text.of(text2)));
-    }
-
     // This is VERY long. This registers ALL items. There is nothing under this to see.
-    public static void InitItems() {
+    public static void initItems() {
         LOGGER.info("Registering items for iteminfo");
         new Item(
                 ItemType.Weapon,

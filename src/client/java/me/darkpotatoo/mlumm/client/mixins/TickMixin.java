@@ -4,7 +4,8 @@ import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
-import me.darkpotatoo.mlumm.client.misc.RiotTracker;
+import me.darkpotatoo.mlumm.client.riot.RiotMeterHud;
+import me.darkpotatoo.mlumm.client.riot.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.toast.SystemToast;
@@ -21,9 +22,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.util.HashMap;
 import java.util.Map;
+import static me.darkpotatoo.mlumm.client.misc.UtilMethods.sendCustomToast;
 
 @Mixin(MinecraftClient.class)
 public class TickMixin {
@@ -63,6 +64,9 @@ public class TickMixin {
             }
         }
 
+        // Riot style meter decay
+        RiotMeterHud.decayScore();
+
         // Riot time
         RiotTracker.riotTicks++;
 
@@ -74,7 +78,7 @@ public class TickMixin {
             MlummClient.deskTicks--;
             if (MlummClient.deskTicks == 0) {
                 player.sendMessage(Text.of("§a» §fDesk timer has ended"), false);
-                sendCustomToast(client, "Desk Timer Ended", "You can now open a desk again");
+                sendCustomToast("Desk Timer Ended", "You can now open a desk again");
             }
         }
 
@@ -83,7 +87,7 @@ public class TickMixin {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timer has ended"), false);
-                sendCustomToast(client, "Crate Timer Ended", "You can now open a crate again");
+                sendCustomToast("Crate Timer Ended", "You can now open a crate again");
             }
         }
 
@@ -92,7 +96,7 @@ public class TickMixin {
             MlummClient.boxTicks--;
             if (MlummClient.boxTicks == 0) {
                 player.sendMessage(Text.of("§a» §fContraband Box has ended"), false);
-                sendCustomToast(client, "Contraband Box Timer Ended", "You can now get a contraband box again");
+                sendCustomToast("Contraband Box Timer Ended", "You can now get a contraband box again");
             }
         }
 
@@ -101,7 +105,7 @@ public class TickMixin {
             MlummClient.mailTicks--;
             if (MlummClient.mailTicks == 0) {
                 player.sendMessage(Text.of("§a» §fMail timer has ended"), false);
-                sendCustomToast(client, "Mail Timer Ended", "You can now open a crate again");
+                sendCustomToast("Mail Timer Ended", "You can now open a crate again");
             }
         }
 
@@ -110,7 +114,7 @@ public class TickMixin {
             MlummClient.trashTicks--;
             if (MlummClient.trashTicks == 0) {
                 player.sendMessage(Text.of("§a» §fTrash timer has ended"), false);
-                sendCustomToast(client, "Trash Timer Ended", "You can now get a trash bag again");
+                sendCustomToast("Trash Timer Ended", "You can now get a trash bag again");
             }
         }
 
@@ -119,14 +123,8 @@ public class TickMixin {
             MlummClient.combatTicks--;
             if (MlummClient.combatTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCombat timer has ended"), false);
-                sendCustomToast(client, "Combat Timer Ended", "You are now out of combat");
+                sendCustomToast("Combat Timer Ended", "You are now out of combat");
             }
         }
-    }
-
-    //custom toast
-    private void sendCustomToast(MinecraftClient client, String text, String text2) {
-        ToastManager toastManager = client.getToastManager();
-        toastManager.add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.of(text), Text.of(text2)));
     }
 }

@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client;
 
-import me.darkpotatoo.mlumm.client.misc.CapeTexture;
+import me.darkpotatoo.mlumm.client.cape.CapeTexture;
 import me.darkpotatoo.mlumm.client.misc.EscapeSounds;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
@@ -33,6 +33,8 @@ public class Configuration implements ConfigData {
     public CapeTexture cape_texture = CapeTexture.MLUM_S16;
     @ConfigEntry.Gui.Tooltip
     public boolean custom_cape = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean stylemeter = true;
 
 }
 

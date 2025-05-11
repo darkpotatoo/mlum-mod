@@ -27,6 +27,9 @@
   "text.autoconfig.mlumm.option.escape_sound.@Tooltip": "Sound to play when \"esc\" or \"escape\" appear in chat",
   "text.autoconfig.mlumm.option.escape_sound": "Escape Announcer Sound",
 
+  "text.autoconfig.mlumm.option.stylemeter.@Tooltip": "Show a style meter on the screen when fighting just like ULTRAKILL's style meter",
+  "text.autoconfig.mlumm.option.stylemeter": "Riot Style Meter",
+
 
   "text.autoconfig.mlumm.title": "mlum mod configuration"
 }

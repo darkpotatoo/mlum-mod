@@ -8,6 +8,7 @@
     "CapeMixin",
     "DamageMixin",
     "HandledScreenMixin",
+    "InGameHudMixin",
     "ScreenMixin",
     "TickMixin",
     "TooltipMixin"

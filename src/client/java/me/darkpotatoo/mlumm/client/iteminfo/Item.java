@@ -34,6 +34,7 @@ enum ItemType {
     Material,
     Escape,
     Other
+    // TODO: maybe more categories
 }
 
 enum ItemSource {
@@ -41,5 +42,6 @@ enum ItemSource {
     Crafting,
     Guard,
     NPC
+    // TODO: this
 
 }
