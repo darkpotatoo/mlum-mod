@@ -35,6 +35,7 @@ public abstract class EntityDeathMixin {
                 lastKillTime = currentTime;
 
                 if (RiotMeter.tryArsenal()) RiotMeter.add("+ §bARSENAL", 80);
+                if (MinecraftClient.getInstance().player.getMainHandStack().getName().getString().contains("Air")) RiotMeter.add("+ §aFISTKILL", 60);
 
                 String killMessage;
                 switch (killStreak) {

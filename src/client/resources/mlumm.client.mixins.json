@@ -6,6 +6,7 @@
   "client": [
     "ActionbarStatusIndicators",
     "CapeMixin",
+    "ChatMixin",
     "DamageMixin",
     "HandledScreenMixin",
     "InGameHudMixin",

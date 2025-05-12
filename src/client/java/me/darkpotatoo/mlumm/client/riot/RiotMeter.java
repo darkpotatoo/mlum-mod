@@ -5,11 +5,9 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
-import java.time.chrono.MinguoEra;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
@@ -21,6 +19,7 @@ public class RiotMeter {
     private static double score = 0;
     public static int combo = 0;
     public static long combolastupdated = 0;
+    public static long combatlogtime = 0;
     private long sounddelay = System.currentTimeMillis();
     private static final Stack<RiotMessage> things = new Stack<>();
     public static ArrayList<ItemStack> arsenal = new ArrayList<>();
@@ -31,6 +30,13 @@ public class RiotMeter {
         arsenal = new ArrayList<>();
         return e;
     }
+
+    public static void tryCombatlog() {
+        if (System.currentTimeMillis() - combatlogtime <= 200) {
+            add("+ §3COMBAT LOG", 250);
+        }
+    }
+
     public static void resetComboCheck() {
         if (System.currentTimeMillis() - combolastupdated >= 5000) combo = 0;
     }
@@ -62,16 +68,18 @@ public class RiotMeter {
         things.removeIf(timedMessage -> --timedMessage.ticksRemaining <= 0);
     }
 
+    static int bd = 45/20;
     public static void decayScore() {
-        if (score >= 2000) score = 2000;
-        if (score >= 1500) score -= (double) 100 /20;
-        else if (score >= 1000) score -= (double) 85 /20;
-        else if (score >= 850) score -= (double) 70 /20;
-        else if (score >= 700) score -= (double) 60 /20;
-        else if (score >= 500) score -= (double) 50 /20;
-        else if (score >= 400) score -= (double) 40 /20;
-        else if (score >= 300) score -= (double) 35 /20;
-        else if (score >= 100) score -= (double) 30 /20;
+        if (score >= 3000) score = 3000;
+        if (score >= 2000) score -= (double) bd*4;
+        else if (score >= 1500) score -= (double) bd *8;
+        else if (score >= 1000) score -= (double) bd*6;
+        else if (score >= 850) score -= (double) bd*4;
+        else if (score >= 700) score -= (double) bd*3;
+        else if (score >= 500) score -= (double) bd*2;
+        else if (score >= 400) score -= (double) bd*1.5;
+        else if (score >= 300) score -= (double) bd*1.25;
+        else if (score >= 100) score -= bd;
         else score -= (double) 25/20;
         if (score < 0) score = 0;
     }
@@ -100,10 +108,7 @@ public class RiotMeter {
         int x = s_width - width - 10;
         int y = 10;
 
-        long time = System.currentTimeMillis();
-        float oscillation = (float) (Math.sin(time / 200.0) * 0.5 + 0.5);
-        int redIntensity = Math.min(255, (int) (score / 1500 * 255));
-        int borderColor = (int) (redIntensity * oscillation) << 16 | 0xFF000000;
+        int borderColor = getBorderColor(System.currentTimeMillis());
 
         context.fillGradient(x, y, x + width, y + height, 0xC0101010, 0xD0101010);
         context.fill(x - 1, y - 1, x + width + 1, y, borderColor);
@@ -114,7 +119,7 @@ public class RiotMeter {
 
         int progressBarColor = getColorForProgressBar(rank);
         int progressBarWidth = (int) (90 * getProgress());
-        context.fill(x + 5, y + 19, x + progressBarWidth +5, y + 20, progressBarColor);
+        context.fill(x + 5, y + 19, x + progressBarWidth + 5, y + 20, progressBarColor);
 
         int i = 0;
         for (int j = things.size() - 1; j >= 0; j--) {
@@ -123,6 +128,29 @@ public class RiotMeter {
             i++;
             if (i >= 12) break;
         }
+    }
+
+    private static int getBorderColor(long time) {
+        int borderColor;
+        if (score > 2000) {
+            float oscillation = (float) (Math.sin(time / 100.0) * 0.5 + 0.5);
+            int gold = 0xFFD700;
+            int black = 0x000000;
+            int r = (int) ((1 - oscillation) * ((black >> 16) & 0xFF) + oscillation * ((gold >> 16) & 0xFF));
+            int g = (int) ((1 - oscillation) * ((black >> 8) & 0xFF) + oscillation * ((gold >> 8) & 0xFF));
+            int b = (int) ((1 - oscillation) * (black & 0xFF) + oscillation * (gold & 0xFF));
+            borderColor = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        } else {
+            float oscillation = (float) (Math.sin(time / 200.0) * 0.5 + 0.5);
+            int red = 0xFF0000;
+            int black = 0x000000;
+            float intensity = (float) Math.min(1.0, score / 1500.0); // Scale intensity based on score
+            int r = (int) ((1 - oscillation) * ((black >> 16) & 0xFF) + oscillation * intensity * ((red >> 16) & 0xFF));
+            int g = (int) ((1 - oscillation) * ((black >> 8) & 0xFF) + oscillation * intensity * ((red >> 8) & 0xFF));
+            int b = (int) ((1 - oscillation) * (black & 0xFF) + oscillation * intensity * (red & 0xFF));
+            borderColor = (0xFF << 24) | (r << 16) | (g << 8) | b;
+        }
+        return borderColor;
     }
 
     private int getColorForProgressBar(String rank) {
