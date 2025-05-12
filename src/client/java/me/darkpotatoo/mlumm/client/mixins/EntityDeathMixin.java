@@ -7,16 +7,15 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import java.util.ArrayList;
 
 @Mixin(LivingEntity.class)
 public abstract class EntityDeathMixin {
-
-    @Shadow public abstract void kill();
 
     private static long lastKillTime = 0;
     private static int killStreak = 0;
@@ -26,6 +25,7 @@ public abstract class EntityDeathMixin {
         if (source.getAttacker() instanceof PlayerEntity attacker) {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.player != null && attacker.getName().getString().equals(client.player.getName().getString())) {
+
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastKillTime <= 8000) {
                     killStreak++;
@@ -33,6 +33,8 @@ public abstract class EntityDeathMixin {
                     killStreak = 1;
                 }
                 lastKillTime = currentTime;
+
+                if (RiotMeter.tryArsenal()) RiotMeter.add("+ §bARSENAL", 80);
 
                 String killMessage;
                 switch (killStreak) {
@@ -45,8 +47,9 @@ public abstract class EntityDeathMixin {
                 }
 
                 MlummClient.combatTicks = 0;
+                RiotMeter.combo = 0;
                 RiotTracker.kills++;
-                RiotMeter.add("+ " + killMessage, 120+(killStreak*30));
+                RiotMeter.add("+ " + killMessage, 120 + (killStreak * 30));
             }
         }
     }

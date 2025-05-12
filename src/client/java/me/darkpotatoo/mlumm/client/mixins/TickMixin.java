@@ -66,6 +66,7 @@ public class TickMixin {
 
         // Riot style meter decay
         RiotMeter.decayScore();
+        RiotMeter.resetComboCheck();
 
         // Riot time
         RiotTracker.riotTicks++;

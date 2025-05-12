@@ -4,8 +4,13 @@ import me.darkpotatoo.mlumm.client.Configuration;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 
+import java.time.chrono.MinguoEra;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -14,9 +19,21 @@ import java.util.Stack;
 public class RiotMeter {
 
     private static double score = 0;
+    public static int combo = 0;
+    public static long combolastupdated = 0;
+    private long sounddelay = System.currentTimeMillis();
     private static final Stack<RiotMessage> things = new Stack<>();
-
+    public static ArrayList<ItemStack> arsenal = new ArrayList<>();
     private static final Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+
+    public static boolean tryArsenal() {
+        boolean e = arsenal.size() >= 2;
+        arsenal = new ArrayList<>();
+        return e;
+    }
+    public static void resetComboCheck() {
+        if (System.currentTimeMillis() - combolastupdated >= 5000) combo = 0;
+    }
 
     public String getRank() {
         if (score >= 1500) return "§6§lMLUMTRAKILL";
@@ -59,11 +76,22 @@ public class RiotMeter {
         if (score < 0) score = 0;
     }
 
+    private String previousRank = "DONTSHOWTHEFLIPPINGSCOREMETER";
+    private double previousScore = 0;
+
     public void render(DrawContext context) {
         tick();
 
-        // stuff
+        if (System.currentTimeMillis() - sounddelay > 15000) sounddelay = System.currentTimeMillis(); previousScore = 0;
+
         String rank = getRank();
+        if (!rank.equals(previousRank) && score > previousScore) {
+            previousRank = rank;
+            previousScore = score;
+            if (score >= 1500) MinecraftClient.getInstance().player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 0.8F, 2F);
+            else MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.1F, (float) ( 0.00107142857*score + 0.392857143));
+        }
+
         if (Objects.equals(rank, "DONTSHOWTHEFLIPPINGSCOREMETER") || !config.stylemeter) return;
         MinecraftClient client = MinecraftClient.getInstance();
         int s_width = client.getWindow().getScaledWidth();
@@ -72,13 +100,11 @@ public class RiotMeter {
         int x = s_width - width - 10;
         int y = 10;
 
-        // flash red
         long time = System.currentTimeMillis();
         float oscillation = (float) (Math.sin(time / 200.0) * 0.5 + 0.5);
         int redIntensity = Math.min(255, (int) (score / 1500 * 255));
         int borderColor = (int) (redIntensity * oscillation) << 16 | 0xFF000000;
 
-        // normal stuff
         context.fillGradient(x, y, x + width, y + height, 0xC0101010, 0xD0101010);
         context.fill(x - 1, y - 1, x + width + 1, y, borderColor);
         context.fill(x - 1, y + height, x + width + 1, y + height + 1, borderColor);
@@ -86,20 +112,17 @@ public class RiotMeter {
         context.fill(x + width, y, x + width + 1, y + height, borderColor);
         context.drawText(client.textRenderer, Text.of(rank), x + 5, y + 5, 0xFFFFFF, true);
 
-        // prog bar to next rank
         int progressBarColor = getColorForProgressBar(rank);
-        float progress = getProgress();
-        int progressBarWidth = (int) (95 * progress);
-        context.fill(x + 5, y + 19, x + progressBarWidth, y + 20, progressBarColor);
+        int progressBarWidth = (int) (90 * getProgress());
+        context.fill(x + 5, y + 19, x + progressBarWidth +5, y + 20, progressBarColor);
 
-        // messages like "+THING HERE"
         int i = 0;
-        for (RiotMessage timedMessage : things) {
-            context.drawText(MinecraftClient.getInstance().textRenderer, Text.of(timedMessage.message), x + 5, y + 25 + i * 15, 0xFFFFFF, false);
+        for (int j = things.size() - 1; j >= 0; j--) {
+            RiotMessage timedMessage = things.get(j);
+            context.drawText(client.textRenderer, Text.of(timedMessage.message), x + 5, y + 25 + i * 15, 0xFFFFFF, false);
             i++;
-            if (i>= 12) break;
+            if (i >= 12) break;
         }
-
     }
 
     private int getColorForProgressBar(String rank) {

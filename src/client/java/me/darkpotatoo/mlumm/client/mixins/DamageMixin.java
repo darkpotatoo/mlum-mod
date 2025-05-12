@@ -3,6 +3,7 @@ package me.darkpotatoo.mlumm.client.mixins;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -36,10 +37,13 @@ public abstract class DamageMixin extends LivingEntity {
             RiotTracker.hitsTaken++;
             RiotTracker.damageTaken += amount;
         }
+        RiotMeter.combo = 0;
     }
 
     @Inject(method = "attack", at = @At("HEAD"))
     private void onAttackTwo(Entity target, CallbackInfo ci) {
+        ItemStack item = MinecraftClient.getInstance().player.getMainHandStack();
+        if (!RiotMeter.arsenal.contains(item)) RiotMeter.arsenal.add(item);
         hpbefore = ((LivingEntity) target).getHealth();
         entitybefore = (LivingEntity) target;
         entitygear = ((LivingEntity) target).getEquippedItems();
@@ -49,11 +53,17 @@ public abstract class DamageMixin extends LivingEntity {
     private void onAttack(Entity target, CallbackInfo ci) {
         MlummClient.combatTicks = 100;
         double diff = hpbefore - ((LivingEntity) target).getHealth();
-        if (diff > 8) {
-            RiotMeter.add("+ §cSTRONG HIT", 80);
-        } else {
-            RiotMeter.add(diff * 10);
+
+        if (diff >= 0.1) {
+            RiotMeter.combo += 1;
+            RiotMeter.combolastupdated = System.currentTimeMillis();
+            if (RiotMeter.combo >= 2) {
+                RiotMeter.add("+ COMBO x" + RiotMeter.combo, RiotMeter.combo * 10);
+            }
         }
+
+        if (diff > 8) RiotMeter.add("+ §cSTRONG HIT", 80);
+        else RiotMeter.add(diff * 10);
         if (RiotTracker.isEnabled) {
             RiotTracker.hitsDealt++;
             RiotTracker.damageDealt += diff;
