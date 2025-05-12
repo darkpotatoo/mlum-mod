@@ -13,7 +13,7 @@
   "text.autoconfig.mlumm.option.timer_mail.@Tooltip": "Enable or disable the mail timer",
   "text.autoconfig.mlumm.option.fishing_alert.@Tooltip": "Enable receiving an alert when holding a rod under/at 3 dura",
   "text.autoconfig.mlumm.option.fishing_alert": "Enable Low Durability Rod Alerts",
-  "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a piece of text over the actionbar when you are in a riot session, chocolate session, or in combat",
+  "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a text over the actionbar when you are in a riot session, chocolate session, or in combat",
   "text.autoconfig.mlumm.option.actionbar_status": "Display Fields Over Actionbar",
 
   "text.autoconfig.mlumm.option.contraband_tooltip.@Tooltip": "Color the tooltip red when the hovered item is contraband",
@@ -30,6 +30,10 @@
   "text.autoconfig.mlumm.option.stylemeter.@Tooltip": "Show a style meter on the screen when fighting just like ULTRAKILL's style meter",
   "text.autoconfig.mlumm.option.stylemeter": "Riot Style Meter",
 
+  "text.autoconfig.mlumm.option.toasts.@Tooltip": "Disable timer/notification toasts from showing up and only send chat messages",
+  "text.autoconfig.mlumm.option.toasts": "Notification Toasts",
 
+  "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
+  "text.autoconfig.mlumm.category.default": "Feature Customization",
   "text.autoconfig.mlumm.title": "mlum mod configuration"
 }

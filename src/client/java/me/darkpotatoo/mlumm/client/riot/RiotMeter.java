@@ -144,7 +144,7 @@ public class RiotMeter {
             float oscillation = (float) (Math.sin(time / 200.0) * 0.5 + 0.5);
             int red = 0xFF0000;
             int black = 0x000000;
-            float intensity = (float) Math.min(1.0, score / 1500.0); // Scale intensity based on score
+            float intensity = (float) Math.min(1.0, score / 1500.0);
             int r = (int) ((1 - oscillation) * ((black >> 16) & 0xFF) + oscillation * intensity * ((red >> 16) & 0xFF));
             int g = (int) ((1 - oscillation) * ((black >> 8) & 0xFF) + oscillation * intensity * ((red >> 8) & 0xFF));
             int b = (int) ((1 - oscillation) * (black & 0xFF) + oscillation * intensity * (red & 0xFF));

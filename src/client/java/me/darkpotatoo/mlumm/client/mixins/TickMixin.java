@@ -32,10 +32,11 @@ public class TickMixin {
     @Shadow @Final private ToastManager toastManager;
     private static final Logger LOGGER = LogUtils.getLogger();
     private final Map<Integer, ItemStack> previousInventory = new HashMap<>();
+    Configuration config;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo info) {
-        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+        config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         MinecraftClient client = MinecraftClient.getInstance();
         PlayerEntity player = client.player;
 
