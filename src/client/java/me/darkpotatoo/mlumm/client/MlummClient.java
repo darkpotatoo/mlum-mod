@@ -3,7 +3,6 @@ package me.darkpotatoo.mlumm.client;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.Map;
-import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -41,7 +40,6 @@ public class MlummClient implements ClientModInitializer {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
-        EscapeAnnouncer.register();
         Iteminfo.initItems();
 
         // Iteminfo key
