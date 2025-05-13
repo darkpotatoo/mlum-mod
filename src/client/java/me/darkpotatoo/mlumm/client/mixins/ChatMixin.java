@@ -25,6 +25,7 @@ public abstract class ChatMixin {
         config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         String mss = message.getString();
 
+        // style meter stuff
         if (mss.contains("! You knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();
         else if (mss.contains("[-] ")) RiotMeter.tryCombatlog();
 
@@ -32,8 +33,16 @@ public abstract class ChatMixin {
             int number = Integer.parseInt(mss.substring(12));
             RiotMeter.add("+ §bRICOSHOT §fx" + number, number * 20);
         }
+        if (mss.startsWith("+ CHARGEBACK")) RiotMeter.add("+ §6CHARGEBACK", 160);
 
-        if ((mss.contains("escape") || mss.contains("esc") && MlummClient.escapeTicks <= 0)) {
+        if (mss.startsWith("+ FISTFUL OF DOLLAR x")) {
+            int number = Integer.parseInt(mss.substring(21));
+            RiotMeter.add("  §bDOLLAR §fx" + number, 0);
+            RiotMeter.add("+ §bFISTFUL OF", number * 20);
+        }
+
+        // escape detector stuff
+        if ((mss.contains("escape") || mss.contains("esc")) && MlummClient.escapeTicks <= 0) {
             MlummClient.escapeTicks = 100;
             getSoundEvent(config);
             MinecraftClient client = MinecraftClient.getInstance();

@@ -5,14 +5,22 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
-// TODO: Add more style messages and stuff when the season acc out
+// TODO: Add more style messages and stuff when the season acc out for items
+/*
+Current messages (pt value)
+- Hits give (10*final dmg)
+- 5+ heart dmg hits are + STRONG HITS (105)
++ ARSENAL from killing with multiple weapons (+80)
++ RICOSHOT x(???) for (20*ricochets)
++ COMBO for combo over 2 hits (10*combo hits)
++ FISTKILL (+60)
++ KILL (120 + killstreak*30) (stuff like double kill triple kill exists)
+ */
 
 public class RiotMeter {
 
@@ -24,6 +32,7 @@ public class RiotMeter {
     private static final Stack<RiotMessage> things = new Stack<>();
     public static ArrayList<ItemStack> arsenal = new ArrayList<>();
     private static final Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+
 
     public static boolean tryArsenal() {
         boolean e = arsenal.size() >= 2;
@@ -79,7 +88,7 @@ public class RiotMeter {
         else if (score >= 500) score -= (double) bd*2;
         else if (score >= 400) score -= (double) bd*1.5;
         else if (score >= 300) score -= (double) bd*1.25;
-        else if (score >= 100) score -= bd;
+        else if (score >= 30) score -= bd;
         else score -= (double) 25/20;
         if (score < 0) score = 0;
     }
@@ -93,12 +102,12 @@ public class RiotMeter {
         if (System.currentTimeMillis() - sounddelay > 15000) sounddelay = System.currentTimeMillis(); previousScore = 0;
 
         String rank = getRank();
-        if (!rank.equals(previousRank) && score > previousScore) {
-            previousRank = rank;
-            previousScore = score;
-            if (score >= 1500) MinecraftClient.getInstance().player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 0.8F, 2F);
-            else MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.1F, (float) ( 0.00107142857*score + 0.392857143));
-        }
+//        if (!rank.equals(previousRank) && score > previousScore) {
+//            previousRank = rank;
+//            previousScore = score;
+//            if (score >= 1500) MinecraftClient.getInstance().player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 0.8F, 2F);
+//            else MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.1F, (float) ( 0.00107142857*score + 0.392857143));
+//        }
 
         if (Objects.equals(rank, "DONTSHOWTHEFLIPPINGSCOREMETER") || !config.stylemeter) return;
         MinecraftClient client = MinecraftClient.getInstance();

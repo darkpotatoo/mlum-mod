@@ -62,7 +62,7 @@ public abstract class DamageMixin extends LivingEntity {
             }
         }
 
-        if (diff > 8) RiotMeter.add("+ §cSTRONG HIT", 80);
+        if (diff > 10) RiotMeter.add("+ §cSTRONG HIT", 105);
         else RiotMeter.add(diff * 10);
         if (RiotTracker.isEnabled) {
             RiotTracker.hitsDealt++;
