@@ -32,18 +32,22 @@ public abstract class EntityDeathMixin {
                 } else {
                     killStreak = 1;
                 }
+                if (currentTime - lastKillTime <= 15000 && currentTime-lastKillTime >= 2000 && killStreak >= 3) RiotMeter.add("+ §aSPAWNKILLED", 0);
                 lastKillTime = currentTime;
 
                 if (RiotMeter.tryArsenal()) RiotMeter.add("+ §bARSENAL", 80);
-                if (MinecraftClient.getInstance().player.getMainHandStack().getName().getString().contains("Air")) RiotMeter.add("+ §aFISTKILL", 60);
+                if (client.player.getMainHandStack().getName().getString().contains("Air")) RiotMeter.add("+ §aFISTKILL", 60);
 
                 String killMessage;
                 switch (killStreak) {
                     case 1 -> killMessage = "KILL";
                     case 2 -> killMessage = "§aDOUBLE KILL";
                     case 3 -> killMessage = "§aTRIPLE KILL";
-                    case 4 -> killMessage = "§eQUADRUPLE KILL";
+                    case 4 -> killMessage = "§eQUADRA KILL";
                     case 5 -> killMessage = "§ePENTA KILL";
+                    case 6 -> killMessage = "§eSEXTA KILL";
+                    case 7 -> killMessage = "§eSEPTA KILL";
+                    case 8 -> killMessage = "§eOCTA KILL";
                     default -> killMessage = "§6MULTI KILL (" + killStreak + ")";
                 }
 

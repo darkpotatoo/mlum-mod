@@ -20,6 +20,8 @@ Current messages (pt value)
 + COMBO for combo over 2 hits (10*combo hits)
 + FISTKILL (+60)
 + KILL (120 + killstreak*30) (stuff like double kill triple kill exists)
++ STYLISH (150)
++ SPAWNKILLED (3+ killstreak under 15s gap) (just cosmetic NO points.)
  */
 
 public class RiotMeter {

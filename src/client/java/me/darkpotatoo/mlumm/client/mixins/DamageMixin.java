@@ -45,6 +45,7 @@ public abstract class DamageMixin extends LivingEntity {
         ItemStack item = MinecraftClient.getInstance().player.getMainHandStack();
         if (!RiotMeter.arsenal.contains(item)) RiotMeter.arsenal.add(item);
         hpbefore = ((LivingEntity) target).getHealth();
+        if (hpbefore < 1 && RiotMeter.combo == 0) RiotMeter.add("+ §7CLEANED", 20);
         entitybefore = (LivingEntity) target;
         entitygear = ((LivingEntity) target).getEquippedItems();
     }

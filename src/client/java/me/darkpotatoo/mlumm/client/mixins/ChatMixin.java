@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 @Mixin(ChatHud.class)
 public abstract class ChatMixin {
 
@@ -40,6 +42,8 @@ public abstract class ChatMixin {
             RiotMeter.add("  §bDOLLAR §fx" + number, 0);
             RiotMeter.add("+ §bFISTFUL OF", number * 20);
         }
+
+        if (Objects.equals(mss, "Stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
 
         // escape detector stuff
         if ((mss.contains("escape") || mss.contains("esc")) && MlummClient.escapeTicks <= 0) {
