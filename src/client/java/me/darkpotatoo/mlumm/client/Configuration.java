@@ -43,6 +43,8 @@ public class Configuration implements ConfigData {
     public boolean custom_cape = true;
     @ConfigEntry.Gui.Tooltip
     public boolean stylemeter = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean itemcosts = true;
 
 }
 

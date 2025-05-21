@@ -33,6 +33,9 @@
   "text.autoconfig.mlumm.option.toasts.@Tooltip": "Disable timer/notification toasts from showing up and only send chat messages",
   "text.autoconfig.mlumm.option.toasts": "Notification Toasts",
 
+  "text.autoconfig.mlumm.option.itemcosts.@Tooltip": "Replace the typical \"• 1x Item Here\" with a check or an X depending on if you have the item",
+  "text.autoconfig.mlumm.option.itemcosts": "Crafting Checklist Materials",
+
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
   "text.autoconfig.mlumm.category.default": "Feature Customization",
   "text.autoconfig.mlumm.title": "mlum mod configuration"

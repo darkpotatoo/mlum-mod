@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
 
+import static me.darkpotatoo.mlumm.client.iteminfo.ItemCosts.updateTooltip;
+
 public class MlummClient implements ClientModInitializer {
 
     public static final String MODID = "mlumm";
@@ -38,7 +40,6 @@ public class MlummClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
-        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
         Iteminfo.initItems();
 
@@ -63,15 +64,15 @@ public class MlummClient implements ClientModInitializer {
             RiotTracker.register(dispatcher);
         });
 
-        // Contraband tooltip getter
+        // tooltip getter
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-            tooltipIsContraband = (checkContrabandItem(lines) && !lines.isEmpty());
+            tooltipIsContraband = (checkItemLore(lines) && !lines.isEmpty());
+            if (config.itemcosts) updateTooltip(lines);
+            //if (lines.getFirst().getString().contains("Requirements:")) ItemCosts.updateTooltip(stack, lines);
         });
     }
 
-    // ----- Cape stuff ----- //
-
-    private boolean checkContrabandItem(List <Text> lore) {
+    private boolean checkItemLore(List <Text> lore) {
         Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         for (Text text : lore) {
             if (text.getString().contains("CONTRABAND") && config.contraband_tooltip) return true;

@@ -22,6 +22,7 @@ Current messages (pt value)
 + KILL (120 + killstreak*30) (stuff like double kill triple kill exists)
 + STYLISH (150)
 + SPAWNKILLED (3+ killstreak under 15s gap) (just cosmetic NO points.)
++ CHARGEBACK (160)
  */
 
 public class RiotMeter {

@@ -1,5 +1,6 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
+import me.darkpotatoo.mlumm.client.iteminfo.ItemCosts;
 import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -14,7 +15,8 @@ public class InGameHudMixin {
 
     private final RiotMeter hud = new RiotMeter();
     @Inject(method = "render", at = @At("TAIL"))
-    private void renderRiotMeterHud(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    private void renderRiotMeterHudAndItemCost(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
         hud.render(context);
+
     }
 }
