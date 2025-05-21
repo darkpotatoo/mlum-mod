@@ -2,6 +2,7 @@ package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
+import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.misc.Map;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
@@ -40,8 +41,10 @@ public class MlummClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
+        config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
         Iteminfo.initItems();
+        EscapeAnnouncer.register();
 
         // Iteminfo key
         getItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -66,16 +69,16 @@ public class MlummClient implements ClientModInitializer {
 
         // tooltip getter
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-            tooltipIsContraband = (checkItemLore(lines) && !lines.isEmpty());
+            if (config.contraband_tooltip) checkItemLore(lines);
             if (config.itemcosts) updateTooltip(lines);
             //if (lines.getFirst().getString().contains("Requirements:")) ItemCosts.updateTooltip(stack, lines);
         });
     }
 
     private boolean checkItemLore(List <Text> lore) {
-        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+        //if (lore.isEmpty()) return false;
         for (Text text : lore) {
-            if (text.getString().contains("CONTRABAND") && config.contraband_tooltip) return true;
+            if (text.getString().contains("CONTRABAND")) return true;
         }
         return false;
     }

@@ -24,8 +24,10 @@
   "text.autoconfig.mlumm.option.custom_cape.@Tooltip": "Enable showing the selected custom mlum cape on your player instead of the vanilla cape",
   "text.autoconfig.mlumm.option.custom_cape": "Enable Custom Mlum Capes",
 
-  "text.autoconfig.mlumm.option.escape_sound.@Tooltip": "Sound to play when \"esc\" or \"escape\" appear in chat",
+  "text.autoconfig.mlumm.option.escape_sound.@Tooltip": "Sound to play when \"esc\" or \"escape\" appear in chat (requires notifications on)",
   "text.autoconfig.mlumm.option.escape_sound": "Escape Announcer Sound",
+  "text.autoconfig.mlumm.option.escsounds.@Tooltip": "Notify whenever \"esc\" or \"escape\" appear in chat",
+  "text.autoconfig.mlumm.option.escsounds": "Escape Announcer Notifications",
 
   "text.autoconfig.mlumm.option.stylemeter.@Tooltip": "Show a style meter on the screen when fighting just like ULTRAKILL's style meter",
   "text.autoconfig.mlumm.option.stylemeter": "Riot Style Meter",
@@ -33,8 +35,9 @@
   "text.autoconfig.mlumm.option.toasts.@Tooltip": "Disable timer/notification toasts from showing up and only send chat messages",
   "text.autoconfig.mlumm.option.toasts": "Notification Toasts",
 
-  "text.autoconfig.mlumm.option.itemcosts.@Tooltip": "Replace the typical \"• 1x Item Here\" with a check or an X depending on if you have the item",
+  "text.autoconfig.mlumm.option.itemcosts.@Tooltip": "Replace the typical \"• 1x Item Here\" with a check or an X depending on if you have the material in crafting GUIs",
   "text.autoconfig.mlumm.option.itemcosts": "Crafting Checklist Materials",
+
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
   "text.autoconfig.mlumm.category.default": "Feature Customization",

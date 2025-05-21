@@ -21,50 +21,31 @@ import java.util.Objects;
 public abstract class ChatMixin {
 
     Configuration config;
+    private static SoundEvent sound;
+    private static boolean dontplayts = false;
 
     @Inject(method = "addMessage", at = @At("HEAD"))
     private void onChatMessage(Text message, CallbackInfo ci) {
         config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
-        String mss = message.getString();
+        String mss = message.getString().toLowerCase(); // Convert to lowercase
 
         // style meter stuff
-        if (mss.contains("! You knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();
+        if (mss.contains("! you knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();
         else if (mss.contains("[-] ")) RiotMeter.tryCombatlog();
 
-        if (mss.startsWith("+ RICOSHOT x")) {
+        if (mss.startsWith("+ ricoshot x")) {
             int number = Integer.parseInt(mss.substring(12));
             RiotMeter.add("+ §bRICOSHOT §fx" + number, number * 20);
         }
-        if (mss.startsWith("+ CHARGEBACK")) RiotMeter.add("+ §6CHARGEBACK", 160);
+        if (mss.startsWith("+ chargeback")) RiotMeter.add("+ §6CHARGEBACK", 160);
 
-        if (mss.startsWith("+ FISTFUL OF DOLLAR x")) {
+        if (mss.startsWith("+ fistful of dollar x")) {
             int number = Integer.parseInt(mss.substring(21));
             RiotMeter.add("  §bDOLLAR §fx" + number, 0);
             RiotMeter.add("+ §bFISTFUL OF", number * 20);
         }
 
-        if (Objects.equals(mss, "Stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
-
-        // escape detector stuff
-        if ((mss.contains("escape") || mss.contains("esc")) && MlummClient.escapeTicks <= 0) {
-            MlummClient.escapeTicks = 100;
-            getSoundEvent(config);
-            MinecraftClient client = MinecraftClient.getInstance();
-            client.player.playSound(sound, 10, 1);
-            client.player.sendMessage(Text.of("§6» §rEscape mentioned in chat!"), false);
-        }
-
-    }
-
-    private static SoundEvent sound;
-    private static void getSoundEvent(Configuration config) {
-        if (config.escape_sound == EscapeSounds.AMETHYST) { sound = SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK; }
-        if (config.escape_sound == EscapeSounds.ANVIL) { sound = SoundEvents.BLOCK_ANVIL_LAND; }
-        if (config.escape_sound == EscapeSounds.COPPER) { sound = SoundEvents.BLOCK_COPPER_BREAK; }
-        if (config.escape_sound == EscapeSounds.TRAPDOOR) { sound = SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN; }
-        if (config.escape_sound == EscapeSounds.EXPLODE) { sound = SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE; }
-        if (config.escape_sound == EscapeSounds.ILLUSIONER) { sound = SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE; }
-        if (config.escape_sound == EscapeSounds.SILENT) { sound = SoundEvents.ITEM_GOAT_HORN_PLAY; }
+        if (mss.equals("stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
     }
 
 }

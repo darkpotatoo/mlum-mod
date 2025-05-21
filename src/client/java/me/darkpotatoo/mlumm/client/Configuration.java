@@ -45,6 +45,8 @@ public class Configuration implements ConfigData {
     public boolean stylemeter = true;
     @ConfigEntry.Gui.Tooltip
     public boolean itemcosts = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean escsounds = true;
 
 }
 
