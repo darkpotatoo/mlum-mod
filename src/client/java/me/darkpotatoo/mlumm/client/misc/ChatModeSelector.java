@@ -60,6 +60,7 @@ public class ChatModeSelector {
     }
 
     public static void onClick(double mouseX, double mouseY) {
+        if (!config.chatmode) return;
         MinecraftClient client = MinecraftClient.getInstance();
         int s_height = client.getWindow().getScaledHeight();
 
