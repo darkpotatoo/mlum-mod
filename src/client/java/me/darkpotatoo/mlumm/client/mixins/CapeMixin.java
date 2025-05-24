@@ -21,16 +21,14 @@ public class CapeMixin {
     @Inject(method = "fetchSkinTextures*", at = @At("RETURN"), cancellable = true)
     private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<SkinTextures>> info) {
         if (!config.custom_cape) return;
-        CompletableFuture<SkinTextures> modifiedTextures = info.getReturnValue().thenApplyAsync(originalTextures -> {
-            return new SkinTextures(
-                    originalTextures.texture(),
-                    originalTextures.textureUrl(),
-                    CapeTextures.getCapeTexture(),
-                    originalTextures.elytraTexture(),
-                    originalTextures.model(),
-                    originalTextures.secure()
-            );
-        });
+        CompletableFuture<SkinTextures> modifiedTextures = info.getReturnValue().thenApplyAsync(originalTextures -> new SkinTextures(
+                originalTextures.texture(),
+                originalTextures.textureUrl(),
+                CapeTextures.getCapeTexture(),
+                originalTextures.elytraTexture(),
+                originalTextures.model(),
+                originalTextures.secure()
+        ));
 
         info.setReturnValue(modifiedTextures);
     }

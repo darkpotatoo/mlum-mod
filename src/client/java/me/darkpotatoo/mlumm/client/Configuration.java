@@ -47,6 +47,8 @@ public class Configuration implements ConfigData {
     public boolean itemcosts = true;
     @ConfigEntry.Gui.Tooltip
     public boolean escsounds = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean chatmode = true;
 
 }
 

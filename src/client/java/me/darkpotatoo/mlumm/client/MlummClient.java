@@ -69,7 +69,7 @@ public class MlummClient implements ClientModInitializer {
 
         // tooltip getter
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-            if (config.contraband_tooltip) checkItemLore(lines);
+            if (config.contraband_tooltip) tooltipIsContraband = checkItemLore(lines);
             if (config.itemcosts) updateTooltip(lines);
             //if (lines.getFirst().getString().contains("Requirements:")) ItemCosts.updateTooltip(stack, lines);
         });

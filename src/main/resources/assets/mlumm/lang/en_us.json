@@ -38,6 +38,9 @@
   "text.autoconfig.mlumm.option.itemcosts.@Tooltip": "Replace the typical \"• 1x Item Here\" with a check or an X depending on if you have the material in crafting GUIs",
   "text.autoconfig.mlumm.option.itemcosts": "Crafting Checklist Materials",
 
+  "text.autoconfig.mlumm.option.chatmode.@Tooltip": "Show three buttons (all-chat, team-chat, gang-chat) above chat input box to select a message destination",
+  "text.autoconfig.mlumm.option.chatmode": "Chat Mode Selector",
+
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
   "text.autoconfig.mlumm.category.default": "Feature Customization",
