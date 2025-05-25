@@ -22,7 +22,6 @@ public class ChatModeSelector {
             case "/ggch" -> 0xC0008000;
             case "/teamchat" -> 0xC0FF0000;
             case "/sch" -> 0xC0FFAA00;
-            case "/rch" -> 0xC055FFFF;
             default -> 0xC0101010;
         };
         int textColor = 0xFFFFFF;
@@ -51,34 +50,21 @@ public class ChatModeSelector {
         int staffX = teamX + teamWidth + 4;
         context.fill(staffX, y, staffX + staffWidth, y + 14, selectedMode.equals("/sch") ? highlight : bgc);
         context.drawText(client.textRenderer, "STAFF", staffX + 4, y + 3, textColor, false);
-
-        // REC
-        int recWidth = client.textRenderer.getWidth("REC") + 8;
-        int recX = staffX + staffWidth + 4;
-        context.fill(recX, y, recX + recWidth, y + 14, selectedMode.equals("/rch") ? highlight : bgc);
-        context.drawText(client.textRenderer, "REC", recX + 4, y + 3, textColor, false);
     }
 
     public static void onClick(double mouseX, double mouseY) {
         if (!config.chatmode) return;
         MinecraftClient client = MinecraftClient.getInstance();
         int s_height = client.getWindow().getScaledHeight();
-
         int allWidth = client.textRenderer.getWidth("ALL") + 8;
         int allX = 4;
         int allY = s_height - 30;
-
         int gangWidth = client.textRenderer.getWidth("GANG") + 8;
         int gangX = allX + allWidth + 4;
-
         int teamWidth = client.textRenderer.getWidth("TEAM") + 8;
         int teamX = gangX + gangWidth + 4;
-
         int staffWidth = client.textRenderer.getWidth("STAFF") + 8;
         int staffX = teamX + teamWidth + 4;
-
-        int recWidth = client.textRenderer.getWidth("REC") + 8;
-        int recX = staffX + staffWidth + 4;
 
         if (mouseX >= allX && mouseX <= allX + allWidth && mouseY >= allY && mouseY <= allY + 14) {
             selectedMode = "/ach";
@@ -97,11 +83,6 @@ public class ChatModeSelector {
 
         if (mouseX >= staffX && mouseX <= staffX + staffWidth && mouseY >= allY && mouseY <= allY + 14) {
             selectedMode = "/sch";
-            updateChatInput(selectedMode);
-        }
-
-        if (mouseX >= recX && mouseX <= recX + recWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/rch";
             updateChatInput(selectedMode);
         }
     }

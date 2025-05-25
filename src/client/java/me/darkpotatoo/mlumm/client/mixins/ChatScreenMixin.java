@@ -31,9 +31,7 @@ public abstract class ChatScreenMixin {
                 .replace("/teamcha", "")
                 .replace("/ac", "")
                 .replace("/sch", "")
-                .replace("/sc", "")
-                .replace("/rch", "")
-                .replace("/rc", "");
+                .replace("/sc", "");
         chatField.setText(ChatModeSelector.selectedMode +  ChatModeSelector.typed);
     }
 
