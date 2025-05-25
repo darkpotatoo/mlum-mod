@@ -1,11 +1,14 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
+import me.darkpotatoo.mlumm.client.bm.BMScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,4 +32,16 @@ public abstract class HandledScreenMixin {
             Iteminfo.attemptItemInfo(currentItem);
         }
     }
+
+    @Inject(method = "init", at = @At("TAIL"))
+    private void onInventoryOpen(CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player != null && client.currentScreen != null) {
+            Text title = client.currentScreen.getTitle();
+            if (title.getString().contains("Black Market")) {
+                client.setScreen(new BMScreen());
+            }
+        }
+    }
+
 }
