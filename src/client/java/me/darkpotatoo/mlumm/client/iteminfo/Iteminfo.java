@@ -30,7 +30,7 @@ public class Iteminfo {
     public static void attemptItemInfo(ItemStack item) {
         if (item != null) { selectedItem = item; }
         if (item == null && selectedItem != null) {
-            displayIteminfoFromGUI(selectedItem);
+            if (MinecraftClient.getInstance().currentScreen != null) displayIteminfoFromGUI(selectedItem);
             selectedItem = null;
         }
     }
