@@ -10,6 +10,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,10 +19,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class DamageMixin extends LivingEntity {
 
+    @Unique
     private float hpbefore = 0;
+    @Unique
     private LivingEntity entitybefore;
+    @Unique
     private Iterable<ItemStack> entitygear;
+    @Unique
     private int rolebyhelmet; // 0 = ld det or ld trainee, 1 = ld guard
+    @Unique
     private int rolebychestplate; // 0 = det, 1 = guard/ld trainee 2 = trainee
 
     protected DamageMixin() {

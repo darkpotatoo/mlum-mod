@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,9 +30,9 @@ import static me.darkpotatoo.mlumm.client.misc.UtilMethods.sendCustomToast;
 @Mixin(MinecraftClient.class)
 public class TickMixin {
 
-    @Shadow @Final private ToastManager toastManager;
-    private static final Logger LOGGER = LogUtils.getLogger();
+    @Unique
     private final Map<Integer, ItemStack> previousInventory = new HashMap<>();
+    @Unique
     Configuration config;
 
     @Inject(method = "tick", at = @At("HEAD"))

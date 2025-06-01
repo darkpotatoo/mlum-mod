@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 public abstract class ScreenMixin {
 
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     @Shadow public abstract Text getTitle();
 
     @Inject(method = "onDisplayed", at = @At(value = "HEAD"))

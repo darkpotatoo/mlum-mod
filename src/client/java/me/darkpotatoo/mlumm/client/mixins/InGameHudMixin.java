@@ -9,6 +9,7 @@ import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
 
     @Shadow @Final private ChatHud chatHud;
+    @Unique
     private final RiotMeter hud = new RiotMeter();
+    @Unique
     private final ChatModeSelector cms = new ChatModeSelector();
     @Inject(method = "render", at = @At("TAIL"))
     private void renderRiotMeterHudAndItemCost(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {

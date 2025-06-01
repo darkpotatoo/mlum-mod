@@ -11,23 +11,22 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import java.util.Objects;
 
 @Mixin(ChatHud.class)
 public abstract class ChatMixin {
 
+    @Unique
     Configuration config;
-    private static SoundEvent sound;
-    private static boolean dontplayts = false;
 
     @Inject(method = "addMessage", at = @At("HEAD"))
     private void onChatMessage(Text message, CallbackInfo ci) {
         config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
-        String mss = message.getString().toLowerCase(); // Convert to lowercase
+        String mss = message.getString().toLowerCase();
 
         // style meter stuff
         if (mss.contains("! you knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();
@@ -38,6 +37,8 @@ public abstract class ChatMixin {
             RiotMeter.add("+ §bRICOSHOT §fx" + number, number * 20);
         }
         if (mss.startsWith("+ chargeback")) RiotMeter.add("+ §6CHARGEBACK", 160);
+        if (mss.startsWith("! you were knocked out")) RiotMeter.add("- §4DEATH", -5000);
+        if (mss.startsWith("! you claimed ")) RiotMeter.add("+ §6BOUNTY HUNTED", 300);
 
         if (mss.startsWith("+ fistful of dollar x")) {
             int number = Integer.parseInt(mss.substring(21));

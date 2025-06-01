@@ -9,6 +9,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,8 +18,12 @@ import java.util.ArrayList;
 @Mixin(LivingEntity.class)
 public abstract class EntityDeathMixin {
 
+    @Unique
     private static long lastKillTime = 0;
+    @Unique
     private static int killStreak = 0;
+    @Unique
+    private static Iterable<ItemStack> deadgear;
 
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void onEntityDeath(DamageSource source, CallbackInfo ci) {
@@ -56,6 +61,8 @@ public abstract class EntityDeathMixin {
                 RiotTracker.kills++;
                 RiotMeter.add("+ " + killMessage, 120 + (killStreak * 30));
             }
+            deadgear = ((LivingEntity) source.getAttacker()).getEquippedItems();
+            // TODO: a
         }
     }
 }
