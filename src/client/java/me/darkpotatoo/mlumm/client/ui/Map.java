@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.misc;
+package me.darkpotatoo.mlumm.client.ui;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;

@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
-import me.darkpotatoo.mlumm.client.misc.ChatModeSelector;
+import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
 import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.ChatHud;

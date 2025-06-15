@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
-import me.darkpotatoo.mlumm.client.misc.ChatModeSelector;
+import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,2 +1,4 @@
 - Add style meter bonuses for gear your victim is wearing on kill
 - Add kill tracker for riot tracker
+
+Make it for all mc versions (just change build config so you can jar it to other versions)

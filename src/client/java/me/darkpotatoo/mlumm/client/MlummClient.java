@@ -3,7 +3,7 @@ package me.darkpotatoo.mlumm.client;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
-import me.darkpotatoo.mlumm.client.misc.Map;
+import me.darkpotatoo.mlumm.client.ui.Map;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
 import me.darkpotatoo.mlumm.client.riot.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;

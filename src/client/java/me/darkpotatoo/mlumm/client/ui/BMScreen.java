@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.bm;
+package me.darkpotatoo.mlumm.client.ui;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;

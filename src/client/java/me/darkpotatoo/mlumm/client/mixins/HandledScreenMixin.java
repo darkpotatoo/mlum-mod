@@ -1,6 +1,6 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
-import me.darkpotatoo.mlumm.client.bm.BMScreen;
+import me.darkpotatoo.mlumm.client.ui.BMScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
