@@ -2,12 +2,11 @@
   "schemaVersion": 1,
   "id": "mlumm",
   "version": "${version}",
-  "name": "mlumm s16",
-  "description": "Mod with assorted quality of life and utility features for play.mlum.io",
+  "name": "mlum mod (pre-release)",
+  "description": "Utility tools, stat trackers, quality of life features, and improvements for play.mlum.io",
   "authors": [
     "darkpotatoo",
-    "hotpocket",
-    "BisBanan"
+    "hotpocket184"
   ],
   "contact": {
     "sources": "https://github.com/darkpotatoo/mlum-mod"
@@ -36,7 +35,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}",
+    "minecraft": ">=1.21",
     "modmenu": "*"
   },
   "custom": {
