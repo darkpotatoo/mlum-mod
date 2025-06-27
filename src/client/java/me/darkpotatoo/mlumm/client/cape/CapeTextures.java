@@ -10,12 +10,12 @@ public class CapeTextures {
 
     public static Identifier getCapeTexture() {
         return switch(config.cape_texture) {
-            case MLUM_S16 -> Identifier.of("mlumm", "textures/cape_s16.png"); //
-            case MLUM_S15 -> Identifier.of("mlumm", "textures/cape_s15.png"); //
-            case MLUM_S14 -> Identifier.of("mlumm", "textures/cape_s14.png"); //
-            case MLUM_S13 -> Identifier.of("mlumm", "textures/cape_s13.png"); //
-            case MLUM_S12 -> Identifier.of("mlumm", "textures/cape_s12.png"); //
-            case MLUM_S11 -> Identifier.of("mlumm", "textures/cape_s11.png"); //
+            case MLUM_S16 -> Identifier.of("mlumm", "textures/s16.png"); //
+            case MLUM_S15 -> Identifier.of("mlumm", "textures/s15.png"); //
+            case MLUM_S14 -> Identifier.of("mlumm", "textures/s14.png"); //
+            case MLUM_S13 -> Identifier.of("mlumm", "textures/s13.png"); //
+            case MLUM_S12 -> Identifier.of("mlumm", "textures/s12.png"); //
+            case MLUM_S11 -> Identifier.of("mlumm", "textures/s11.png"); //
             case MLUM_GENERIC -> Identifier.of("mlumm", "textures/cape_generic.png");
             case GUARD_MAIN -> Identifier.of("mlumm", "textures/cape_guard.png"); //
             case DET_MAIN -> Identifier.of("mlumm", "textures/cape_interro.png"); //

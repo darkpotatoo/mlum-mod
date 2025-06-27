@@ -1,13 +1,10 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
-import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.misc.EscapeSounds;
 import me.darkpotatoo.mlumm.client.riot.RiotMeter;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +12,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.Objects;
 
 @Mixin(ChatHud.class)
 public abstract class ChatMixin {
@@ -27,6 +23,13 @@ public abstract class ChatMixin {
     private void onChatMessage(Text message, CallbackInfo ci) {
         config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         String mss = message.getString().toLowerCase();
+
+        if (mss.contains("a guard slot has opened")) {
+            if (config.rolenotifs) {
+                MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_BELL_USE, 1.0f, 1.0f);
+                MinecraftClient.getInstance().inGameHud.setTitle(Text.of("§9§lGuard Slot!"));
+            }
+        }
 
         // style meter stuff
         if (mss.contains("! you knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();

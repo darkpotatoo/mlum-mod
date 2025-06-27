@@ -19,7 +19,7 @@
   "text.autoconfig.mlumm.option.contraband_tooltip.@Tooltip": "Color the tooltip red when the hovered item is contraband",
   "text.autoconfig.mlumm.option.contraband_tooltip": "Enable Red Contraband Item Tooltip",
 
-  "text.autoconfig.mlumm.option.cape_texture.@Tooltip": "Custom cape variation to display on your player",
+  "text.autoconfig.mlumm.option.cape_texture.@Tooltip": "Custom cape variation to display on your player (REQUIRES REJOIN)",
   "text.autoconfig.mlumm.option.cape_texture": "Custom Cape Variant",
   "text.autoconfig.mlumm.option.custom_cape.@Tooltip": "Enable showing the selected custom mlum cape on your player instead of the vanilla cape",
   "text.autoconfig.mlumm.option.custom_cape": "Enable Custom Mlum Capes",
@@ -38,8 +38,11 @@
   "text.autoconfig.mlumm.option.itemcosts.@Tooltip": "Replace the typical \"• 1x Item Here\" with a check or an X depending on if you have the material in crafting GUIs",
   "text.autoconfig.mlumm.option.itemcosts": "Crafting Checklist Materials",
 
-  "text.autoconfig.mlumm.option.chatmode.@Tooltip": "Show three buttons (all-chat, team-chat, gang-chat) above chat input box to select a message destination",
+  "text.autoconfig.mlumm.option.chatmode.@Tooltip": "Show four buttons (all-chat, team-chat, gang-chat, mod-chat) above chat input box to select a message destination",
   "text.autoconfig.mlumm.option.chatmode": "Chat Mode Selector",
+
+  "text.autoconfig.mlumm.option.rolenotifs.@Tooltip": "VERY loudly notify you when a guard slot opens",
+  "text.autoconfig.mlumm.option.rolenotifs": "Guard Slot Notifications",
 
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",

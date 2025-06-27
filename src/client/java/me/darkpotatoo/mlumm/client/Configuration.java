@@ -1,10 +1,11 @@
 package me.darkpotatoo.mlumm.client;
 
 import me.darkpotatoo.mlumm.client.cape.CapeTexture;
-import me.darkpotatoo.mlumm.client.misc.EscapeSounds;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 
 @Config(name = "mlumm")
 public class Configuration implements ConfigData {
@@ -36,7 +37,7 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean actionbar_status = true;
     @ConfigEntry.Gui.Tooltip
-    public EscapeSounds escape_sound = EscapeSounds.AMETHYST;
+    public SoundEvent escape_sound = SoundEvents.BLOCK_NOTE_BLOCK_BELL.value();
     @ConfigEntry.Gui.Tooltip
     public CapeTexture cape_texture = CapeTexture.MLUM_S16;
     @ConfigEntry.Gui.Tooltip
@@ -49,6 +50,8 @@ public class Configuration implements ConfigData {
     public boolean escsounds = true;
     @ConfigEntry.Gui.Tooltip
     public boolean chatmode = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean rolenotifs = true;
 
 }
 
