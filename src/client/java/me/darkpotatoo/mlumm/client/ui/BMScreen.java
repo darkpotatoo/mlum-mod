@@ -95,8 +95,10 @@ public class BMScreen extends Screen {
         if (loreLines.size() >= 3) {
             time = loreLines.get(loreLines.size() - 3).getString();
         }
-        String cb = MinecraftClient.getInstance().player.currentScreenHandler.getSlot(15).getStack().getName().getString().replace("Top Bid: ", "").replace(" chocolate", "");
-        String bidder = MinecraftClient.getInstance().player.currentScreenHandler.getSlot(22).getStack().getName().getString().replace("Top Bidder: ", "");
+        ItemStack b = MinecraftClient.getInstance().player.currentScreenHandler.getSlot(22).getStack();
+        List<Text> loreLines2 = b.getTooltip(Item.TooltipContext.DEFAULT, MinecraftClient.getInstance().player, TooltipType.ADVANCED);
+        String bidder = loreLines2.get(2).getString().replace("Bid Holder: ", "");
+        String cb = loreLines2.get(1).getString().replace("Top Bid: ", "").replace(" chocolate", "");
 
         int textY = screenY + 10;
         context.drawText(this.textRenderer, "§6CURRENT BID:", rightSectionX + 10, textY, 0xFFFFFF, false);
