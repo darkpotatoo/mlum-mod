@@ -12,7 +12,6 @@ public class ChatModeSelector {
     public static String typed = "";
 
     public void render(DrawContext context) {
-        if (!config.chatmode) return;
 
         MinecraftClient client = MinecraftClient.getInstance();
         int s_height = client.getWindow().getScaledHeight();
@@ -30,25 +29,25 @@ public class ChatModeSelector {
         int allWidth = client.textRenderer.getWidth("ALL") + 8;
         int x = 4;
         int y = s_height - 30;
-        context.fill(x, y, x + allWidth, y + 14, selectedMode.equals("/ach") || selectedMode.isEmpty() ? highlight : bgc);
+        context.fill(x, y, x + allWidth, y + 14, selectedMode.equals("/ach ") || selectedMode.isEmpty() ? highlight : bgc);
         context.drawText(client.textRenderer, "ALL", x + 4, y + 3, textColor, false);
 
         // GANG
         int gangWidth = client.textRenderer.getWidth("GANG") + 8;
         int gangX = x + allWidth + 4;
-        context.fill(gangX, y, gangX + gangWidth, y + 14, selectedMode.equals("/ggch") ? highlight : bgc);
+        context.fill(gangX, y, gangX + gangWidth, y + 14, selectedMode.equals("/ggch ") ? highlight : bgc);
         context.drawText(client.textRenderer, "GANG", gangX + 4, y + 3, textColor, false);
 
         // TEAM
         int teamWidth = client.textRenderer.getWidth("TEAM") + 8;
         int teamX = gangX + gangWidth + 4;
-        context.fill(teamX, y, teamX + teamWidth, y + 14, selectedMode.equals("/teamchat") ? highlight : bgc);
+        context.fill(teamX, y, teamX + teamWidth, y + 14, selectedMode.equals("/teamchat ") ? highlight : bgc);
         context.drawText(client.textRenderer, "TEAM", teamX + 4, y + 3, textColor, false);
 
         // STAFF
         int staffWidth = client.textRenderer.getWidth("STAFF") + 8;
         int staffX = teamX + teamWidth + 4;
-        context.fill(staffX, y, staffX + staffWidth, y + 14, selectedMode.equals("/sch") ? highlight : bgc);
+        context.fill(staffX, y, staffX + staffWidth, y + 14, selectedMode.equals("/sch ") ? highlight : bgc);
         context.drawText(client.textRenderer, "STAFF", staffX + 4, y + 3, textColor, false);
     }
 
@@ -67,22 +66,22 @@ public class ChatModeSelector {
         int staffX = teamX + teamWidth + 4;
 
         if (mouseX >= allX && mouseX <= allX + allWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/ach";
+            selectedMode = "/ach ";
             updateChatInput(selectedMode);
         }
 
         if (mouseX >= gangX && mouseX <= gangX + gangWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/ggch";
+            selectedMode = "/ggch ";
             updateChatInput(selectedMode);
         }
 
         if (mouseX >= teamX && mouseX <= teamX + teamWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/teamchat";
+            selectedMode = "/teamchat ";
             updateChatInput(selectedMode);
         }
 
         if (mouseX >= staffX && mouseX <= staffX + staffWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/sch";
+            selectedMode = "/sch ";
             updateChatInput(selectedMode);
         }
     }

@@ -52,6 +52,12 @@ public class Configuration implements ConfigData {
     public boolean chatmode = true;
     @ConfigEntry.Gui.Tooltip
     public boolean rolenotifs = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean progtrack = true;
+    @ConfigEntry.BoundedDiscrete(min = -100, max = 100)
+    @ConfigEntry.Gui.Tooltip
+    public int progtrackhigh = 0;
+
 
 }
 

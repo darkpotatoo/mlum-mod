@@ -1,8 +1,8 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.riot.RiotMeter;
-import me.darkpotatoo.mlumm.client.riot.RiotTracker;
+import me.darkpotatoo.mlumm.client.ui.RiotMeter;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import java.util.ArrayList;
 
 @Mixin(LivingEntity.class)
 public abstract class EntityDeathMixin {

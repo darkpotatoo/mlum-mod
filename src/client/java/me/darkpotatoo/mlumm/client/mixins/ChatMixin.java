@@ -1,7 +1,7 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
-import me.darkpotatoo.mlumm.client.riot.RiotMeter;
+import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;

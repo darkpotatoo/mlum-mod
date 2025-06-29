@@ -5,7 +5,7 @@ import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.ui.Map;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
-import me.darkpotatoo.mlumm.client.riot.RiotTracker;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -33,6 +33,7 @@ public class MlummClient implements ClientModInitializer {
     public static int mailTicks = 0;
     public static int escapeTicks = 0;
     public static int rodTicks = 0;
+    public static int unsure = 500;
     public static boolean tooltipIsContraband;
     public static KeyBinding getItemInfoKey;
     public static KeyBinding openMapKey;

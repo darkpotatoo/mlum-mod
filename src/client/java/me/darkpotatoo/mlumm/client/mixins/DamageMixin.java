@@ -1,8 +1,8 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.MlummClient;
-import me.darkpotatoo.mlumm.client.riot.RiotMeter;
-import me.darkpotatoo.mlumm.client.riot.RiotTracker;
+import me.darkpotatoo.mlumm.client.ui.RiotMeter;
+import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

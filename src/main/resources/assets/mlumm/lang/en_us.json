@@ -41,8 +41,13 @@
   "text.autoconfig.mlumm.option.chatmode.@Tooltip": "Show four buttons (all-chat, team-chat, gang-chat, mod-chat) above chat input box to select a message destination",
   "text.autoconfig.mlumm.option.chatmode": "Chat Mode Selector",
 
-  "text.autoconfig.mlumm.option.rolenotifs.@Tooltip": "VERY loudly notify you when a guard slot opens",
+  "text.autoconfig.mlumm.option.rolenotifs.@Tooltip": "Notify you when a guard slot opens",
   "text.autoconfig.mlumm.option.rolenotifs": "Guard Slot Notifications",
+
+  "text.autoconfig.mlumm.option.progtrack.@Tooltip": "Shows a progress tracker to getting chocolate over the actionbar. Ex: \"Rake 5/11\"",
+  "text.autoconfig.mlumm.option.progtrack": "Job Progress Tracker HUD",
+  "text.autoconfig.mlumm.option.progtrackhigh.@Tooltip": "Offsets the job progress HUD by the selected amount",
+  "text.autoconfig.mlumm.option.progtrackhigh": "Job Progress HUD Height Modifier",
 
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",

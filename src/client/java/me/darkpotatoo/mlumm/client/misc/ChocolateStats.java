@@ -26,7 +26,6 @@ public class ChocolateStats {
     }
 
     public static void endCountingChocolate() {
-        LOGGER.info("Ended chocolate session with " + chocoCounted + " collected.");
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
         player.sendMessage(Text.of("§a§lChocolate session completed!"));

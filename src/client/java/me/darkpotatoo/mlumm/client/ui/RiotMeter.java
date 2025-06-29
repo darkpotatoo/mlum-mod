@@ -1,4 +1,4 @@
-package me.darkpotatoo.mlumm.client.riot;
+package me.darkpotatoo.mlumm.client.ui;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -34,7 +34,6 @@ public class RiotMeter {
     private long sounddelay = System.currentTimeMillis();
     private static final Stack<RiotMessage> things = new Stack<>();
     public static ArrayList<ItemStack> arsenal = new ArrayList<>();
-    private static final Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
 
 
     public static boolean tryArsenal() {
@@ -112,7 +111,7 @@ public class RiotMeter {
 //            else MinecraftClient.getInstance().player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 0.1F, (float) ( 0.00107142857*score + 0.392857143));
 //        }
 
-        if (Objects.equals(rank, "DONTSHOWTHEFLIPPINGSCOREMETER") || !config.stylemeter) return;
+        if (Objects.equals(rank, "DONTSHOWTHEFLIPPINGSCOREMETER")) return;
         MinecraftClient client = MinecraftClient.getInstance();
         int s_width = client.getWindow().getScaledWidth();
         int width = 100;

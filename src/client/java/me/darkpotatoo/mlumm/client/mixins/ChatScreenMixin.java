@@ -24,14 +24,14 @@ public abstract class ChatScreenMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(CallbackInfo ci) {
         ChatModeSelector.typed = chatField.getText()
-                .replace("/ggch", "")
-                .replace("/ach", "")
-                .replace("/teamchat", "")
-                .replace("/ggc", "")
-                .replace("/teamcha", "")
-                .replace("/ac", "")
-                .replace("/sch", "")
-                .replace("/sc", "");
+                .replace("/ggch ", "")
+                .replace("/ach ", "")
+                .replace("/teamchat ", "")
+                .replace("/ggc ", "")
+                .replace("/teamcha ", "")
+                .replace("/ac ", "")
+                .replace("/sch ", "")
+                .replace("/sc ", "");
         chatField.setText(ChatModeSelector.selectedMode +  ChatModeSelector.typed);
     }
 

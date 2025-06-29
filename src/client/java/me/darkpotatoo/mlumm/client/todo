@@ -3,5 +3,6 @@
 - Update BM gui to have the correct GUI slots
 - Update the timers
 - update screenmixin to be correct
+- JobBlockCheckMixin
 
 Make it for all mc versions (just change build config so you can jar it to other versions)
