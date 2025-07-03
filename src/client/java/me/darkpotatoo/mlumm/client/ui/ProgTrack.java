@@ -15,19 +15,19 @@ public class ProgTrack {
 
     public static void mop() {
         mop++;
-        if (mop > 3) mop = 0;
+        if (mop >= 3) mop = 0;
     }
     public static void rake() {
         rake++;
-        if (rake > 3) rake = 0;
+        if (rake >= 10) rake = 0;
     }
     public static void bees() {
         bees++;
-        if (bees > 3) bees = 0;
+        if (bees >= 3) bees = 0;
     }
     public static void trash() {
         trash++;
-        if (trash > 2) mop = 0;
+        if (trash >= 2) mop = 0;
     }
 
     public void render(DrawContext context) {

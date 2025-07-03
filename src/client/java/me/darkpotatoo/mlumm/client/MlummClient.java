@@ -3,7 +3,6 @@ package me.darkpotatoo.mlumm.client;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
-import me.darkpotatoo.mlumm.client.ui.Map;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
 import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -54,13 +53,6 @@ public class MlummClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_0,
                 "mlum mod"
         )); Iteminfo.runItemInfoKey();
-        // map key
-        openMapKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "Open NPC/POI map",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_M,
-                "mlum mod"
-        )); Map.runMapKey();
 
         // register commands
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
