@@ -57,6 +57,9 @@ public class Configuration implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = -100, max = 100)
     @ConfigEntry.Gui.Tooltip
     public int progtrackhigh = 0;
+    @ConfigEntry.BoundedDiscrete(min = 200, max = 1500)
+    @ConfigEntry.Gui.Tooltip
+    public int bmdelay = 400;
 
 
 }

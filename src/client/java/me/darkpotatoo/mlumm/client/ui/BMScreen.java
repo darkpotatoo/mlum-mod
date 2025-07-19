@@ -1,5 +1,7 @@
 package me.darkpotatoo.mlumm.client.ui;
 
+import me.darkpotatoo.mlumm.client.Configuration;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -22,6 +24,7 @@ public class BMScreen extends Screen {
     private ButtonWidget bidButton;
 
     void bidIt(String bid) {
+        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         MinecraftClient client = MinecraftClient.getInstance();
         //client.setScreen(null);
         client.interactionManager.clickSlot(
@@ -33,7 +36,7 @@ public class BMScreen extends Screen {
         );
         new Thread(() -> {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(config.bmdelay);
                 //SignBlockEntity sign = ((AbstractSignEditScreenAccessor) client.currentScreen).getBlockEntity();
                 for (char cha : bid.toCharArray()) {
                     client.currentScreen.charTyped(cha, 0);

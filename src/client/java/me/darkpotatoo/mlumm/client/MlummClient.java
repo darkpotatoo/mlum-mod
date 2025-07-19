@@ -5,6 +5,7 @@ import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
 import me.darkpotatoo.mlumm.client.misc.RiotTracker;
+import me.darkpotatoo.mlumm.client.misc.TickScheduler;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -45,6 +46,7 @@ public class MlummClient implements ClientModInitializer {
         LOGGER.info("mlum mod loading...");
         Iteminfo.initItems();
         EscapeAnnouncer.register();
+        TickScheduler.init();
 
         // Iteminfo key
         getItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -58,6 +60,7 @@ public class MlummClient implements ClientModInitializer {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             ChocolateStats.register(dispatcher);
             RiotTracker.register(dispatcher);
+            Iteminfo.registerCommand(dispatcher);
         });
 
         // tooltip getter

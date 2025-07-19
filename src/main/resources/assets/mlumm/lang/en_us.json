@@ -49,6 +49,9 @@
   "text.autoconfig.mlumm.option.progtrackhigh.@Tooltip": "Offsets the job progress HUD by the selected amount",
   "text.autoconfig.mlumm.option.progtrackhigh": "Job Progress HUD Height Modifier",
 
+  "text.autoconfig.mlumm.option.bmdelay.@Tooltip": "How many milliseconds to wait after pressing \"BID\" in the black market screen before making your client type the bid into the sign.\nThe server takes around 100-200ms to open the sign to bid (depending on lag). If you or the server is laggy you may also want to increase this.\nMinimum of 200ms because any faster has a much higher chance to cause a bug and it may be unfair.",
+  "text.autoconfig.mlumm.option.bmdelay": "Black Market GUI Bid Compensation",
+
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
   "text.autoconfig.mlumm.category.default": "Feature Customization",

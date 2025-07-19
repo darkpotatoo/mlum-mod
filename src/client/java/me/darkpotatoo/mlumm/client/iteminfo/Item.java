@@ -4,9 +4,13 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.item.ItemStack;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+
 public class Item {
 
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static ArrayList<String> itemNames = new ArrayList<>();
 
     public ItemType type;
     public String name;
@@ -24,6 +28,7 @@ public class Item {
         literalItem = _literalitem;
         LOGGER.info("Item '" + name + "' registered");
         Iteminfo.items.add(this);
+        itemNames.add(_name);
     }
 
 }
