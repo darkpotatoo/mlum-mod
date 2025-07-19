@@ -25,11 +25,11 @@ public abstract class ChatScreenMixin {
     private void onRender(CallbackInfo ci) {
         ChatModeSelector.typed = chatField.getText()
                 .replace("/ggch ", "")
-                .replace("/ach ", "")
+                .replace("/ac ", "")
                 .replace("/teamchat ", "")
                 .replace("/ggc ", "")
                 .replace("/teamcha ", "")
-                .replace("/ac ", "")
+                .replace("/a ", "")
                 .replace("/sch ", "")
                 .replace("/sc ", "");
         chatField.setText(ChatModeSelector.selectedMode +  ChatModeSelector.typed);

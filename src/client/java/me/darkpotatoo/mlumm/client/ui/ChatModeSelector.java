@@ -17,7 +17,7 @@ public class ChatModeSelector {
         int s_height = client.getWindow().getScaledHeight();
         int bgc = 0xC0101010;
         int highlight = switch (selectedMode) {
-            case "", "/ach" -> 0xC000FF00;
+            case "", "/ac" -> 0xC000FF00;
             case "/ggch" -> 0xC0008000;
             case "/teamchat" -> 0xC0FF0000;
             case "/sch" -> 0xC0FFAA00;
@@ -29,7 +29,7 @@ public class ChatModeSelector {
         int allWidth = client.textRenderer.getWidth("ALL") + 8;
         int x = 4;
         int y = s_height - 30;
-        context.fill(x, y, x + allWidth, y + 14, selectedMode.equals("/ach ") || selectedMode.isEmpty() ? highlight : bgc);
+        context.fill(x, y, x + allWidth, y + 14, selectedMode.equals("/ac ") || selectedMode.isEmpty() ? highlight : bgc);
         context.drawText(client.textRenderer, "ALL", x + 4, y + 3, textColor, false);
 
         // GANG
@@ -66,7 +66,7 @@ public class ChatModeSelector {
         int staffX = teamX + teamWidth + 4;
 
         if (mouseX >= allX && mouseX <= allX + allWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/ach ";
+            selectedMode = "/ac ";
             updateChatInput(selectedMode);
         }
 

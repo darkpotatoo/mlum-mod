@@ -54,7 +54,7 @@ public class Iteminfo {
                         .executes(context -> {
                             String item = StringArgumentType.getString(context, "item");
                             if (displayIteminfoFromName(item)) {}
-                            else { MinecraftClient.getInstance().player.sendMessage(Text.of("§4§l! §fNo item found with that name")); }
+                            else { MinecraftClient.getInstance().player.sendMessage(Text.of("§4§l! §fNo item found with that name"), false); }
                             return 1;
                         })));
     }

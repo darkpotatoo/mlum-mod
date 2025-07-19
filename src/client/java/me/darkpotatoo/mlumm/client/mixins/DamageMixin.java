@@ -5,16 +5,20 @@ import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Arrays;
 
 @Mixin(PlayerEntity.class)
 public abstract class DamageMixin extends LivingEntity {
@@ -53,7 +57,14 @@ public abstract class DamageMixin extends LivingEntity {
         hpbefore = ((LivingEntity) target).getHealth();
         if (hpbefore < 1 && RiotMeter.combo == 0) RiotMeter.add("+ §7CLEANED", 20);
         entitybefore = (LivingEntity) target;
-        entitygear = ((LivingEntity) target).getEquippedItems();
+        LivingEntity entity = (LivingEntity) target;
+        entitygear = Arrays.asList(
+                entity.getEquippedStack(EquipmentSlot.HEAD),
+                entity.getEquippedStack(EquipmentSlot.CHEST),
+                entity.getEquippedStack(EquipmentSlot.LEGS),
+                entity.getEquippedStack(EquipmentSlot.FEET),
+                entity.getEquippedStack(EquipmentSlot.MAINHAND),
+                entity.getEquippedStack(EquipmentSlot.OFFHAND));
     }
 
     @Inject(method = "attack", at = @At("TAIL"))

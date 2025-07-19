@@ -28,11 +28,11 @@ public class ChocolateStats {
     public static void endCountingChocolate() {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
-        player.sendMessage(Text.of("§a§lChocolate session completed!"));
-        player.sendMessage(Text.of("§7- §fChoco/minute: §e" + chocoCounted/(sec/60)));
-        player.sendMessage(Text.of("§7- §fChoco/second: §e" + chocoCounted/sec));
-        player.sendMessage(Text.of("§7- §fTotal chocolate grinded: §e" + chocoCounted));
-        player.sendMessage(Text.of("§7- §fSession time: §e" + sec/60 + " minutes"));
+        player.sendMessage(Text.of("§a§lChocolate session completed!"), false);
+        player.sendMessage(Text.of("§7- §fChoco/minute: §e" + chocoCounted/(sec/60)), false);
+        player.sendMessage(Text.of("§7- §fChoco/second: §e" + chocoCounted/sec), false);
+        player.sendMessage(Text.of("§7- §fTotal chocolate grinded: §e" + chocoCounted), false);
+        player.sendMessage(Text.of("§7- §fSession time: §e" + sec/60 + " minutes"), false);
         player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
         isEnabled = false;
     }

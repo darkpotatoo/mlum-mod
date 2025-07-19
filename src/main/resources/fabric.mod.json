@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "mlumm",
   "version": "${version}",
-  "name": "mlum mod (pre-release)",
+  "name": "mlum mod",
   "description": "Utility tools, stat trackers, quality of life features, and improvements for play.mlum.io",
   "authors": [
     "darkpotatoo",
-    "hotpocket184"
+    "hotpocket184 (original mod)"
   ],
   "contact": {
     "sources": "https://github.com/darkpotatoo/mlum-mod"

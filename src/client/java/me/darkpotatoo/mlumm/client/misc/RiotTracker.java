@@ -52,11 +52,11 @@ public class RiotTracker {
             secs++;
         }
         double ratio1 = damageDealt/damageTaken;
-        player.sendMessage(Text.of("§e§lRiot ended! §6Time: " + mins + "m" + secs + "s"));
-        player.sendMessage(Text.of("§7- §fHits taken / damage taken: §e" + hitsTaken + " / " + damageTaken));
-        player.sendMessage(Text.of("§7- §fHits dealt / damage dealt: §e" + hitsDealt + " / " + damageDealt));
-        player.sendMessage(Text.of("§7- §fDamage dealt to taken ratio: §e" + ratio1 + ":" + 1));
-        player.sendMessage(Text.of("§7- §fKills: §e" + kills + " (" + guardKills + " guard, " + detKills + " det, " + traineeKills + " trainee)"));
+        player.sendMessage(Text.of("§e§lRiot ended! §6Time: " + mins + "m" + secs + "s"), false);
+        player.sendMessage(Text.of("§7- §fHits taken / damage taken: §e" + hitsTaken + " / " + damageTaken), false);
+        player.sendMessage(Text.of("§7- §fHits dealt / damage dealt: §e" + hitsDealt + " / " + damageDealt), false);
+        player.sendMessage(Text.of("§7- §fDamage dealt to taken ratio: §e" + ratio1 + ":" + 1), false);
+        player.sendMessage(Text.of("§7- §fKills: §e" + kills + " (" + guardKills + " guard, " + detKills + " det, " + traineeKills + " trainee)"), false);
         player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
     }
 

@@ -11,7 +11,6 @@
     "DamageMixin",
     "HandledScreenMixin",
     "InGameHudMixin",
-    "JobBlockCheckMixin",
     "ScreenMixin",
     "TickMixin",
     "TooltipMixin"

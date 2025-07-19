@@ -4,6 +4,7 @@ import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +14,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Arrays;
 
 @Mixin(LivingEntity.class)
 public abstract class EntityDeathMixin {
@@ -58,7 +61,14 @@ public abstract class EntityDeathMixin {
                 RiotMeter.add("+ " + killMessage, 120 + (killStreak * 30));
             }
             // gear pts
-            deadgear = ((LivingEntity) source.getAttacker()).getEquippedItems();
+            LivingEntity entity = (LivingEntity) source.getAttacker();
+            deadgear = Arrays.asList(
+                    entity.getEquippedStack(EquipmentSlot.HEAD),
+                    entity.getEquippedStack(EquipmentSlot.CHEST),
+                    entity.getEquippedStack(EquipmentSlot.LEGS),
+                    entity.getEquippedStack(EquipmentSlot.FEET),
+                    entity.getEquippedStack(EquipmentSlot.MAINHAND),
+                    entity.getEquippedStack(EquipmentSlot.OFFHAND));
             deadgear.forEach(itemStack -> {
                 if (itemStack.getName().getString().contains("Iron")) {
                     RiotMeter.add(10); // 10 pts per iron item like guard chest and stuff

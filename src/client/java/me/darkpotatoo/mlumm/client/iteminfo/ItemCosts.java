@@ -24,11 +24,13 @@ public class ItemCosts {
                 String itemName = parts[2];
                 int count = 0;
                 boolean hasItem = false;
-                for (ItemStack item : inventory.main) {
+                for (int slot = 0; slot < PlayerInventory.MAIN_SIZE; slot++) {
+                    ItemStack item = inventory.getStack(slot);
                     if (item.getName().getString().equals(itemName)) {
                         count += item.getCount();
                         if (count >= requiredQuantity) {
                             hasItem = true;
+                            break; // optional optimization
                         }
                     }
                 }

@@ -22,7 +22,6 @@ public class EscapeAnnouncer {
                     String lastMessage = client.inGameHud.getChatHud().getMessageHistory().getLast();
                     if ((lastMessage.contains("escape ") || lastMessage.contains("esc ")) && MlummClient.escapeTicks <= 0) {
                         MlummClient.escapeTicks = 100;
-                        if (!dontplayts) client.player.playSound(config.escape_sound, 10, 1);
                         client.player.sendMessage(Text.of("§6» §rEscape mentioned in chat!"), false);
                     }
                 }

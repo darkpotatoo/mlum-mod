@@ -28,8 +28,6 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean actionbar_status = true;
     @ConfigEntry.Gui.Tooltip
-    public SoundEvent escape_sound = SoundEvents.BLOCK_NOTE_BLOCK_BELL.value();
-    @ConfigEntry.Gui.Tooltip
     public CapeTexture cape_texture = CapeTexture.MLUM_S16;
     @ConfigEntry.Gui.Tooltip
     public boolean custom_cape = true;
