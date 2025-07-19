@@ -57,8 +57,13 @@ public abstract class EntityDeathMixin {
                 RiotTracker.kills++;
                 RiotMeter.add("+ " + killMessage, 120 + (killStreak * 30));
             }
+            // gear pts
             deadgear = ((LivingEntity) source.getAttacker()).getEquippedItems();
-            // TODO: a
+            deadgear.forEach(itemStack -> {
+                if (itemStack.getName().getString().contains("Iron")) {
+                    RiotMeter.add(10); // 10 pts per iron item like guard chest and stuff
+                }
+            });
         }
     }
 }

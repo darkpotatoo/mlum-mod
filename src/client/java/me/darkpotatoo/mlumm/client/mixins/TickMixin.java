@@ -81,38 +81,11 @@ public class TickMixin {
         }
 
         //Fugitive crate timer
-        if (MlummClient.crateTicks > 0 && config.timer_crate) {
+        if (MlummClient.crateTicks > 0 && config.timer_box) {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
                 player.sendMessage(Text.of("§a» §fCrate timer has ended"), false);
                 sendCustomToast("Crate Timer Ended", "You can now open a crate again");
-            }
-        }
-
-        // Fugitive contra box timer
-        if (MlummClient.boxTicks > 0 && config.timer_box) {
-            MlummClient.boxTicks--;
-            if (MlummClient.boxTicks == 0) {
-                player.sendMessage(Text.of("§a» §fContraband Box has ended"), false);
-                sendCustomToast("Contraband Box Timer Ended", "You can now get a contraband box again");
-            }
-        }
-
-        // Mail timer
-        if (MlummClient.mailTicks > 0 && config.timer_mail) {
-            MlummClient.mailTicks--;
-            if (MlummClient.mailTicks == 0) {
-                player.sendMessage(Text.of("§a» §fMail timer has ended"), false);
-                sendCustomToast("Mail Timer Ended", "You can now open a crate again");
-            }
-        }
-
-        // Trash timer
-        if (MlummClient.trashTicks > 0 && config.timer_trash) {
-            MlummClient.trashTicks--;
-            if (MlummClient.trashTicks == 0) {
-                player.sendMessage(Text.of("§a» §fTrash timer has ended"), false);
-                sendCustomToast("Trash Timer Ended", "You can now get a trash bag again");
             }
         }
 

@@ -28,15 +28,10 @@ public class MlummClient implements ClientModInitializer {
     public static int combatTicks = 0;
     public static int crateTicks = 0;
     public static int deskTicks = 0;
-    public static int trashTicks = 0;
-    public static int boxTicks = 0;
-    public static int mailTicks = 0;
     public static int escapeTicks = 0;
     public static int rodTicks = 0;
-    public static int unsure = 500;
     public static boolean tooltipIsContraband;
     public static KeyBinding getItemInfoKey;
-    public static KeyBinding openMapKey;
     private static Configuration config;
 
     @Override

@@ -46,6 +46,10 @@ enum ItemSource {
     Forge,
     Crafting,
     Guard,
+    Trainee,
+    Detective,
+    Upgraded_Guard_Kit,
+    Fugitive,
     NPC
     // TODO: this
 

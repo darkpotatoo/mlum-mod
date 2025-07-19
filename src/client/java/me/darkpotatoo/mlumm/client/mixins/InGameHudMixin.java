@@ -2,7 +2,6 @@ package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
-import me.darkpotatoo.mlumm.client.ui.ProgTrack;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.DrawContext;
@@ -25,8 +24,6 @@ public class InGameHudMixin {
     private final RiotMeter riotMeter = new RiotMeter();
     @Unique
     private final ChatModeSelector chatSelector = new ChatModeSelector();
-    @Unique
-    private final ProgTrack jobHud = new ProgTrack();
     @Inject(method = "render", at = @At("TAIL"))
     private void renderRiotMeterHudAndItemCost(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 
@@ -34,6 +31,5 @@ public class InGameHudMixin {
 
         if (config.stylemeter) riotMeter.render(context);
         if (chatHud.isChatFocused() && config.chatmode) chatSelector.render(context);
-        if (config.progtrack) jobHud.render(context);
     }
 }

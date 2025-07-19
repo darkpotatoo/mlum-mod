@@ -18,16 +18,7 @@ public class Configuration implements ConfigData {
     public boolean timer_desk = true;
     @ConfigEntry.Category("Timers")
     @ConfigEntry.Gui.Tooltip
-    public boolean timer_crate = true;
-    @ConfigEntry.Category("Timers")
-    @ConfigEntry.Gui.Tooltip
     public boolean timer_box = true;
-    @ConfigEntry.Category("Timers")
-    @ConfigEntry.Gui.Tooltip
-    public boolean timer_trash = true;
-    @ConfigEntry.Category("Timers")
-    @ConfigEntry.Gui.Tooltip
-    public boolean timer_mail = true;
     @ConfigEntry.Gui.Tooltip
     public boolean contraband_tooltip = true;
     @ConfigEntry.Gui.Tooltip
@@ -52,11 +43,6 @@ public class Configuration implements ConfigData {
     public boolean chatmode = true;
     @ConfigEntry.Gui.Tooltip
     public boolean rolenotifs = true;
-    @ConfigEntry.Gui.Tooltip
-    public boolean progtrack = true;
-    @ConfigEntry.BoundedDiscrete(min = -100, max = 100)
-    @ConfigEntry.Gui.Tooltip
-    public int progtrackhigh = 0;
     @ConfigEntry.BoundedDiscrete(min = 200, max = 1500)
     @ConfigEntry.Gui.Tooltip
     public int bmdelay = 400;
