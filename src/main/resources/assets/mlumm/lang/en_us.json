@@ -25,6 +25,8 @@
 
   "text.autoconfig.mlumm.option.stylemeter.@Tooltip": "Show a style meter on the screen when fighting just like ULTRAKILL's style meter",
   "text.autoconfig.mlumm.option.stylemeter": "Riot Style Meter",
+  "text.autoconfig.mlumm.option.astylemeter.@Tooltip": "Always show style meter regardless of score",
+  "text.autoconfig.mlumm.option.astylemeter": "Always Show Style Meter",
 
   "text.autoconfig.mlumm.option.toasts.@Tooltip": "Disable timer/notification toasts from showing up and only send chat messages",
   "text.autoconfig.mlumm.option.toasts": "Notification Toasts",

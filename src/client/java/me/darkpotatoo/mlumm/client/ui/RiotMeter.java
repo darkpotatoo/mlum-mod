@@ -1,5 +1,6 @@
 package me.darkpotatoo.mlumm.client.ui;
 
+import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
@@ -53,6 +54,7 @@ public class RiotMeter {
     }
 
     public String getRank() {
+        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         if (score >= 1500) return "§6§lMLUMTRAKILL";
         else if (score >= 1000) return "§4§lSSS§fʜᴀɴᴋꜱᴛᴏʀᴍ";
         else if (score >= 850) return "§4§lSS§fᴀᴅɪꜱᴛɪᴄ";
@@ -61,16 +63,19 @@ public class RiotMeter {
         else if (score >= 400) return "§e§lB§fʀᴜᴛᴀʟ";
         else if (score >= 300) return "§a§lC§fʜᴀᴏᴛɪᴄ";
         else if (score >= 100) return "§9§lD§fᴇꜱᴛʀᴜᴄᴛɪᴠᴇ";
-        else return "DONTSHOWTHEFLIPPINGSCOREMETER";
+        else {
+            if (!config.astylemeter) return "DONTSHOWTHEFLIPPINGSCOREMETER";
+            else return "§7§l§8ɴᴏᴛʜɪɴɢ";
+        }
     }
 
     public static void add(String message, double value) {
         things.add(new RiotMessage(message, 400));
-        score += value;
+        score += value*5;
     }
     public static void add(String message, double value, int time) {
         things.add(new RiotMessage(message, time));
-        score += value;
+        score += value*10;
     }
     public static void add(double value) {
         score += value;

@@ -2,25 +2,28 @@ package me.darkpotatoo.mlumm.client;
 
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
-import me.darkpotatoo.mlumm.client.misc.EscapeAnnouncer;
-import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
-import me.darkpotatoo.mlumm.client.misc.RiotTracker;
-import me.darkpotatoo.mlumm.client.misc.TickScheduler;
+import me.darkpotatoo.mlumm.client.misc.*;
+import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
+import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
+import org.spongepowered.asm.mixin.Unique;
 
 import static me.darkpotatoo.mlumm.client.iteminfo.ItemCosts.updateTooltip;
 
@@ -37,6 +40,8 @@ public class MlummClient implements ClientModInitializer {
     public static KeyBinding getItemInfoKey;
     public static KeyBinding rotateKey;
     private static Configuration config;
+    private RiotMeter riotMeter;
+    private ChatModeSelector chatSelector;
 
     @Override
     public void onInitializeClient() {
@@ -46,6 +51,8 @@ public class MlummClient implements ClientModInitializer {
         Iteminfo.initItems();
         EscapeAnnouncer.register();
         TickScheduler.init();
+        chatSelector = new ChatModeSelector();
+        riotMeter = new RiotMeter();
 
         // Iteminfo key
         getItemInfoKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -54,6 +61,8 @@ public class MlummClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_0,
                 "mlum mod"
         )); Iteminfo.runItemInfoKey();
+
+        // rotate key
 
         rotateKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "Rotate key (for treadmill)",
@@ -81,6 +90,11 @@ public class MlummClient implements ClientModInitializer {
             }
         });
 
+        // ingamehud
+        HudRenderCallback.EVENT.register(this::onHudRender);
+        // riot meter / combat timer / stuff
+        AttackEventHandler.register();
+
         // register commands
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             ChocolateStats.register(dispatcher);
@@ -95,6 +109,13 @@ public class MlummClient implements ClientModInitializer {
             //if (lines.getFirst().getString().contains("Requirements:")) ItemCosts.updateTooltip(stack, lines);
         });
     }
+
+    private void onHudRender(DrawContext context, RenderTickCounter tickCounter) {
+        if (config.stylemeter) riotMeter.render(context);
+        if (MinecraftClient.getInstance().inGameHud.getChatHud().isChatFocused() && config.chatmode)
+            chatSelector.render(context);
+    }
+
 
     private boolean checkItemLore(List <Text> lore) {
         //if (lore.isEmpty()) return false;

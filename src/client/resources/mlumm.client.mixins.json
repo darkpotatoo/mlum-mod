@@ -8,9 +8,9 @@
     "CapeMixin",
     "ChatMixin",
     "ChatScreenMixin",
-    "DamageMixin",
+    //"DamageMixin",
     "HandledScreenMixin",
-    "InGameHudMixin",
+    //"InGameHudMixin",
     "ScreenMixin",
     "TickMixin",
     "TooltipMixin"

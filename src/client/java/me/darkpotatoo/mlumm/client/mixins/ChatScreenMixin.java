@@ -13,8 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin {
 
-    @Shadow
-    protected TextFieldWidget chatField;
+    @Shadow protected TextFieldWidget chatField;
+
+    private String lastInput = "";
 
     @Inject(method = "mouseClicked", at = @At("HEAD"))
     private void onMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
@@ -23,21 +24,23 @@ public abstract class ChatScreenMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(CallbackInfo ci) {
-        ChatModeSelector.typed = chatField.getText()
-                .replace("/ggch ", "")
-                .replace("/ac ", "")
-                .replace("/teamchat ", "")
-                .replace("/ggc ", "")
-                .replace("/teamcha ", "")
-                .replace("/a ", "")
-                .replace("/sch ", "")
-                .replace("/sc ", "");
-        chatField.setText(ChatModeSelector.selectedMode +  ChatModeSelector.typed);
+        String fullText = chatField.getText();
+
+        if (!fullText.equals(lastInput)) {
+            ChatModeSelector.updateTyped(fullText);
+            lastInput = fullText;
+        }
+
+        String newText = ChatModeSelector.selectedMode + ChatModeSelector.typed;
+        if (!newText.equals(chatField.getText())) {
+            int prefixLength = ChatModeSelector.selectedMode.length();
+            chatField.setText(newText);
+            chatField.setCursor(prefixLength, false);
+        }
     }
 
     @Inject(method = "removed", at = @At("HEAD"))
     private void onRemoved(CallbackInfo ci) {
-        ChatModeSelector.typed = "";
-        ChatModeSelector.selectedMode = "";
+        ChatModeSelector.clear(); // typed only; mode persists
     }
 }

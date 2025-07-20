@@ -24,8 +24,16 @@ public class InGameHudMixin {
     private final RiotMeter riotMeter = new RiotMeter();
     @Unique
     private final ChatModeSelector chatSelector = new ChatModeSelector();
-    @Inject(method = "render", at = @At("TAIL"))
-    private void renderRiotMeterHudAndItemCost(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+    @Inject(method = "render", at = @At("TAIL"), cancellable = true)
+    private void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+
+        Configuration config = AutoConfig.getConfigHolder(Configuration .class).getConfig();
+
+        if (config.stylemeter) riotMeter.render(context);
+        if (chatHud.isChatFocused() && config.chatmode) chatSelector.render(context);
+    }
+    @Inject(method = "renderMainHud", at = @At("TAIL"), cancellable = true)
+    private void render2(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 
         Configuration config = AutoConfig.getConfigHolder(Configuration .class).getConfig();
 

@@ -58,7 +58,7 @@ public abstract class EntityDeathMixin {
                 MlummClient.combatTicks = 0;
                 RiotMeter.combo = 0;
                 RiotTracker.kills++;
-                RiotMeter.add("+ " + killMessage, 120 + (killStreak * 30));
+                RiotMeter.add("+ " + killMessage, 40 + (killStreak * 30));
             }
             // gear pts
             LivingEntity entity = (LivingEntity) source.getAttacker();

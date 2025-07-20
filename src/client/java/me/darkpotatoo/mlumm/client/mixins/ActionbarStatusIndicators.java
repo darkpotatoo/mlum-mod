@@ -34,6 +34,7 @@ public class ActionbarStatusIndicators {
             String time = input.substring(input.indexOf("Time: ") + 6, input.indexOf(" |"));
             String period = input.substring(input.indexOf("Period: ") + 8);
             String text = "§6Time: §e" + time + "§8 | §6Period: §e" + period;
+            text = text.replace(" | Detected", "").replace("| Detected", "");
             if (MlummClient.combatTicks > 0) {
                 text += " §8| §6Combat Timer: §e" + ((int) Math.ceil(((double) MlummClient.combatTicks / 20))) + "s";
             }

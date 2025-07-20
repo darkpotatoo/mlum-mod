@@ -41,28 +41,28 @@ public class CapeMixin {
         info.setReturnValue(modifiedFuture);
     }
 
-    //    @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
-    //    private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<Optional<SkinTextures>>> info) {
-    //        if (!config.custom_cape) return;
-    //
-    //        CompletableFuture<Optional<SkinTextures>> originalFuture = info.getReturnValue();
-    //
-    //        CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
-    //            if (optionalTextures.isEmpty()) return optionalTextures;
-    //
-    //            SkinTextures original = optionalTextures.get();
-    //            SkinTextures modified = new SkinTextures(
-    //                    original.texture(),
-    //                    original.textureUrl(),
-    //                    CapeTextures.getCapeTexture(), // cape
-    //                    original.elytraTexture(),
-    //                    original.model(),
-    //                    original.secure()
-    //            );
-    //
-    //            return Optional.of(modified);
-    //        });
-    //
-    //        info.setReturnValue(modifiedFuture);
-    //    }
+//        @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
+//        private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<Optional<SkinTextures>>> info) {
+//            if (!config.custom_cape) return;
+//
+//            CompletableFuture<Optional<SkinTextures>> originalFuture = info.getReturnValue();
+//
+//            CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
+//                if (optionalTextures.isEmpty()) return optionalTextures;
+//
+//                SkinTextures original = optionalTextures.get();
+//                SkinTextures modified = new SkinTextures(
+//                        original.texture(),
+//                        original.textureUrl(),
+//                        CapeTextures.getCapeTexture(), // cape
+//                        original.elytraTexture(),
+//                        original.model(),
+//                        original.secure()
+//                );
+//
+//                return Optional.of(modified);
+//            });
+//
+//            info.setReturnValue(modifiedFuture);
+//        }
 }

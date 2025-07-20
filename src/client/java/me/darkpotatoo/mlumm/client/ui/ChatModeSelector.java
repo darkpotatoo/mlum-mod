@@ -5,88 +5,93 @@ import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class ChatModeSelector {
 
     private static final Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
-    public static String selectedMode = "";
+    private static final MinecraftClient client = MinecraftClient.getInstance();
+
+    public static String selectedMode = ""; // "" = ALL
     public static String typed = "";
 
-    public void render(DrawContext context) {
+    private static final Map<String, String> modes = new LinkedHashMap<>() {{
+        put("ALL", "");               // No prefix for ALL
+        put("GANG", "/ggch ");
+        put("TEAM", "/teamchat ");
+        put("STAFF", "/sch ");
+    }};
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        int s_height = client.getWindow().getScaledHeight();
-        int bgc = 0xC0101010;
-        int highlight = switch (selectedMode) {
-            case "", "/ac" -> 0xC000FF00;
-            case "/ggch" -> 0xC0008000;
-            case "/teamchat" -> 0xC0FF0000;
-            case "/sch" -> 0xC0FFAA00;
-            default -> 0xC0101010;
-        };
+    public static void render(DrawContext context) {
+        if (!config.chatmode) return;
+
+        int y = client.getWindow().getScaledHeight() - 30;
+        int x = 4;
+        int height = 14;
+        int bgColor = 0xC0101010;
         int textColor = 0xFFFFFF;
 
-        // ALL
-        int allWidth = client.textRenderer.getWidth("ALL") + 8;
-        int x = 4;
-        int y = s_height - 30;
-        context.fill(x, y, x + allWidth, y + 14, selectedMode.equals("/ac ") || selectedMode.isEmpty() ? highlight : bgc);
-        context.drawText(client.textRenderer, "ALL", x + 4, y + 3, textColor, false);
+        for (Map.Entry<String, String> entry : modes.entrySet()) {
+            String label = entry.getKey();
+            String mode = entry.getValue();
+            int width = client.textRenderer.getWidth(label) + 8;
 
-        // GANG
-        int gangWidth = client.textRenderer.getWidth("GANG") + 8;
-        int gangX = x + allWidth + 4;
-        context.fill(gangX, y, gangX + gangWidth, y + 14, selectedMode.equals("/ggch ") ? highlight : bgc);
-        context.drawText(client.textRenderer, "GANG", gangX + 4, y + 3, textColor, false);
+            boolean isSelected = selectedMode.equals(mode) || (mode.isEmpty() && selectedMode.isEmpty());
+            int fillColor = isSelected ? getHighlightColor(mode) : bgColor;
 
-        // TEAM
-        int teamWidth = client.textRenderer.getWidth("TEAM") + 8;
-        int teamX = gangX + gangWidth + 4;
-        context.fill(teamX, y, teamX + teamWidth, y + 14, selectedMode.equals("/teamchat ") ? highlight : bgc);
-        context.drawText(client.textRenderer, "TEAM", teamX + 4, y + 3, textColor, false);
+            context.fill(x, y, x + width, y + height, fillColor);
+            context.drawText(client.textRenderer, label, x + 4, y + 3, textColor, false);
 
-        // STAFF
-        int staffWidth = client.textRenderer.getWidth("STAFF") + 8;
-        int staffX = teamX + teamWidth + 4;
-        context.fill(staffX, y, staffX + staffWidth, y + 14, selectedMode.equals("/sch ") ? highlight : bgc);
-        context.drawText(client.textRenderer, "STAFF", staffX + 4, y + 3, textColor, false);
+            x += width + 4;
+        }
     }
 
     public static void onClick(double mouseX, double mouseY) {
         if (!config.chatmode) return;
-        MinecraftClient client = MinecraftClient.getInstance();
-        int s_height = client.getWindow().getScaledHeight();
-        int allWidth = client.textRenderer.getWidth("ALL") + 8;
-        int allX = 4;
-        int allY = s_height - 30;
-        int gangWidth = client.textRenderer.getWidth("GANG") + 8;
-        int gangX = allX + allWidth + 4;
-        int teamWidth = client.textRenderer.getWidth("TEAM") + 8;
-        int teamX = gangX + gangWidth + 4;
-        int staffWidth = client.textRenderer.getWidth("STAFF") + 8;
-        int staffX = teamX + teamWidth + 4;
 
-        if (mouseX >= allX && mouseX <= allX + allWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/ac ";
-            updateChatInput(selectedMode);
-        }
+        int y = client.getWindow().getScaledHeight() - 30;
+        int x = 4;
 
-        if (mouseX >= gangX && mouseX <= gangX + gangWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/ggch ";
-            updateChatInput(selectedMode);
-        }
+        for (Map.Entry<String, String> entry : modes.entrySet()) {
+            String label = entry.getKey();
+            String mode = entry.getValue();
+            int width = client.textRenderer.getWidth(label) + 8;
 
-        if (mouseX >= teamX && mouseX <= teamX + teamWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/teamchat ";
-            updateChatInput(selectedMode);
-        }
-
-        if (mouseX >= staffX && mouseX <= staffX + staffWidth && mouseY >= allY && mouseY <= allY + 14) {
-            selectedMode = "/sch ";
-            updateChatInput(selectedMode);
+            if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + 14) {
+                selectedMode = mode;
+                return;
+            }
+            x += width + 4;
         }
     }
 
-    private static void updateChatInput(String mode) {
-        typed = mode;
+    public static void updateTyped(String fullText) {
+        for (String prefix : modes.values()) {
+            if (!prefix.isEmpty() && fullText.startsWith(prefix)) {
+                selectedMode = prefix;
+                typed = fullText.substring(prefix.length());
+                return;
+            }
+        }
+
+        // No known prefix = ALL mode
+        selectedMode = "";
+        typed = fullText;
+    }
+
+    public static void clear() {
+        typed = "";
+        // Leave selectedMode to persist
+    }
+
+    private static int getHighlightColor(String mode) {
+        return switch (mode) {
+            case "" -> 0xC000FF00;            // ALL
+            case "/ggch " -> 0xC0008000;      // GANG
+            case "/teamchat " -> 0xC0FF0000;  // TEAM
+            case "/sch " -> 0xC0FFAA00;       // STAFF
+            default -> 0xC0101010;
+        };
     }
 }
