@@ -23,7 +23,6 @@ import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import java.util.List;
 import net.fabricmc.api.ClientModInitializer;
-import org.spongepowered.asm.mixin.Unique;
 
 import static me.darkpotatoo.mlumm.client.iteminfo.ItemCosts.updateTooltip;
 
@@ -33,6 +32,7 @@ public class MlummClient implements ClientModInitializer {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static int combatTicks = 0;
     public static int crateTicks = 0;
+    public static int boxTicks = 0;
     public static int deskTicks = 0;
     public static int escapeTicks = 0;
     public static int rodTicks = 0;
@@ -92,8 +92,9 @@ public class MlummClient implements ClientModInitializer {
 
         // ingamehud
         HudRenderCallback.EVENT.register(this::onHudRender);
-        // riot meter / combat timer / stuff
-        AttackEventHandler.register();
+
+        // riot meter / combat timer / stuff / combat idk
+        CombatHandler.register();
 
         // register commands
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {

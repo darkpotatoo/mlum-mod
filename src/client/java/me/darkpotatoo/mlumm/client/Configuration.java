@@ -20,6 +20,8 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean timer_box = true;
     @ConfigEntry.Gui.Tooltip
+    public boolean timer_fugbox = true;
+    @ConfigEntry.Gui.Tooltip
     public boolean contraband_tooltip = true;
     @ConfigEntry.Gui.Tooltip
     public boolean toasts = true;
@@ -30,11 +32,11 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public CapeTexture cape_texture = CapeTexture.MLUM_S16;
     @ConfigEntry.Gui.Tooltip
-    public boolean custom_cape = true;
+    public boolean custom_cape = false;
     @ConfigEntry.Gui.Tooltip
     public boolean stylemeter = true;
     @ConfigEntry.Gui.Tooltip
-    public boolean astylemeter = true;
+    public boolean astylemeter = false;
     @ConfigEntry.Gui.Tooltip
     public boolean itemcosts = true;
     @ConfigEntry.Gui.Tooltip

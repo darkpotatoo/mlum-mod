@@ -16,12 +16,24 @@ public class ItemCosts {
             Text line = lines.get(i);
             String lineString = line.getString();
 
-            if (lineString.startsWith("• ")) {
-                String[] parts = lineString.split(" ", 3);
-                if (parts.length < 3 || !parts[1].endsWith("x")) continue;
+            if (lineString.startsWith(" - ")) {
+                String content = lineString.substring(3);
 
-                int requiredQuantity = Integer.parseInt(parts[1].substring(0, parts[1].length() - 1));
-                String itemName = parts[2];
+                int firstSpace = content.indexOf(' ');
+                if (firstSpace == -1) continue;
+
+                String quantityPart = content.substring(0, firstSpace);
+                String itemName = content.substring(firstSpace + 1);
+
+                if (!quantityPart.endsWith("x")) continue;
+
+                int requiredQuantity;
+                try {
+                    requiredQuantity = Integer.parseInt(quantityPart.substring(0, quantityPart.length() - 1));
+                } catch (NumberFormatException e) {
+                    continue;
+                }
+
                 int count = 0;
                 boolean hasItem = false;
                 for (int slot = 0; slot < PlayerInventory.MAIN_SIZE; slot++) {
@@ -30,7 +42,7 @@ public class ItemCosts {
                         count += item.getCount();
                         if (count >= requiredQuantity) {
                             hasItem = true;
-                            break; // optional optimization
+                            break;
                         }
                     }
                 }

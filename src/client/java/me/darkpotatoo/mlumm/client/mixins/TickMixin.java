@@ -89,6 +89,15 @@ public class TickMixin {
             }
         }
 
+        //Fugitive box timer
+        if (MlummClient.boxTicks > 0 && config.timer_fugbox) {
+            MlummClient.boxTicks--;
+            if (MlummClient.boxTicks == 0) {
+                player.sendMessage(Text.of("§a» §fBox timer has ended"), false);
+                sendCustomToast("Box Timer Ended", "You can now get a box again");
+            }
+        }
+
         //combat timer
         if (MlummClient.combatTicks > 0  && config.timer_combat) {
             MlummClient.combatTicks--;

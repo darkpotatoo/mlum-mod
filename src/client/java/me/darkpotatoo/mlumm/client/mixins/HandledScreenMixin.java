@@ -1,5 +1,7 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
+import me.darkpotatoo.mlumm.Mlumm;
+import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.ui.BMScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,6 +10,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HandledScreen.class)
 @Environment(EnvType.CLIENT)
@@ -42,6 +46,15 @@ public abstract class HandledScreenMixin {
             Text title = client.currentScreen.getTitle();
             if (title.getString().contains("Black Market")) {
                 client.setScreen(new BMScreen());
+            }
+        }
+    }
+
+    @Inject(method = "mouseClicked", at = @At("HEAD"))
+    private void onMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+        if (focusedSlot != null && focusedSlot.hasStack()) {
+            if (focusedSlot.getStack().getName().getString().contains("Contraband Delivery")) {
+                MlummClient.boxTicks = 4800;
             }
         }
     }

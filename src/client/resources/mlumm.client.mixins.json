@@ -14,11 +14,9 @@
     "ScreenMixin",
     "TickMixin",
     "TooltipMixin"
+    //"EntityDeathMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "EntityDeathMixin"
-  ]
+  }
 }

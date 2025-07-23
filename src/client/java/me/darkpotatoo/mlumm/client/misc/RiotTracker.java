@@ -53,23 +53,48 @@ public class RiotTracker {
         }
         double ratio1 = damageDealt/damageTaken;
         player.sendMessage(Text.of("§e§lRiot ended! §6Time: " + mins + "m" + secs + "s"), false);
-        player.sendMessage(Text.of("§7- §fHits taken / damage taken: §e" + hitsTaken + " / " + damageTaken), false);
-        player.sendMessage(Text.of("§7- §fHits dealt / damage dealt: §e" + hitsDealt + " / " + damageDealt), false);
+        player.sendMessage(Text.of("§7- §fDamage dealt / damage taken: §e" + damageDealt + " / " + damageTaken), false);
+        player.sendMessage(Text.of("§7- §fHits dealt / hits taken: §e" + hitsDealt + " / " + hitsTaken), false);
         player.sendMessage(Text.of("§7- §fDamage dealt to taken ratio: §e" + ratio1 + ":" + 1), false);
         player.sendMessage(Text.of("§7- §fKills: §e" + kills + " (" + guardKills + " guard, " + detKills + " det, " + traineeKills + " trainee)"), false);
         player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
+    }
+
+    public static void info() {
+        int mins = 0;
+        int secs = 0;
+        while (riotTicks >= 1200) {
+            riotTicks -= 1200;
+            mins++;
+        }
+        while (riotTicks >= 20) {
+            riotTicks -= 20;
+            secs++;
+        }
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        double ratio1 = damageDealt/damageTaken;
+        player.sendMessage(Text.of("§e§lRiot Info §6(" + mins + "m" + secs + "s so far)"), false);
+        player.sendMessage(Text.of("§7- §fDamage dealt / damage taken: §e" + damageDealt + " / " + damageTaken), false);
+        player.sendMessage(Text.of("§7- §fHits dealt / hits taken: §e" + hitsDealt + " / " + hitsTaken), false);
+        player.sendMessage(Text.of("§7- §fDamage dealt to taken ratio: §e" + ratio1 + ":" + 1), false);
+        player.sendMessage(Text.of("§7- §fKills: §e" + kills + " (" + guardKills + " guard, " + detKills + " det, " + traineeKills + " trainee)"), false);
     }
 
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(ClientCommandManager.literal("startriot")
                 .executes(context -> {
                     MinecraftClient.getInstance().execute(RiotTracker::startRiot);
-                    context.getSource().sendFeedback(Text.of("§a» §fStarted a riot session! Run /stopriot to manually end the session. It will also automatically end when you die."));
+                    context.getSource().sendFeedback(Text.of("§a» §fStarted a riot session! Run /stopriot to stop the session and /riotinfo to view your current stats"));
                     return 1;
                 }));
         dispatcher.register(ClientCommandManager.literal("stopriot")
                 .executes(context -> {
                     MinecraftClient.getInstance().execute(RiotTracker::endRiot);
+                    return 1;
+                }));
+        dispatcher.register(ClientCommandManager.literal("riotinfo")
+                .executes(context -> {
+                    MinecraftClient.getInstance().execute(RiotTracker::info);
                     return 1;
                 }));
     }

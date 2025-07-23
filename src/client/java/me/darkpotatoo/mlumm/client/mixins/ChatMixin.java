@@ -2,6 +2,7 @@ package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
+import me.darkpotatoo.mlumm.client.misc.CombatHandler;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -31,9 +32,15 @@ public abstract class ChatMixin {
             }
         }
 
-        // style meter stuff
-        if (mss.contains("! you knocked out")) RiotMeter.combatlogtime = System.currentTimeMillis();
-        else if (mss.contains("[-] ")) RiotMeter.tryCombatlog();
+        if (mss.contains("[-]")) RiotMeter.combatlogtime = System.currentTimeMillis();
+
+        if (mss.contains("! you knocked out")) {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (client != null && client.player != null) {
+                CombatHandler.onKnockoutDetected(client.player);
+            }
+            RiotMeter.tryCombatlog();
+        }
 
         if (mss.startsWith("+ ricoshot x")) {
             int number = Integer.parseInt(mss.substring(12));
@@ -49,7 +56,6 @@ public abstract class ChatMixin {
             RiotMeter.add("+ §bFISTFUL OF", number * 20);
         }
 
-        if (mss.equals("stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
+        if (mss.contains("stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
     }
-
 }
