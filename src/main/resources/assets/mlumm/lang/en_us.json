@@ -7,6 +7,16 @@
   "text.autoconfig.mlumm.option.timer_fugdesk.@Tooltip": "Enable or disable the crate timer",
   "text.autoconfig.mlumm.option.timer_fugbox": "Enable Fug Box Timer",
   "text.autoconfig.mlumm.option.timer_box.@Tooltip": "Enable or disable the box timer",
+  "text.autoconfig.mlumm.option.notif_combat": "Combat Timer Notification Mode",
+  "text.autoconfig.mlumm.option.notif_combat.@Tooltip": "Notifications for combat timer",
+  "text.autoconfig.mlumm.option.notif_desk": "Desk Timer Notification Mode",
+  "text.autoconfig.mlumm.option.notif_desk.@Tooltip": "Notifications for desk timer",
+  "text.autoconfig.mlumm.option.notif_box": "Crate Timer Notification Mode",
+  "text.autoconfig.mlumm.option.notif_fugdesk.@Tooltip": "Notifications for crate timer",
+  "text.autoconfig.mlumm.option.notif_fishing": "Fishing Durability Notification Mode",
+  "text.autoconfig.mlumm.option.notif_fishing.@Tooltip": "Notifications for fishing rod dura",
+  "text.autoconfig.mlumm.option.notif_fugbox": "Box Timer Notification Mode",
+  "text.autoconfig.mlumm.option.notif_box.@Tooltip": "Notifications for box timer",
   "text.autoconfig.mlumm.option.fishing_alert.@Tooltip": "Enable receiving an alert when holding a rod under/at 3 dura",
   "text.autoconfig.mlumm.option.fishing_alert": "Enable Low Durability Rod Alerts",
   "text.autoconfig.mlumm.option.actionbar_status.@Tooltip": "Display a text over the actionbar when you are in a riot session, chocolate session, or in combat",
@@ -42,16 +52,20 @@
   "text.autoconfig.mlumm.option.rolenotifs.@Tooltip": "Notify you when a guard slot opens",
   "text.autoconfig.mlumm.option.rolenotifs": "Guard Slot Notifications",
 
-  "text.autoconfig.mlumm.option.progtrack.@Tooltip": "Shows a progress tracker to getting chocolate over the actionbar. Ex: \"Rake 5/11\"",
-  "text.autoconfig.mlumm.option.progtrack": "Job Progress Tracker HUD",
-  "text.autoconfig.mlumm.option.progtrackhigh.@Tooltip": "Offsets the job progress HUD by the selected amount",
-  "text.autoconfig.mlumm.option.progtrackhigh": "Job Progress HUD Height Modifier",
+  "text.autoconfig.mlumm.option.riotmeter_x.@Tooltip": "x-axis offset for riot meter location",
+  "text.autoconfig.mlumm.option.riotmeter_x": "Style Meter X Axis",
+  "text.autoconfig.mlumm.option.riotmeter_y.@Tooltip": "y-axis offset for riot meter location",
+  "text.autoconfig.mlumm.option.riotmeter_y": "Style Meter Y Axis",
+  "text.autoconfig.mlumm.option.riotmeter_height.@Tooltip": "height of style meter",
+  "text.autoconfig.mlumm.option.riotmeter_height": "Style Meter Height",
+  "text.autoconfig.mlumm.option.riotmeter_width.@Tooltip": "width of style meter",
+  "text.autoconfig.mlumm.option.riotmeter_width": "Style Meter Width",
 
-  "text.autoconfig.mlumm.option.bmdelay.@Tooltip": "How many milliseconds to wait after pressing \"BID\" in the black market screen before making your client type the bid into the sign.\nThe server takes around 100-200ms to open the sign to bid (depending on lag). If you or the server is laggy you may also want to increase this.\nMinimum of 200ms because any faster has a much higher chance to cause a bug and it may be unfair.",
+  "text.autoconfig.mlumm.option.bmdelay.@Tooltip": "How many milliseconds to wait after pressing \"BID\" in the black market screen before making your client type the bid into the sign.\nThe server takes around 100-200ms to open the sign to bid (depending on lag). If you or the server is laggy you may also want to increase this.\nMinimum of 200ms because any faster has a much higher chance to cause a bug and it may be considered unfair.",
   "text.autoconfig.mlumm.option.bmdelay": "Black Market GUI Bid Compensation",
-
 
   "text.autoconfig.mlumm.category.Timers": "Timer Toggles",
   "text.autoconfig.mlumm.category.default": "Feature Customization",
+  "text.autoconfig.mlumm.category.Notifs": "Notification Settings",
   "text.autoconfig.mlumm.title": "mlum mod configuration"
 }

@@ -53,8 +53,8 @@ public abstract class HandledScreenMixin {
     @Inject(method = "mouseClicked", at = @At("HEAD"))
     private void onMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (focusedSlot != null && focusedSlot.hasStack()) {
-            if (focusedSlot.getStack().getName().getString().contains("Contraband Delivery")) {
-                MlummClient.boxTicks = 4800;
+            if (focusedSlot.getStack().getName().getString().contains("Smuggling")) {
+                MlummClient.boxTicks = 6000;
             }
         }
     }

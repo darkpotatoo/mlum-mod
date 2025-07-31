@@ -8,7 +8,9 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
+import me.darkpotatoo.mlumm.client.misc.NotifType;
 import me.darkpotatoo.mlumm.client.misc.TickScheduler;
+import me.darkpotatoo.mlumm.client.misc.UtilMethods;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -17,13 +19,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
-
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static me.darkpotatoo.mlumm.client.misc.UtilMethods.sendCustomToast;
 
 public class Iteminfo {
 
@@ -75,11 +74,10 @@ public class Iteminfo {
             Matcher matcher = pattern.matcher(itemName);
             if (matcher.find()) {
                 client.setScreen(new IteminfoScreen(thing));
-                LOGGER.debug("Displaying iteminfo for " + itemName);
+                LOGGER.debug("Displaying iteminfo for {}", itemName);
                 return;
             }
         }
-        sendCustomToast("Iteminfo Failed", "There is no iteminfo for your currently hovered item.");
     }
     private static boolean displayIteminfoFromName(String itemName) {
         MinecraftClient client = MinecraftClient.getInstance();

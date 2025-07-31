@@ -3,6 +3,7 @@ package me.darkpotatoo.mlumm.client.mixins;
 import me.darkpotatoo.mlumm.client.Configuration;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.misc.ChocolateStats;
+import me.darkpotatoo.mlumm.client.misc.UtilMethods;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.misc.RiotTracker;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -20,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.HashMap;
 import java.util.Map;
-import static me.darkpotatoo.mlumm.client.misc.UtilMethods.sendCustomToast;
 
 @Mixin(MinecraftClient.class)
 public class TickMixin {
@@ -55,7 +55,7 @@ public class TickMixin {
         MlummClient.rodTicks--;
         if (client.player != null) {
             if (client.player.getMainHandStack().getName().getString().contains("Rod") && client.player.getMainHandStack().getMaxDamage() - client.player.getMainHandStack().getDamage() <= 3 && MlummClient.rodTicks <= 0 && config.fishing_alert) {
-                MinecraftClient.getInstance().getToastManager().add(new SystemToast(SystemToast.Type.WORLD_BACKUP, Text.literal("Fishing Rod Warning"), Text.literal("Your fishing rod is about to break")));
+                UtilMethods.notify(config.notif_fishing, "Rod Durability Warning", "Your fishing rod is about to break!", "§c");
                 client.player.playSound(SoundEvents.ENTITY_GHAST_WARN);
                 MlummClient.rodTicks = 300;
             }
@@ -75,17 +75,15 @@ public class TickMixin {
         if (MlummClient.deskTicks > 0 && config.timer_desk) {
             MlummClient.deskTicks--;
             if (MlummClient.deskTicks == 0) {
-                player.sendMessage(Text.of("§a» §fDesk timer has ended"), false);
-                sendCustomToast("Desk Timer Ended", "You can now open a desk again");
+                UtilMethods.notify(config.notif_desk, "Desk Timer Ended", "You can now open a desk again", "§a");
             }
         }
 
         //Fugitive crate timer
-        if (MlummClient.crateTicks > 0 && config.timer_box) {
+        if (MlummClient.crateTicks > 0 && config.timer_crate) {
             MlummClient.crateTicks--;
             if (MlummClient.crateTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCrate timer has ended"), false);
-                sendCustomToast("Crate Timer Ended", "You can now open a crate again");
+                UtilMethods.notify(config.notif_box, "Crate Timer Ended", "You can now open a crate again", "§a");
             }
         }
 
@@ -93,8 +91,7 @@ public class TickMixin {
         if (MlummClient.boxTicks > 0 && config.timer_fugbox) {
             MlummClient.boxTicks--;
             if (MlummClient.boxTicks == 0) {
-                player.sendMessage(Text.of("§a» §fBox timer has ended"), false);
-                sendCustomToast("Box Timer Ended", "You can now get a box again");
+                UtilMethods.notify(config.notif_fugbox, "Smuggling Box Timer Ended", "You can now get a box again", "§a");
             }
         }
 
@@ -102,8 +99,7 @@ public class TickMixin {
         if (MlummClient.combatTicks > 0  && config.timer_combat) {
             MlummClient.combatTicks--;
             if (MlummClient.combatTicks == 0) {
-                player.sendMessage(Text.of("§a» §fCombat timer has ended"), false);
-                sendCustomToast("Combat Timer Ended", "You are now out of combat");
+                UtilMethods.notify(config.notif_combat, "Combat Timer Ended", "You are now out of combat", "§a");
             }
         }
     }

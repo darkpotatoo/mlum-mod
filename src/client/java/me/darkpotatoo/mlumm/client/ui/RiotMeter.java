@@ -118,11 +118,11 @@ public class RiotMeter {
 
         if (Objects.equals(rank, "DONTSHOWTHEFLIPPINGSCOREMETER")) return;
         MinecraftClient client = MinecraftClient.getInstance();
-        int s_width = client.getWindow().getScaledWidth();
-        int width = 100;
-        int height = 200;
-        int x = s_width - width - 10;
-        int y = 10;
+        Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
+        int width = config.riotmeter_width;
+        int height = config.riotmeter_height;
+        int x = config.riotmeter_x;
+        int y = config.riotmeter_y;
 
         int borderColor = getBorderColor(System.currentTimeMillis());
 

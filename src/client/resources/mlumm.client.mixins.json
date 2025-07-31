@@ -13,8 +13,9 @@
     //"InGameHudMixin",
     "ScreenMixin",
     "TickMixin",
-    "TooltipMixin"
-    //"EntityDeathMixin"
+    "TooltipMixin",
+    //"EntityDeathMixin",
+    "NoPenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

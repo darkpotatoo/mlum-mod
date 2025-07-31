@@ -18,10 +18,10 @@ public abstract class TooltipMixin {
 
     @Inject(method = {"render"}, at = {@At("TAIL")})
     
-    private static void render(DrawContext context, int x, int y, int width, int height, int z, CallbackInfo ci) {
+    private static void render(DrawContext context, int x, int y, int width, int height, int z, Identifier texture, CallbackInfo ci) {
 
         if (MlummClient.tooltipIsContraband) {
-            int newColor = ColorHelper.Argb.getArgb(120, 110, 0, 0);
+            int newColor = ColorHelper.getArgb(120, 110, 0, 0);
             int i = x - 3;
             int j = y - 3;
             int k = width + 3 + 3;

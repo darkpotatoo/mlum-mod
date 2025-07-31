@@ -56,6 +56,9 @@ public abstract class ChatMixin {
             RiotMeter.add("+ §bFISTFUL OF", number * 20);
         }
 
-        if (mss.contains("stylish!")) RiotMeter.add("+ §dSTYLISH", 150);
+        if (mss.contains("stylish!")) RiotMeter.add("+ §dSTYLISH", 100);
+
+        if (mss.contains("you gained a strength boost")) RiotMeter.add("+ §7STRENGTH", 30);
+        if (mss.contains("you gained a speed boost")) RiotMeter.add("+ §7SPEED", 30);
     }
 }

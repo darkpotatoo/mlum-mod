@@ -5,6 +5,7 @@ import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.*;
 import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
+import me.darkpotatoo.mlumm.client.ui.RiotMeterConfigScreen;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -39,6 +40,7 @@ public class MlummClient implements ClientModInitializer {
     public static boolean tooltipIsContraband;
     public static KeyBinding getItemInfoKey;
     public static KeyBinding rotateKey;
+    public static KeyBinding meterConfigKey;
     private static Configuration config;
     private RiotMeter riotMeter;
     private ChatModeSelector chatSelector;
@@ -62,14 +64,23 @@ public class MlummClient implements ClientModInitializer {
                 "mlum mod"
         )); Iteminfo.runItemInfoKey();
 
-        // rotate key
+        // meter special location chooser
+        meterConfigKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "Open style meter location configuration",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_BACKSLASH,
+                "mlum mod"
+        ));
 
+        // rotate key
         rotateKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "Rotate key (for treadmill)",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
                 "mlum mod"
         ));
+
+        // in here
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (rotateKey.wasPressed()) {
@@ -87,6 +98,9 @@ public class MlummClient implements ClientModInitializer {
                     snappedYaw = 270; // EAST
                 }
                 player.setYaw(snappedYaw);
+            }
+            while (meterConfigKey.wasPressed()) {
+                MinecraftClient.getInstance().setScreen(new RiotMeterConfigScreen());
             }
         });
 

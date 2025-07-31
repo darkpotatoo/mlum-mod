@@ -21,48 +21,48 @@ public class CapeMixin {
     @Unique
     private static final Configuration config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
 
-    @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
-    private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<SkinTextures>> info) {
-        if (!config.custom_cape) return;
+//    @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
+//    private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<SkinTextures>> info) {
+//        if (!config.custom_cape) return;
+//
+//        CompletableFuture<SkinTextures> originalFuture = info.getReturnValue();
+//
+//        CompletableFuture<SkinTextures> modifiedFuture = originalFuture.thenApply(original -> {
+//            return new SkinTextures(
+//                    original.texture(),
+//                    original.textureUrl(),
+//                    CapeTextures.getCapeTexture(), // Your custom cape
+//                    original.elytraTexture(),
+//                    original.model(),
+//                    original.secure()
+//            );
+//        });
+//
+//        info.setReturnValue(modifiedFuture);
+//    }
 
-        CompletableFuture<SkinTextures> originalFuture = info.getReturnValue();
+        @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
+        private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<Optional<SkinTextures>>> info) {
+            if (!config.custom_cape) return;
 
-        CompletableFuture<SkinTextures> modifiedFuture = originalFuture.thenApply(original -> {
-            return new SkinTextures(
-                    original.texture(),
-                    original.textureUrl(),
-                    CapeTextures.getCapeTexture(), // Your custom cape
-                    original.elytraTexture(),
-                    original.model(),
-                    original.secure()
-            );
-        });
+            CompletableFuture<Optional<SkinTextures>> originalFuture = info.getReturnValue();
 
-        info.setReturnValue(modifiedFuture);
-    }
+            CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
+                if (optionalTextures.isEmpty()) return optionalTextures;
 
-//        @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
-//        private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<Optional<SkinTextures>>> info) {
-//            if (!config.custom_cape) return;
-//
-//            CompletableFuture<Optional<SkinTextures>> originalFuture = info.getReturnValue();
-//
-//            CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
-//                if (optionalTextures.isEmpty()) return optionalTextures;
-//
-//                SkinTextures original = optionalTextures.get();
-//                SkinTextures modified = new SkinTextures(
-//                        original.texture(),
-//                        original.textureUrl(),
-//                        CapeTextures.getCapeTexture(), // cape
-//                        original.elytraTexture(),
-//                        original.model(),
-//                        original.secure()
-//                );
-//
-//                return Optional.of(modified);
-//            });
-//
-//            info.setReturnValue(modifiedFuture);
-//        }
+                SkinTextures original = optionalTextures.get();
+                SkinTextures modified = new SkinTextures(
+                        original.texture(),
+                        original.textureUrl(),
+                        CapeTextures.getCapeTexture(), // cape
+                        original.elytraTexture(),
+                        original.model(),
+                        original.secure()
+                );
+
+                return Optional.of(modified);
+            });
+
+            info.setReturnValue(modifiedFuture);
+        }
 }

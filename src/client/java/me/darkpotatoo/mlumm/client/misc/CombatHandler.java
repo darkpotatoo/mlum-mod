@@ -33,7 +33,6 @@ public class CombatHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
 
-            // Track player health to reset combo if damaged
             float currentHealth = client.player.getHealth();
             if (lastSelfHealth < 0) {
                 lastSelfHealth = currentHealth;
@@ -43,17 +42,20 @@ public class CombatHandler {
             }
             lastSelfHealth = currentHealth;
 
-            // Check if last damaged target took damage
             if (lastDamagedTarget != null && lastTargetHealth >= 0) {
                 float currentTargetHealth = lastDamagedTarget.getHealth();
 
+                float damageDealt = lastTargetHealth - currentTargetHealth;
+                RiotTracker.damageDealt+=damageDealt;
+
+                if (damageDealt >= 10) RiotMeter.add("+ §4STRONG HIT", 10);
+
                 if (currentTargetHealth < lastTargetHealth) {
-                    // Actual damage dealt, increment combo
                     RiotMeter.combo += 1;
                     RiotMeter.combolastupdated = System.currentTimeMillis();
 
                     if (RiotMeter.combo >= 2)
-                        RiotMeter.add("+ COMBO x" + RiotMeter.combo, RiotMeter.combo * 2);
+                        RiotMeter.add("+ COMBO x" + RiotMeter.combo, RiotMeter.combo * 4);
 
                     if (RiotTracker.isEnabled)
                         RiotTracker.hitsDealt++;
@@ -66,6 +68,8 @@ public class CombatHandler {
                 } else if (System.currentTimeMillis() - lastDamageTime > 1000) {
                     lastTargetHealth = -1;
                     lastDamagedTarget = null;
+                } else if (System.currentTimeMillis() - lastDamageTime < 250) {
+                    RiotMeter.add("+ §9DOUBLE HIT", 5);
                 }
             }
         });
@@ -85,7 +89,6 @@ public class CombatHandler {
         lastDamageTime = System.currentTimeMillis();
 
         ItemStack mainHandItem = player.getMainHandStack();
-        if (!RiotMeter.arsenal.contains(mainHandItem)) RiotMeter.arsenal.add(mainHandItem);
 
         return ActionResult.PASS;
     }
@@ -123,16 +126,16 @@ public class CombatHandler {
 
         RiotMeter.add("+ " + killMessage, 40 + (killStreak * 30));
 
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            ItemStack stack = target.getEquippedStack(slot);
-            if (stack.getName().getString().contains("Iron")) RiotMeter.add(10);
-            if (stack.getName().getString().contains("Detective")) RiotTracker.detKills++;
-            if (stack.getName().getString().contains("Guard")) RiotTracker.guardKills++;
-            if (stack.getName().getString().contains("Trainee")) RiotTracker.traineeKills++;
-        }
-
         // Reset
         lastDamagedTarget = null;
         lastTargetHealth = -1;
+
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = target.getEquippedStack(slot);
+            if (stack.getName().getString().contains("Detective")) { RiotTracker.detKills++; return; }
+            if (stack.getName().getString().contains("Guard")) { RiotTracker.guardKills++; return; }
+            if (stack.getName().getString().contains("Trainee")) { RiotTracker.traineeKills++; return; }
+        }
+
     }
 }
