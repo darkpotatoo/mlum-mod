@@ -57,8 +57,11 @@ public class CombatHandler {
                     if (RiotMeter.combo >= 2)
                         RiotMeter.add("+ COMBO x" + RiotMeter.combo, RiotMeter.combo * 4);
 
-                    if (RiotTracker.isEnabled)
-                        RiotTracker.hitsDealt++;
+                    if (RiotTracker.isEnabled) RiotTracker.hitsDealt++;
+
+                    else if (System.currentTimeMillis() - lastDamageTime < 250) {
+                        RiotMeter.add("+ §9DOUBLE HIT", 5);
+                    }
 
                     MlummClient.combatTicks = 100;
                     RiotMeter.add(8);
@@ -68,8 +71,6 @@ public class CombatHandler {
                 } else if (System.currentTimeMillis() - lastDamageTime > 1000) {
                     lastTargetHealth = -1;
                     lastDamagedTarget = null;
-                } else if (System.currentTimeMillis() - lastDamageTime < 250) {
-                    RiotMeter.add("+ §9DOUBLE HIT", 5);
                 }
             }
         });
