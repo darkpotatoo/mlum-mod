@@ -44,8 +44,8 @@ public class RiotMeter {
     }
 
     public static void tryCombatlog() {
-        if (System.currentTimeMillis() - combatlogtime <= 200) {
-            add("+ §3COMBAT LOG", 250);
+        if (System.currentTimeMillis() - combatlogtime <= 100) {
+            add("+ §3COMBAT LOG", 100);
         }
     }
 

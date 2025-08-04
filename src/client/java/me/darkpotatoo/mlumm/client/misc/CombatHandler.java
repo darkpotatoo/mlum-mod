@@ -59,7 +59,7 @@ public class CombatHandler {
 
                     if (RiotTracker.isEnabled) RiotTracker.hitsDealt++;
 
-                    else if (System.currentTimeMillis() - lastDamageTime < 250) {
+                    else if (System.currentTimeMillis() - lastDamageTime < 50) {
                         RiotMeter.add("+ §9DOUBLE HIT", 5);
                     }
 

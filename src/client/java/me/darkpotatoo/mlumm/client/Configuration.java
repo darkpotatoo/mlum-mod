@@ -57,6 +57,8 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean itemcosts = true;
     @ConfigEntry.Gui.Tooltip
+    public boolean detected = true;
+    @ConfigEntry.Gui.Tooltip
     public boolean escsounds = true;
     @ConfigEntry.Gui.Tooltip
     public boolean chatmode = true;
@@ -65,6 +67,8 @@ public class Configuration implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = 200, max = 1500)
     @ConfigEntry.Gui.Tooltip
     public int bmdelay = 400;
+    @ConfigEntry.Gui.Tooltip
+    public boolean bm = true;
     public int riotmeter_x = 10;
     public int riotmeter_y = 10;
     @ConfigEntry.BoundedDiscrete(min = 50, max = 400)

@@ -1,6 +1,7 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
 import me.darkpotatoo.mlumm.client.Configuration;
+import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.misc.CombatHandler;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -58,7 +59,19 @@ public abstract class ChatMixin {
 
         if (mss.contains("stylish!")) RiotMeter.add("+ §dSTYLISH", 100);
 
-        if (mss.contains("you gained a strength boost")) RiotMeter.add("+ §7STRENGTH", 30);
-        if (mss.contains("you gained a speed boost")) RiotMeter.add("+ §7SPEED", 30);
+        if (mss.contains("a strength boost")) RiotMeter.add("+ §7STRENGTH", 30);
+        if (mss.contains("a speed boost")) RiotMeter.add("+ §7SPEED", 30);
+
+        if (mss.contains("you have been detected with contraband")) {
+            if (!config.detected) return;
+            new Thread(() -> {
+                try {
+                    Thread.sleep(50);
+                    MinecraftClient.getInstance().inGameHud.setTitle(Text.of(""));
+                    MinecraftClient.getInstance().inGameHud.setSubtitle(Text.of("§c§lDETECTED!"));
+                } catch (InterruptedException ignored) {}
+
+            }).start();
+        }
     }
 }
