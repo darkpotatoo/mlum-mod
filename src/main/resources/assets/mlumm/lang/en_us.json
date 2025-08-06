@@ -28,7 +28,7 @@
   "text.autoconfig.mlumm.option.detected.@Tooltip": "Change the 'DETECTED' title you receive when detected to a much less obtrusive subtitle",
   "text.autoconfig.mlumm.option.detected": "Reduce Detected Title",
 
-  "text.autoconfig.mlumm.option.cape_texture.@Tooltip": "Custom cape variation to display on your player (REQUIRES REJOIN)",
+  "text.autoconfig.mlumm.option.cape_texture.@Tooltip": "Custom cape variation to display on your player",
   "text.autoconfig.mlumm.option.cape_texture": "Custom Cape Variant",
   "text.autoconfig.mlumm.option.custom_cape.@Tooltip": "Enable showing the selected custom mlum cape on your player instead of the vanilla cape",
   "text.autoconfig.mlumm.option.custom_cape": "Enable Custom Mlum Capes",

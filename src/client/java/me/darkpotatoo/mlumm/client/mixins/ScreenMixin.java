@@ -1,10 +1,14 @@
 package me.darkpotatoo.mlumm.client.mixins;
 
+import com.terraformersmc.modmenu.gui.ModMenuOptionsScreen;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.MlummClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 public abstract class ScreenMixin {
 
-    @Shadow public abstract Text getTitle();
+    @Shadow
+    public abstract Text getTitle();
 
     @Inject(method = "onDisplayed", at = @At(value = "HEAD"))
     protected void onDisplayed(CallbackInfo ci) {
@@ -34,6 +39,14 @@ public abstract class ScreenMixin {
         if (MlummClient.getItemInfoKey.matchesKey(keyCode, scanCode)) {
             Iteminfo.attemptItemInfo(null);
             cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "close", at = @At(value = "HEAD"))
+    private void onClose(CallbackInfo ci) {
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player != null) {
+            player.setPose(player.getPose());
         }
     }
 

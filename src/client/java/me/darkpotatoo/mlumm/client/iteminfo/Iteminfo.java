@@ -3,6 +3,7 @@ package me.darkpotatoo.mlumm.client.iteminfo;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.logging.LogUtils;
@@ -15,8 +16,11 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.*;
+import net.minecraft.registry.*;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import java.util.ArrayList;
@@ -29,6 +33,7 @@ public class Iteminfo {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static ItemStack selectedItem;
     public static ArrayList<Item> items = new ArrayList<>();
+    private static boolean initialized = false;
 
     public static void runItemInfoKey() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -38,6 +43,8 @@ public class Iteminfo {
 
     /** Pass {@code null} as an argument to display iteminfo; pass an {@code ItemStack} object to set the var */
     public static void attemptItemInfo(ItemStack item) {
+        //if (item != null)
+        //    MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(item.toNbt(MinecraftClient.getInstance().world.getRegistryManager()).toString()));
         if (item != null) { selectedItem = item; }
         if (item == null && selectedItem != null) {
             if (MinecraftClient.getInstance().currentScreen != null && !MinecraftClient.getInstance().inGameHud.getChatHud().isChatFocused()) displayIteminfoFromGUI(selectedItem);
@@ -96,7 +103,8 @@ public class Iteminfo {
     }
 
     // This is VERY long. This registers ALL items. There is nothing under this to see.
-    public static void initItems() {
+    public static void initItems() throws CommandSyntaxException {
+        if (initialized) return;
         LOGGER.info("Registering items for iteminfo");
         new Item(
                 ItemType.Material,
@@ -237,42 +245,42 @@ public class Iteminfo {
                 12,
                 new String[]{"3x Sheet of Metal"},
                 ItemSource.Crafting,
-                new ItemStack(Items.IRON_BLOCK));
+                getItem("{components:{\"minecraft:custom_data\":{\"VV|Protocol1_21_2To1_21_4|custom_model_data\":3,contraband:1b},\"minecraft:custom_model_data\":{floats:[3.0f]},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Thruster\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"3\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Sheet of Metal\"}],\"text\":\"\"}'],\"minecraft:profile\":{name:\"Enginesideways\",properties:[{name:\"textures\",value:\"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGJlN2JjNjYzODlkOTZhOWM1ZjRhYTVhODc1NzllZTY2MWU4OGFkYTZmN2I4YmUxNzRiZjM5ODJhMzRmODQifX19\"}]}},count:1,id:\"minecraft:player_head\"}"));
         new Item(
                 ItemType.Armor,
                 "Plated Inmate Jumpsuit",
                 5,
                 new String[]{"1x Inmate Jumpsuit", "1x Sheet of Metal"},
                 ItemSource.Crafting,
-                new ItemStack(Items.LEATHER_CHESTPLATE));
+                getItem("{components:{\"minecraft:attribute_modifiers\":{modifiers:[{amount:0.0d,id:\"minecraft:c2c8cb8f-2982-4c23-9ce8-466163d3efd6\",operation:\"add_value\",slot:\"chest\",type:\"minecraft:armor\"},{amount:5.0d,id:\"minecraft:95b382e9-4866-48f5-8a6d-1bc64a44798f\",operation:\"add_value\",slot:\"chest\",type:\"minecraft:armor\"}],show_in_tooltip:0b},\"minecraft:custom_data\":{contraband:1b},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Plated Inmate Jumpsuit\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:dyed_color\":{rgb:16486170,show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Inmate Jumpsuit\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Sheet of Metal\"}],\"text\":\"\"}'],\"minecraft:max_damage\":200,\"minecraft:trim\":{material:{asset_name:\"iron\",description:{color:\"#ECECEC\",translate:\"trim_material.minecraft.iron\"},ingredient:\"minecraft:iron_ingot\"},pattern:{asset_id:\"minecraft:snout\",decal:0b,description:{translate:\"trim_pattern.minecraft.snout\"},template_item:\"minecraft:snout_armor_trim_smithing_template\"},show_in_tooltip:0b}},count:1,id:\"minecraft:leather_chestplate\"}"));
         new Item(
                 ItemType.Armor,
                 "Plated Inmate Pants",
                 5,
                 new String[]{"1x Inmate Pants", "1x Sheet of Metal"},
                 ItemSource.Crafting,
-                new ItemStack(Items.LEATHER_LEGGINGS));
+                getItem("{components:{\"minecraft:attribute_modifiers\":{modifiers:[{amount:4.0d,id:\"minecraft:f4bc448a-bc6a-4a0b-8cdd-86928c29f15d\",operation:\"add_value\",slot:\"legs\",type:\"minecraft:armor\"}],show_in_tooltip:0b},\"minecraft:custom_data\":{contraband:1b},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Plated Inmate Pants\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:dyed_color\":{rgb:16486170,show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Inmate Pants\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Sheet of Metal\"}],\"text\":\"\"}'],\"minecraft:max_damage\":200,\"minecraft:trim\":{material:{asset_name:\"iron\",description:{color:\"#ECECEC\",translate:\"trim_material.minecraft.iron\"},ingredient:\"minecraft:iron_ingot\"},pattern:{asset_id:\"minecraft:snout\",decal:0b,description:{translate:\"trim_pattern.minecraft.snout\"},template_item:\"minecraft:snout_armor_trim_smithing_template\"},show_in_tooltip:0b}},count:1,id:\"minecraft:leather_leggings\"}"));
         new Item(
                 ItemType.Weapon,
                 "Sock Mace",
                 2,
                 new String[]{"1x Bar of Soap", "1x Sock"},
                 ItemSource.Crafting,
-                new ItemStack(Items.LAPIS_LAZULI));
+                getItem("{components:{\"minecraft:custom_data\":{\"VV|Protocol1_21_2To1_21_4|custom_model_data\":2,contraband:1b},\"minecraft:custom_model_data\":{floats:[2.0f]},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Sock Mace\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:enchantments\":{levels:{\"minecraft:sharpness\":5},show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Sock\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Bar of Soap\"}],\"text\":\"\"}']},count:1,id:\"minecraft:lapis_lazuli\"}"));
         new Item(
                 ItemType.Weapon,
                 "Whip",
                 5,
                 new String[]{"3x Wire", "1x Razor Blade"},
                 ItemSource.Crafting,
-                new ItemStack(Items.LEAD));
+                getItem("{components:{\"minecraft:custom_data\":{\"VV|Protocol1_21_2To1_21_4|custom_model_data\":1,contraband:1b},\"minecraft:custom_model_data\":{floats:[1.0f]},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Whip\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:enchantments\":{levels:{\"minecraft:knockback\":1,\"minecraft:sharpness\":6},show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"3\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Wire\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Razor Blade\"}],\"text\":\"\"}']},count:1,id:\"minecraft:lead\"}"));
         new Item(
                 ItemType.Weapon,
                 "Nunchucks",
                 9,
                 new String[]{"2x Timber", "1x Wire"},
                 ItemSource.Crafting,
-                new ItemStack(Items.ACACIA_FENCE));
+                getItem("{components:{\"minecraft:custom_data\":{\"VV|Protocol1_21_2To1_21_4|custom_model_data\":1,contraband:1b},\"minecraft:custom_model_data\":{floats:[1.0f]},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Nunchucks\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:enchantments\":{levels:{\"minecraft:knockback\":1,\"minecraft:sharpness\":7},show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"2\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Timber\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Wire\"}],\"text\":\"\"}']},count:1,id:\"minecraft:acacia_fence\"}"));
         new Item(
                 ItemType.Weapon,
                 "Bucket",
@@ -286,7 +294,7 @@ public class Iteminfo {
                 13,
                 new String[]{"1x Shard of Glass", "1x Roll of Duct Tape"},
                 ItemSource.Crafting,
-                new ItemStack(Items.GLASS_PANE));
+                getItem("{components:{\"minecraft:attribute_modifiers\":{modifiers:[{amount:1.5d,id:\"minecraft:1f22377e-f6ba-408d-9162-fd4fdb32f08b\",operation:\"add_value\",slot:\"mainhand\",type:\"minecraft:attack_damage\"}],show_in_tooltip:0b},\"minecraft:custom_data\":{\"VV|Protocol1_21_2To1_21_4|custom_model_data\":2,contraband:1b},\"minecraft:custom_model_data\":{floats:[2.0f]},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Glass Shank\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:enchantments\":{levels:{\"minecraft:sharpness\":5},show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Glass Shard\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Roll of Duct Tape\"}],\"text\":\"\"}']},count:1,id:\"minecraft:glass_pane\"}"));
         new Item(
                 ItemType.Escape,
                 "Shovel",
@@ -314,7 +322,7 @@ public class Iteminfo {
                 18,
                 new String[]{"1x Sheet of Paper", "1x Pen", "1x Keycard Chip"},
                 ItemSource.Crafting,
-                new ItemStack(Items.PAPER));
+                new ItemStack(Items.ORANGE_STAINED_GLASS_PANE));
         new Item(
                 ItemType.Escape,
                 "Shrinking Powder",
@@ -328,7 +336,7 @@ public class Iteminfo {
                 38,
                 new String[]{"2x Truster", "1x Fuel Canister"},
                 ItemSource.Crafting,
-                new ItemStack(Items.LEATHER_CHESTPLATE));
+                getItem("{components:{\"minecraft:attribute_modifiers\":{modifiers:[{amount:2.0d,id:\"minecraft:a0c3be00-7ed4-414c-9b53-35fa98446086\",operation:\"add_value\",slot:\"chest\",type:\"minecraft:armor\"}],show_in_tooltip:0b},\"minecraft:custom_data\":{contraband:1b,dig:1b,jetpack:1b},\"minecraft:custom_name\":'{\"extra\":[{\"bold\":false,\"color\":\"white\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Jetpack\",\"underlined\":false}],\"text\":\"\"}',\"minecraft:dyed_color\":{rgb:16351261,show_in_tooltip:0b},\"minecraft:lore\":['{\"extra\":[{\"bold\":false,\"color\":\"gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\"Requirements:\",\"underlined\":false}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"2\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Thruster\"}],\"text\":\"\"}','{\"extra\":[{\"bold\":false,\"color\":\"dark_gray\",\"italic\":false,\"obfuscated\":false,\"strikethrough\":false,\"text\":\" - \",\"underlined\":false},{\"color\":\"gold\",\"italic\":false,\"text\":\"1\"},{\"color\":\"gold\",\"italic\":false,\"text\":\"x Fuel Canister\"}],\"text\":\"\"}'],\"minecraft:max_damage\":100,\"minecraft:trim\":{material:{asset_name:\"iron\",description:{color:\"#ECECEC\",translate:\"trim_material.minecraft.iron\"},ingredient:\"minecraft:iron_ingot\"},pattern:{asset_id:\"minecraft:silence\",decal:0b,description:{translate:\"trim_pattern.minecraft.silence\"},template_item:\"minecraft:silence_armor_trim_smithing_template\"},show_in_tooltip:0b}},count:1,id:\"minecraft:leather_chestplate\"}"));
         new Item(
                 ItemType.Escape,
                 "Paperclip",
@@ -504,6 +512,12 @@ public class Iteminfo {
                 new String[]{"Uncraftable"},
                 ItemSource.Detective,
                 new ItemStack(Items.BOW));
+        initialized = true;
+        LOGGER.info("Registered items");
+    }
+
+    private static ItemStack getItem(String nbt) throws CommandSyntaxException {
+        return ItemStack.fromNbt(MinecraftClient.getInstance().world.getRegistryManager(), StringNbtReader.parse(nbt)).get();
     }
 }
 

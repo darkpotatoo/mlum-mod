@@ -8,14 +8,12 @@
     "CapeMixin",
     "ChatMixin",
     "ChatScreenMixin",
-    //"DamageMixin",
+    "CreeperModelMixin",
     "HandledScreenMixin",
-    //"InGameHudMixin",
+    "NoPenMixin",
     "ScreenMixin",
     "TickMixin",
-    "TooltipMixin",
-    //"EntityDeathMixin",
-    "NoPenMixin"
+    "TooltipMixin"
   ],
   "injectors": {
     "defaultRequire": 1
