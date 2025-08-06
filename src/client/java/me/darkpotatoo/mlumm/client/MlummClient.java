@@ -1,33 +1,41 @@
 package me.darkpotatoo.mlumm.client;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
 import me.darkpotatoo.mlumm.client.cape.CapeTextures;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.*;
-import me.darkpotatoo.mlumm.client.mixins.CapeMixin;
 import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.ui.RiotMeterConfigScreen;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.SkinTextures;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.world.WorldEvents;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -59,7 +67,6 @@ public class MlummClient implements ClientModInitializer {
         AutoConfig.register(Configuration.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(Configuration.class).getConfig();
         LOGGER.info("mlum mod loading...");
-        Iteminfo.initItems();
         EscapeAnnouncer.register();
         TickScheduler.init();
         chatSelector = new ChatModeSelector();
@@ -89,9 +96,14 @@ public class MlummClient implements ClientModInitializer {
                 "mlum mod"
         ));
 
-        // in here
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().world != null) {
+                try {
+                    Iteminfo.initItems();
+                } catch (CommandSyntaxException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             while (rotateKey.wasPressed()) {
                 ClientPlayerEntity player = MinecraftClient.getInstance().player;
                 float yaw = player.getYaw();
@@ -149,30 +161,8 @@ public class MlummClient implements ClientModInitializer {
         return false;
     }
 
-    public static CompletableFuture<Optional<SkinTextures>> refreshSkin(GameProfile profile, CompletableFuture<Optional<SkinTextures>> info) {
-        if (!profile.getId().toString().equals(MinecraftClient.getInstance().getGameProfile().getId().toString()))
-            return info;
-        if (!config.custom_cape) return info;
+    private void refreshCape() {
 
-        CompletableFuture<Optional<SkinTextures>> originalFuture = info;
-
-        CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
-            if (optionalTextures.isEmpty()) return optionalTextures;
-
-            SkinTextures original = optionalTextures.get();
-            SkinTextures modified = new SkinTextures(
-                    original.texture(),
-                    original.textureUrl(),
-                    CapeTextures.getCapeTexture(), // cape
-                    original.elytraTexture(),
-                    original.model(),
-                    original.secure()
-            );
-
-            return Optional.of(modified);
-        });
-
-        return modifiedFuture;
     }
 
 }
