@@ -1,8 +1,11 @@
 package me.darkpotatoo.mlumm.client;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.logging.LogUtils;
+import me.darkpotatoo.mlumm.client.cape.CapeTextures;
 import me.darkpotatoo.mlumm.client.iteminfo.Iteminfo;
 import me.darkpotatoo.mlumm.client.misc.*;
+import me.darkpotatoo.mlumm.client.mixins.CapeMixin;
 import me.darkpotatoo.mlumm.client.ui.ChatModeSelector;
 import me.darkpotatoo.mlumm.client.ui.RiotMeter;
 import me.darkpotatoo.mlumm.client.ui.RiotMeterConfigScreen;
@@ -12,17 +15,23 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
 import net.fabricmc.api.ClientModInitializer;
 
 import static me.darkpotatoo.mlumm.client.iteminfo.ItemCosts.updateTooltip;
@@ -138,6 +147,32 @@ public class MlummClient implements ClientModInitializer {
             if (text.getString().contains("CONTRABAND")) return true;
         }
         return false;
+    }
+
+    public static CompletableFuture<Optional<SkinTextures>> refreshSkin(GameProfile profile, CompletableFuture<Optional<SkinTextures>> info) {
+        if (!profile.getId().toString().equals(MinecraftClient.getInstance().getGameProfile().getId().toString()))
+            return info;
+        if (!config.custom_cape) return info;
+
+        CompletableFuture<Optional<SkinTextures>> originalFuture = info;
+
+        CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
+            if (optionalTextures.isEmpty()) return optionalTextures;
+
+            SkinTextures original = optionalTextures.get();
+            SkinTextures modified = new SkinTextures(
+                    original.texture(),
+                    original.textureUrl(),
+                    CapeTextures.getCapeTexture(), // cape
+                    original.elytraTexture(),
+                    original.model(),
+                    original.secure()
+            );
+
+            return Optional.of(modified);
+        });
+
+        return modifiedFuture;
     }
 
 }

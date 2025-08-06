@@ -2,8 +2,10 @@ package me.darkpotatoo.mlumm.client.mixins;
 
 import com.mojang.authlib.GameProfile;
 import me.darkpotatoo.mlumm.client.Configuration;
+import me.darkpotatoo.mlumm.client.MlummClient;
 import me.darkpotatoo.mlumm.client.cape.CapeTextures;
 import me.shedaniel.autoconfig.AutoConfig;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.util.SkinTextures;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,26 +45,8 @@ public class CapeMixin {
 
         @Inject(method = "fetchSkinTextures", at = @At("RETURN"), cancellable = true)
         private void onFetchSkinTextures(GameProfile profile, CallbackInfoReturnable<CompletableFuture<Optional<SkinTextures>>> info) {
-            if (!config.custom_cape) return;
-
-            CompletableFuture<Optional<SkinTextures>> originalFuture = info.getReturnValue();
-
-            CompletableFuture<Optional<SkinTextures>> modifiedFuture = originalFuture.thenApply(optionalTextures -> {
-                if (optionalTextures.isEmpty()) return optionalTextures;
-
-                SkinTextures original = optionalTextures.get();
-                SkinTextures modified = new SkinTextures(
-                        original.texture(),
-                        original.textureUrl(),
-                        CapeTextures.getCapeTexture(), // cape
-                        original.elytraTexture(),
-                        original.model(),
-                        original.secure()
-                );
-
-                return Optional.of(modified);
-            });
-
-            info.setReturnValue(modifiedFuture);
+            info.setReturnValue(MlummClient.refreshSkin(profile, info.getReturnValue()));
         }
+
+
 }
